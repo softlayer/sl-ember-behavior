@@ -1,21 +1,22 @@
 {
   "name": "sl-ember-behavior",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
+  "description": "Ember CLI Addon - Behavior Service",
   "scripts": {
     "start": "ember server",
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "",
+  "homepage": "http://softlayer.github.io/sl-ember-behavior/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/softlayer/sl-ember-behavior.git"
+  },
+  "bugs": "https://github.com/softlayer/sl-ember-behavior/issues",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Jeremy Brown <jeremy@notmessenger.com> (http://www.notmessenger.com)",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.0",
@@ -33,7 +34,19 @@
     "glob": "^4.0.5"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "acl",
+    "permissions",
+    "authorization",
+    "authorize",
+    "declarative",
+    "rules",
+    "activity",
+    "actor",
+    "role",
+    "permit",
+    "allow",
+    "behaviors"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"

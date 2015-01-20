@@ -1,9 +1,22 @@
 /* jshint node: true */
 /* global require, module */
 
-var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
-
-var app = new EmberAddon();
+var EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' ),
+    replace    = require( 'broccoli-string-replace' ),
+    app        = new EmberAddon(),
+    tree       = replace( app.toTree(), {
+        files: [ 'index.html' ],
+        patterns: [
+            {
+                match: /REPLACE_META_DESCRIPTION/g,
+                replacement: require('./package.json')['description']
+            },
+            {
+                match: /REPLACE_META_KEYWORDS/g,
+                replacement: require('./package.json')['keywords'].join( ', ' ) + ', ember, ember cli'
+            }
+        ]
+    });
 
 // Use `app.import` to add additional libraries to the generated
 // output files.
@@ -18,4 +31,4 @@ var app = new EmberAddon();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
-module.exports = app.toTree();
+module.exports = tree;
