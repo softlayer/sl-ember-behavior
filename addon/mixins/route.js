@@ -4,7 +4,7 @@ import Ember from 'ember';
  * @module mixins
  * @class  route
  */
-export default Ember.Mixin.extend({
+export default Ember.Mixin.create({
 
     // -------------------------------------------------------------------------
     // Dependencies
