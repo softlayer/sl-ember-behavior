@@ -259,7 +259,7 @@ The Behavior Service provides two methods, `isAble()` and `isUnable()` that are 
 
 The use of these methods and the Behavior Service in Controllers or Views is very simple.  Some examples:
 
-`Controller`:
+*Controller*
 
 ```
 if ( this.get( 'behaviorService' ).isAble( 'setData', 'event' ) ) { ... }
@@ -269,7 +269,7 @@ if ( this.get( 'behaviorService' ).isAble( 'setData', 'event' ) ) { ... }
 if ( this.get( 'behaviorService' ).isUnable( 'setData', this.get( 'model' ) ) ) { ... }
 ```
 
-`View`:
+*View*
 
 ```
 if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event' ) ) { ... }
