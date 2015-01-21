@@ -45,6 +45,8 @@ export default Ember.Mixin.create({
     beforeModel: function( transition ) {
         var unableRoute;
 
+        this._super.apply( this, arguments );
+
         if ( this.get( 'behaviorService' ).isUnable( transition.targetName, 'route' ) ) {
             unableRoute = this.get( 'unableRoute' );
 
