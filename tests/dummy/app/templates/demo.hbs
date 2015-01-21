@@ -4,3 +4,55 @@
         <p class="lead">View the source code of the dummy application for syntax employed in this demo</p>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        Given this Behavior data
+        <pre>
+{
+    events:
+        reschedule: false,
+        cancel: false,
+        setDate: true
+}</pre>
+
+        and the use of this component
+
+    <pre>
+\{{#sl-unable behavior="reschedule" provider="event"}}
+    &lt;h3&gt;You cannot reschedule this event&lt;/h3&gt;
+\{{/sl-unable}}</pre>
+
+        and this one on the page
+        <pre>
+\{{#sl-able behavior="setDate" provider=model}}
+    &lt;h3&gt;You can set a date for this event.&lt;/h3&gt;
+\{{/sl-able}}</pre>
+
+        where the second component usage example is a model that has these values defined on it
+        <pre>
+{
+    behaviorGroup: 'event',
+
+    behaviors: {
+        setDate: function() {
+            return true;
+        }
+    }
+}</pre>
+
+        you will see the results below:
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        {{#sl-unable behavior="reschedule" provider="event"}}
+            <h3>You cannot reschedule this event</h3>
+        {{/sl-unable}}
+
+        {{#sl-able behavior="setDate" provider=model}}
+            <h3>You can set a date for this event.</h3>
+        {{/sl-able}}
+    </div>
+</div>
