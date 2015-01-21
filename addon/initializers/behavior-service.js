@@ -13,4 +13,4 @@ export default function( container, app ) {
     app.inject( 'component', 'behaviorService', 'behaviorService:main' );
     app.inject( 'controller', 'behaviorService', 'behaviorService:main' );
     app.inject( 'view', 'behaviorService', 'behaviorService:main' );
-};
+}
