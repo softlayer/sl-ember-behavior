@@ -1,3 +1,31 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<br>
+<div class="container">
 
-{{outlet}}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-reorder"></i> <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu" role="menu">
+                <li>{{#link-to "index"}}<i class="fa fa-home"></i> Home{{/link-to}}</li>
+                <li><a href="https://github.com/softlayer/sl-ember-behavior/blob/master/README.md"><i class="fa fa-wrench"></i> Get Started</a></li>
+                <li><a href="https://github.com/softlayer/sl-ember-behavior/blob/master/CONTRIBUTING.md"><i class="fa fa-cog"></i> Contribution Guide</a></li>
+                <li><a href="https://github.com/softlayer/sl-ember-behavior/stargazers"><i class="fa fa-star"></i> Star Our Repo</a></li>
+                <li><a href="https://github.com/softlayer/sl-ember-behavior/fork"><i class="fa fa-code-fork"></i> Fork Our Repo</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {{outlet}}
+
+    <br><br>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p>ember install:addon sl-ember-behavior</p>
+            <p><a href="https://github.com/softlayer/sl-ember-behavior/blob/master/LICENSE.md">MIT Licensed</a></p>
+        </div>
+    </div>
+</div>
