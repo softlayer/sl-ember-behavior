@@ -514,6 +514,30 @@ test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refi
     }) , '"behaviors" hash refined determination' );
 });
 
+test( 'isAble() returns false if no Behavior data has been set', function() {
+    ok( !BS.isAble( 'reboot', 'device' ), 'Returned false' );
+});
+
+test( 'isAble() returns false if specified Behavior Group has not been configured', function() {
+    BS.setBehaviors({
+        device: {
+            reboot: false
+        }
+    });
+
+    ok( !BS.isAble( 'reboot', 'product' ), 'Returned false' );
+});
+
+test( 'isAble() returns false if specified Behavior has not been configured', function() {
+    BS.setBehaviors({
+        device: {
+            reboot: false
+        }
+    });
+
+    ok( !BS.isAble( 'restart', 'device' ), 'Returned false' );
+});
+
 test( 'isUnable() is the negated result of a call to isAble()', function() {
     BS.setBehaviors({
         device: {
