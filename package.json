@@ -1,6 +1,6 @@
 {
   "name": "sl-ember-behavior",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Ember CLI Addon - Behavior Service",
   "scripts": {
     "start": "ember server",
