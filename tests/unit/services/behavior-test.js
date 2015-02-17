@@ -4,16 +4,16 @@ import BehaviorService from 'sl-ember-behavior/services/behavior';
 var BS;
 
 module( 'Unit - services:behavior', {
-    setup: function() {
+    beforeEach: function() {
         BS = BehaviorService.create();
     }
 });
 
-test( '"behaviors" property defaults to null', function() {
-    equal( BS.get( 'behaviors' ), null );
+test( '"behaviors" property defaults to null', function( assert ) {
+    assert.equal( BS.get( 'behaviors' ), null );
 });
 
-test( 'getBehaviorGroup() requires an Object to be provided', function() {
+test( 'getBehaviorGroup() requires an Object to be provided', function( assert ) {
 
     // Empty parameter
 
@@ -25,7 +25,7 @@ test( 'getBehaviorGroup() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was empty' );
+    assert.ok( assertionThrown, 'Parameter was empty' );
 
     // Number parameter
 
@@ -37,7 +37,7 @@ test( 'getBehaviorGroup() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a Number' );
+    assert.ok( assertionThrown, 'Parameter was a Number' );
 
     // Array Parameter
 
@@ -49,7 +49,7 @@ test( 'getBehaviorGroup() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was an Array' );
+    assert.ok( assertionThrown, 'Parameter was an Array' );
 
     // Function
 
@@ -61,7 +61,7 @@ test( 'getBehaviorGroup() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a Function' );
+    assert.ok( assertionThrown, 'Parameter was a Function' );
 
     // String Parameter
 
@@ -73,7 +73,7 @@ test( 'getBehaviorGroup() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a String' );
+    assert.ok( assertionThrown, 'Parameter was a String' );
 
     // Object Parameter
 
@@ -85,10 +85,10 @@ test( 'getBehaviorGroup() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( !assertionThrown, 'Parameter was an Object' );
+    assert.ok( !assertionThrown, 'Parameter was an Object' );
 });
 
-test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function', function() {
+test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function', function( assert ) {
 
     // Empty parameter
 
@@ -100,7 +100,7 @@ test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function'
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Property was empty' );
+    assert.ok( assertionThrown, 'Property was empty' );
 
     // Number Property
 
@@ -112,7 +112,7 @@ test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function'
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Property was a Number' );
+    assert.ok( assertionThrown, 'Property was a Number' );
 
     // Array Property
 
@@ -124,7 +124,7 @@ test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function'
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Property was an Array' );
+    assert.ok( assertionThrown, 'Property was an Array' );
 
     // Object Property
 
@@ -136,7 +136,7 @@ test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function'
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Property was an Object' );
+    assert.ok( assertionThrown, 'Property was an Object' );
 
     // Function
 
@@ -148,7 +148,7 @@ test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function'
         assertionThrown = true;
     }
 
-    ok( !assertionThrown, 'Property was a Function' );
+    assert.ok( !assertionThrown, 'Property was a Function' );
 
     // String Property
 
@@ -160,26 +160,26 @@ test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function'
         assertionThrown = true;
     }
 
-    ok( !assertionThrown, 'Property was a String' );
+    assert.ok( !assertionThrown, 'Property was a String' );
 });
 
-test( 'If getBehaviorGroup() "provider.behaviorGroup" is a string its value is returned', function() {
+test( 'If getBehaviorGroup() "provider.behaviorGroup" is a string its value is returned', function( assert ) {
     var testValue = 'testGroup';
 
-    equal( testValue, BS.getBehaviorGroup({ behaviorGroup: testValue }) );
+    assert.equal( testValue, BS.getBehaviorGroup({ behaviorGroup: testValue }) );
 });
 
-test( 'If getBehaviorGroup() "provider.behaviorGroup" is a function it is executed', function() {
+test( 'If getBehaviorGroup() "provider.behaviorGroup" is a function it is executed', function( assert ) {
     var result = BS.getBehaviorGroup({
         behaviorGroup: function() {
             return 'test group';
         }
     });
 
-    equal( 'test group', result );
+    assert.equal( 'test group', result );
 });
 
-test( 'setBehaviors() requires an Object to be provided', function() {
+test( 'setBehaviors() requires an Object to be provided', function( assert ) {
 
     // Empty parameter
 
@@ -191,7 +191,7 @@ test( 'setBehaviors() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was empty' );
+    assert.ok( assertionThrown, 'Parameter was empty' );
 
     // Number parameter
 
@@ -203,7 +203,7 @@ test( 'setBehaviors() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a Number' );
+    assert.ok( assertionThrown, 'Parameter was a Number' );
 
     // Array Parameter
 
@@ -215,7 +215,7 @@ test( 'setBehaviors() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was an Array' );
+    assert.ok( assertionThrown, 'Parameter was an Array' );
 
     // Function
 
@@ -227,7 +227,7 @@ test( 'setBehaviors() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a Function' );
+    assert.ok( assertionThrown, 'Parameter was a Function' );
 
     // String Parameter
 
@@ -239,7 +239,7 @@ test( 'setBehaviors() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a String' );
+    assert.ok( assertionThrown, 'Parameter was a String' );
 
     // Object Parameter
 
@@ -251,18 +251,18 @@ test( 'setBehaviors() requires an Object to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( !assertionThrown, 'Parameter was an Object' );
+    assert.ok( !assertionThrown, 'Parameter was an Object' );
 });
 
-test( 'setBehaviors() sets data on the behaviors property', function() {
+test( 'setBehaviors() sets data on the behaviors property', function( assert ) {
     var testBehaviors = Ember.Object.create( { 'the_key': 'my value' } );
 
     BS.setBehaviors( testBehaviors );
 
-    deepEqual( BS.get( 'behaviors' ), testBehaviors );
+    assert.deepEqual( BS.get( 'behaviors' ), testBehaviors );
 });
 
-test( 'isAble() requires two arguments to be provided', function() {
+test( 'isAble() requires two arguments to be provided', function( assert ) {
 
     // No arguments
 
@@ -274,7 +274,7 @@ test( 'isAble() requires two arguments to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'No arguments were provided' );
+    assert.ok( assertionThrown, 'No arguments were provided' );
 
     // One argument
 
@@ -286,7 +286,7 @@ test( 'isAble() requires two arguments to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'One argument was provided' );
+    assert.ok( assertionThrown, 'One argument was provided' );
 
     // Two arguments
 
@@ -298,10 +298,10 @@ test( 'isAble() requires two arguments to be provided', function() {
         assertionThrown = true;
     }
 
-    ok( !assertionThrown, 'Two arguments were provided' );
+    assert.ok( !assertionThrown, 'Two arguments were provided' );
 });
 
-test( 'isAble() requires first argument to be a String', function() {
+test( 'isAble() requires first argument to be a String', function( assert ) {
     // Empty parameter
 
     var assertionThrown = false;
@@ -312,7 +312,7 @@ test( 'isAble() requires first argument to be a String', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was empty' );
+    assert.ok( assertionThrown, 'Parameter was empty' );
 
     // Number parameter
 
@@ -324,7 +324,7 @@ test( 'isAble() requires first argument to be a String', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a Number' );
+    assert.ok( assertionThrown, 'Parameter was a Number' );
 
     // Array Parameter
 
@@ -336,7 +336,7 @@ test( 'isAble() requires first argument to be a String', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was an Array' );
+    assert.ok( assertionThrown, 'Parameter was an Array' );
 
     // Function
 
@@ -348,7 +348,7 @@ test( 'isAble() requires first argument to be a String', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a Function' );
+    assert.ok( assertionThrown, 'Parameter was a Function' );
 
     // String Parameter
 
@@ -360,7 +360,7 @@ test( 'isAble() requires first argument to be a String', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was an Object' );
+    assert.ok( assertionThrown, 'Parameter was an Object' );
 
     // Object Parameter
 
@@ -372,10 +372,10 @@ test( 'isAble() requires first argument to be a String', function() {
         assertionThrown = true;
     }
 
-    ok( !assertionThrown, 'Parameter was a String' );
+    assert.ok( !assertionThrown, 'Parameter was a String' );
 });
 
-test( 'isAble() requires second argument to be a String or Object', function() {
+test( 'isAble() requires second argument to be a String or Object', function( assert ) {
     // Number parameter
 
     var assertionThrown = false;
@@ -386,7 +386,7 @@ test( 'isAble() requires second argument to be a String or Object', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a Number' );
+    assert.ok( assertionThrown, 'Parameter was a Number' );
 
     // Array Parameter
 
@@ -398,7 +398,7 @@ test( 'isAble() requires second argument to be a String or Object', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was an Array' );
+    assert.ok( assertionThrown, 'Parameter was an Array' );
 
     // Function
 
@@ -410,7 +410,7 @@ test( 'isAble() requires second argument to be a String or Object', function() {
         assertionThrown = true;
     }
 
-    ok( assertionThrown, 'Parameter was a Function' );
+    assert.ok( assertionThrown, 'Parameter was a Function' );
 
     // String Parameter
 
@@ -422,7 +422,7 @@ test( 'isAble() requires second argument to be a String or Object', function() {
         assertionThrown = true;
     }
 
-    ok( !assertionThrown, 'Parameter was a String' );
+    assert.ok( !assertionThrown, 'Parameter was a String' );
 
     // Object Parameter
 
@@ -438,17 +438,17 @@ test( 'isAble() requires second argument to be a String or Object', function() {
         assertionThrown = true;
     }
 
-    ok( !assertionThrown, 'Parameter was an Object' );
+    assert.ok( !assertionThrown, 'Parameter was an Object' );
 });
 
-test( 'isAble() 2nd argument is a string - argument values are compared to Behavior data to make determination', function() {
+test( 'isAble() 2nd argument is a string - argument values are compared to Behavior data to make determination', function( assert ) {
     BS.setBehaviors({
         device: {
             reboot: true
         }
     });
 
-    ok( BS.isAble( 'reboot', 'device' ), 'Was able' );
+    assert.ok( BS.isAble( 'reboot', 'device' ), 'Was able' );
 
     BS.setBehaviors({
         device: {
@@ -456,10 +456,10 @@ test( 'isAble() 2nd argument is a string - argument values are compared to Behav
         }
     });
 
-    ok( !BS.isAble( 'reboot', 'device' ), 'Was not able' );
+    assert.ok( !BS.isAble( 'reboot', 'device' ), 'Was not able' );
 });
 
-test( 'isAble() 2nd argument is an object - getBehaviorGroup() is called', function() {
+test( 'isAble() 2nd argument is an object - getBehaviorGroup() is called', function( assert ) {
     var wasCalled = false;
 
     BS.getBehaviorGroup = function() {
@@ -468,17 +468,17 @@ test( 'isAble() 2nd argument is an object - getBehaviorGroup() is called', funct
 
     BS.isAble( 'notUnderTest', {});
 
-    ok( wasCalled, 'getBehaviorGroup() was called' );
+    assert.ok( wasCalled, 'getBehaviorGroup() was called' );
 });
 
-test( 'isAble() 2nd argument is an object - getBehaviorGroup() value is compared to Behavior data to make determination', function() {
+test( 'isAble() 2nd argument is an object - getBehaviorGroup() value is compared to Behavior data to make determination', function( assert ) {
     BS.setBehaviors({
         device: {
             reboot: false
         }
     });
 
-    ok( !BS.isAble( 'reboot', {
+    assert.ok( !BS.isAble( 'reboot', {
         behaviorGroup: 'device',
         behaviors: {
             reboot: function() {
@@ -488,14 +488,14 @@ test( 'isAble() 2nd argument is an object - getBehaviorGroup() value is compared
     }) , 'getBehaviorGroup() value was compared to Behavior data' );
 });
 
-test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refines determination', function() {
+test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refines determination', function( assert ) {
     BS.setBehaviors({
         device: {
             reboot: true
         }
     });
 
-    ok( !BS.isAble( 'reboot', {
+    assert.ok( !BS.isAble( 'reboot', {
         behaviorGroup: 'device',
         behaviors: {
             reboot: function() {
@@ -504,7 +504,7 @@ test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refi
         }
     }) , '"behaviors" hash refined determination' );
 
-    ok( BS.isAble( 'reboot', {
+    assert.ok( BS.isAble( 'reboot', {
         behaviorGroup: 'device',
         behaviors: {
             reboot: function() {
@@ -514,38 +514,38 @@ test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refi
     }) , '"behaviors" hash refined determination' );
 });
 
-test( 'isAble() returns false if no Behavior data has been set', function() {
-    ok( !BS.isAble( 'reboot', 'device' ), 'Returned false' );
+test( 'isAble() returns false if no Behavior data has been set', function( assert ) {
+    assert.ok( !BS.isAble( 'reboot', 'device' ), 'Returned false' );
 });
 
-test( 'isAble() returns false if specified Behavior Group has not been configured', function() {
+test( 'isAble() returns false if specified Behavior Group has not been configured', function( assert ) {
     BS.setBehaviors({
         device: {
             reboot: false
         }
     });
 
-    ok( !BS.isAble( 'reboot', 'product' ), 'Returned false' );
+    assert.ok( !BS.isAble( 'reboot', 'product' ), 'Returned false' );
 });
 
-test( 'isAble() returns false if specified Behavior has not been configured', function() {
+test( 'isAble() returns false if specified Behavior has not been configured', function( assert ) {
     BS.setBehaviors({
         device: {
             reboot: false
         }
     });
 
-    ok( !BS.isAble( 'restart', 'device' ), 'Returned false' );
+    assert.ok( !BS.isAble( 'restart', 'device' ), 'Returned false' );
 });
 
-test( 'isUnable() is the negated result of a call to isAble()', function() {
+test( 'isUnable() is the negated result of a call to isAble()', function( assert ) {
     BS.setBehaviors({
         device: {
             reboot: false
         }
     });
 
-    ok( BS.isUnable( 'reboot', 'device' ), 'Was unable' );
+    assert.ok( BS.isUnable( 'reboot', 'device' ), 'Was unable' );
 
     BS.setBehaviors({
         device: {
@@ -553,5 +553,5 @@ test( 'isUnable() is the negated result of a call to isAble()', function() {
         }
     });
 
-    ok( !BS.isUnable( 'reboot', 'device' ), 'Was not unable' );
+    assert.ok( !BS.isUnable( 'reboot', 'device' ), 'Was not unable' );
 });
