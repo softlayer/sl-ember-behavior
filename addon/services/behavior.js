@@ -47,13 +47,15 @@ export default Ember.Object.extend({
             behaviorGroupTypeIsString = 'string' === behaviorGroupType,
             behaviorGroup;
 
-        if ( ( 'object' !== typeof provider || Array.isArray( provider ) ) ) {
-            Ember.assert( 'services/behavior.getBehaviorGroup() expects parameter to be an Object' );
-        }
+        Ember.assert(
+            'services/behavior.getBehaviorGroup() expects parameter to be an Object',
+            'object' === typeof provider && !Array.isArray( provider )
+        );
 
-        if ( !behaviorGroupTypeIsString && 'function' !== behaviorGroupType ) {
-            Ember.assert( 'services/behavior.getBehaviorGroup() "provider.behaviorGroup" must be a String or Function' );
-        }
+        Ember.assert(
+            'services/behavior.getBehaviorGroup() "provider.behaviorGroup" must be a String or Function',
+            behaviorGroupTypeIsString || 'function' === behaviorGroupType
+        );
 
         behaviorGroup = ( behaviorGroupTypeIsString ) ?
                             Ember.get( provider, 'behaviorGroup' ) :
@@ -85,19 +87,22 @@ export default Ember.Object.extend({
             behaviorGroup,
             providerIsObject;
 
-        if ( !behavior || !provider ) {
-            Ember.assert( 'services/behavior.isAble() expects two parameters to be provided' );
-        }
+        Ember.assert(
+            'services/behavior.isAble() expects two parameters to be provided',
+            behavior && provider
+        );
 
-        if ( 'string' !== typeof behavior ) {
-            Ember.assert( 'services/behavior.isAble() expects "behavior" parameter to be a String' );
-        }
+        Ember.assert(
+            'services/behavior.isAble() expects "behavior" parameter to be a String',
+            'string' === typeof behavior
+        );
 
         providerIsObject = ( 'object' === typeof provider && !Array.isArray( provider ) );
 
-        if ( 'string' !== typeof provider && !providerIsObject ) {
-            Ember.assert( 'services/behavior.isAble() expects "provider" parameter to be either a String or Object' );
-        }
+        Ember.assert(
+            'services/behavior.isAble() expects "provider" parameter to be either a String or Object',
+            'string' === typeof provider || providerIsObject
+        );
 
         behaviorGroup = ( providerIsObject  ) ? this.getBehaviorGroup( provider ) : provider;
 
@@ -131,9 +136,10 @@ export default Ember.Object.extend({
      * @returns  {void}
      */
     setBehaviors: function( behaviors ) {
-        if ( ( 'object' !== typeof behaviors || Array.isArray( behaviors ) ) ) {
-            Ember.assert( 'services/behavior.setBehaviors() expects "behaviors" parameter to be an Object' );
-        }
+        Ember.assert(
+            'services/behavior.setBehaviors() expects "behaviors" parameter to be an Object',
+            'object' === typeof behaviors && !Array.isArray( behaviors )
+        );
 
         this.set( 'behaviors', behaviors );
     }
