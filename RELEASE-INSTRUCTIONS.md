@@ -49,4 +49,5 @@ Then follow these steps:
     * `assets/vendor.js` with `sl-ember-behavior/assets/vendor.js`
     * `assets/dummy.js` with `sl-ember-behavior/assets/dummy.js`
 * Also within the *index.html* file, in the `<meta name="dummy/config/environment"...` tag, replace the `locationType` value from `auto` to `hash`
+* Also within the *index.html* file, in the `<meta name="dummy/config/environment"...` tag, replace the `baseUrl` value from `/` to `/sl-ember-behavior`
 * Commit and push the changes
