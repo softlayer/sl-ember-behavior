@@ -18,6 +18,9 @@
   },
   "author": "Jeremy Brown <jeremy@notmessenger.com> (http://www.notmessenger.com)",
   "license": "MIT",
+  "dependencies": {
+    "rimraf": "2.3.0"
+  },
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.0",
     "broccoli-ember-hbs-template-compiler": "^1.6.1",
@@ -33,7 +36,7 @@
     "ember-data": "1.0.0-beta.14.1",
     "ember-export-application-global": "^1.0.2",
     "express": "^4.8.5",
-    "glob": "^4.0.5"
+    "glob": "^4.5.1"
   },
   "keywords": [
     "ember-addon",
