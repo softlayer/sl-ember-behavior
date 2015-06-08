@@ -2,18 +2,17 @@
 /* global require, module */
 
 var EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' ),
-    replace    = require( 'broccoli-string-replace' ),
-    app        = new EmberAddon(),
-    tree       = replace( app.toTree(), {
+    replace = require( 'broccoli-string-replace' ),
+    app = new EmberAddon(),
+    tree = replace( app.toTree(), {
         files: [ 'index.html' ],
         patterns: [
             {
                 match: /REPLACE_META_DESCRIPTION/g,
-                replacement: require('./package.json')['description']
-            },
-            {
+                replacement: require( './package.json' )[ 'description' ]
+            }, {
                 match: /REPLACE_META_KEYWORDS/g,
-                replacement: require('./package.json')['keywords'].join( ', ' ) + ', ember, ember cli'
+                replacement: require( './package.json' )[ 'keywords' ].join( ', ' ) + ', ember, ember cli'
             }
         ]
     });
