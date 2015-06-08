@@ -8,8 +8,7 @@
 <div class="row">
     <div class="col-md-12">
         Given this Behavior data
-        <pre>
-{
+        <pre>{
     events:
         reschedule: false,
         cancel: false,
@@ -18,20 +17,17 @@
 
         and the use of this component
 
-    <pre>
-\{{#sl-unable behavior="reschedule" provider="event"}}
+    <pre>\{{#sl-unable behavior="reschedule" provider="event"}}
     &lt;h3&gt;You cannot reschedule this event&lt;/h3&gt;
 \{{/sl-unable}}</pre>
 
         and this one on the page
-        <pre>
-\{{#sl-able behavior="setDate" provider=model}}
+        <pre>\{{#sl-able behavior="setDate" provider=model}}
     &lt;h3&gt;You can set a date for this event.&lt;/h3&gt;
 \{{/sl-able}}</pre>
 
         where the second component usage example is a model that has these values defined on it
-        <pre>
-{
+        <pre>{
     behaviorGroup: 'event',
 
     behaviors: {

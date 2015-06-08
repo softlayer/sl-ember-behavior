@@ -42,7 +42,7 @@ export default Ember.Mixin.create({
      * @param {Transition} [transition]
      * @returns {void}
      */
-    beforeModel: function( transition ) {
+    beforeModel( transition ) {
         var unableRoute;
 
         this._super.apply( this, arguments );

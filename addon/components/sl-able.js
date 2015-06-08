@@ -38,16 +38,29 @@ export default Ember.Component.extend({
     // -------------------------------------------------------------------------
     // Properties
 
+    /**
+     * The shared behaviorService
+     *
+     * @type {Ember.Service}
+     */
+    behaviorService: Ember.inject.service( 'behavior' ),
+
     // -------------------------------------------------------------------------
     // Observers
 
     // -------------------------------------------------------------------------
     // Methods
 
-    isAble: function() {
+    /**
+     * Whether the behavior is allowed
+     *
+     * @function isAble
+     * @return Boolean
+     */
+    isAble: Ember.computed( function() {
         return this.get( 'behaviorService' ).isAble(
             this.get( 'behavior' ),
             this.get( 'provider' )
         );
-    }.property( )
+    })
 });

@@ -30,4 +30,8 @@ var EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' ),
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
+app.import( app.bowerDirectory + '/ember/ember-template-compiler.js', {
+    type: 'test'
+});
+
 module.exports = tree;

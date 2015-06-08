@@ -3,8 +3,8 @@ import BehaviorService from 'sl-ember-behavior/services/behavior';
 
 var BS;
 
-module( 'Unit - services:behavior', {
-    beforeEach: function() {
+module( 'Unit | Service | behavior', {
+    beforeEach() {
         BS = BehaviorService.create();
     }
 });
