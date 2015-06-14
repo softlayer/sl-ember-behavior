@@ -255,7 +255,7 @@ test( 'setBehaviors() requires an Object to be provided', function( assert ) {
 });
 
 test( 'setBehaviors() sets data on the behaviors property', function( assert ) {
-    var testBehaviors = Ember.Object.create( { 'the_key': 'my value' } );
+    var testBehaviors = { 'the_key': 'my value' };
 
     BS.setBehaviors( testBehaviors );
 

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 
 var behaviorService = Ember.Object.create({
-    isAble: function( behavior, provider ) {
+    isAble( behavior, provider ) {
         this.set( 'behavior', behavior );
         this.set( 'provider', provider );
         return true;
