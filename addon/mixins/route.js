@@ -29,6 +29,13 @@ export default Ember.Mixin.create({
     // -------------------------------------------------------------------------
     // Properties
 
+    /**
+     * The behavior service used to check if behavior is allowed
+     *
+     * @type {ember/Service}
+     */
+    behaviorService: Ember.inject.service( 'behavior' ),
+
     // -------------------------------------------------------------------------
     // Observers
 

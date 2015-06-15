@@ -45,11 +45,13 @@ export default Ember.Service.extend({
     getBehaviorGroup( provider ) {
         var behaviorGroupType = Ember.typeOf( provider.behaviorGroup ),
             behaviorGroupTypeIsString = 'string' === behaviorGroupType,
+            providerType = Ember.typeOf( provider ),
             behaviorGroup;
 
         Ember.assert(
             'services/behavior.getBehaviorGroup() expects parameter to be an Object',
-            'object' === Ember.typeOf( provider ) && !Array.isArray( provider )
+            providerType === 'instance' ||
+            providerType === 'object'
         );
 
         Ember.assert(
@@ -84,8 +86,10 @@ export default Ember.Service.extend({
     isAble( behavior, provider ) {
         var behaviors = this.getWithDefault( 'behaviors', null ),
             isAble = false,
-            behaviorGroup,
-            providerIsObject;
+            providerType = Ember.typeOf( provider ),
+            providerIsObject = providerType === 'instance' ||
+                providerType === 'object',
+            behaviorGroup;
 
         Ember.assert(
             'services/behavior.isAble() expects two parameters to be provided',
@@ -97,17 +101,23 @@ export default Ember.Service.extend({
             'string' === Ember.typeOf( behavior )
         );
 
-        providerIsObject = ( 'object' === Ember.typeOf( provider ) && !Array.isArray( provider ) );
-
         Ember.assert(
             'services/behavior.isAble() expects "provider" parameter to be either a String or Object',
-            'string' === Ember.typeOf( provider ) || providerIsObject
+            providerType === 'instance' ||
+            providerType === 'object' ||
+            providerType === 'string'
         );
 
-        behaviorGroup = ( providerIsObject  ) ? this.getBehaviorGroup( provider ) : provider;
+        behaviorGroup = providerIsObject ?
+            this.getBehaviorGroup( provider ) : provider;
 
-        if ( behaviors && behaviors[behaviorGroup] && behaviors[behaviorGroup][behavior] ) {
-            isAble = ( providerIsObject  ) ? provider.behaviors[behavior]() : true;
+        if (
+            behaviors &&
+            behaviors[ behaviorGroup ] &&
+            behaviors[ behaviorGroup ][ behavior ]
+        ) {
+            isAble = providerIsObject ?
+                provider.behaviors[ behavior ]() : true;
         }
 
         return isAble;

@@ -38,6 +38,11 @@ export default Ember.Component.extend({
     // -------------------------------------------------------------------------
     // Properties
 
+    /**
+     * The behavior service used to check if the supplied behavior is allowed
+     *
+     * @type {ember/Service}
+     */
     behaviorService: Ember.inject.service( 'behavior' ),
 
     // -------------------------------------------------------------------------

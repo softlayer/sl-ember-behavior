@@ -1,9 +1,12 @@
 import Ember from 'ember';
 import BehaviorService from 'sl-ember-behavior/services/behavior';
+import { moduleFor, test } from 'ember-qunit';
 
 var BS;
 
-module( 'Unit | Service | behavior', {
+moduleFor( 'service:behavior', 'Unit | Service | behavior', {
+    unit: true,
+
     beforeEach() {
         BS = BehaviorService.create();
     }
@@ -502,7 +505,7 @@ test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refi
                 return false;
             }
         }
-    }) , '"behaviors" hash refined determination' );
+    }), '"behaviors" hash refined determination' );
 
     assert.ok( BS.isAble( 'reboot', {
         behaviorGroup: 'device',
@@ -511,7 +514,7 @@ test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refi
                 return true;
             }
         }
-    }) , '"behaviors" hash refined determination' );
+    }), '"behaviors" hash refined determination' );
 });
 
 test( 'isAble() returns false if no Behavior data has been set', function( assert ) {

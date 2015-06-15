@@ -2,15 +2,15 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     beforeModel() {
-        var behaviors = Ember.Object.create({
-            'event': Ember.Object.create({
+        var behaviors = {
+            'event': {
                 reschedule: false,
                 cancel: false,
                 setDate: true
-            }),
+            },
 
-            route: Ember.Object.create()
-        });
+            route: {}
+        };
 
         this._super.apply( this, arguments );
 
