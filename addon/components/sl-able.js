@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import template from '../templates/components/sl-able';
+import layout from '../templates/components/sl-able';
 
 /**
- * @module components
- * @class  sl-able
+ * @module
+ * @augments ember/Component
  */
 export default Ember.Component.extend({
 
@@ -13,21 +13,11 @@ export default Ember.Component.extend({
     // -------------------------------------------------------------------------
     // Attributes
 
-    /**
-     * The tag type of the root element
-     *
-     * @property {Ember.String} tagName
-     * @default  "span"
-     */
-    tagName: 'span',
+    /** @type {Object} */
+    layout,
 
-    /**
-     * The template used to render the view
-     *
-     * @property {function} layout
-     * @default  template:components/sl-able
-     */
-    layout: template,
+    /** @type {String} */
+    tagName: 'span',
 
     // -------------------------------------------------------------------------
     // Actions
@@ -54,8 +44,8 @@ export default Ember.Component.extend({
     /**
      * Whether the behavior is allowed
      *
-     * @function isAble
-     * @return Boolean
+     * @function
+     * @returns {Boolean}
      */
     isAble: Ember.computed( function() {
         return this.get( 'behaviorService' ).isAble(
