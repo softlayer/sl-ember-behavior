@@ -20,7 +20,7 @@ Want to restrict access to routes?  It is very easy to use only the permission c
 
 # Theory of Operation
 
-You define all possible behaviours you wish to present as possibilities in your application.  Setting their values to either true or false represents whether the user has the permission to perform this behavior.  You can define additional logic that should be executed to further refine whether the behavior can be executed once it has been determined that the user has permission to do so.  This additional logic can be contained in any object you desire, such as your models.
+You define all possible behaviors you wish to present as possibilities in your application.  Setting their values to either true or false represents whether the user has the permission to perform this behavior.  You can define additional logic that should be executed to further refine whether the behavior can be executed once it has been determined that the user has permission to do so.  This additional logic can be contained in any object you desire, such as your models.
 
 
 
@@ -56,6 +56,19 @@ For more information on using ember-cli, visit [http://www.ember-cli.com/](http:
 ember install sl-ember-behavior
 ```
 
+## Create a service
+```
+ember g service behavior
+```
+
+Then, within this file:
+
+```
+import BehaviorService from 'sl-ember-behavior/services/behavior';
+
+export default BehaviorService;
+```
+
 ## Set behaviors on Behavior Service
 
 Get a reference to the Behavior Service and pass your behaviors as the only argument to *setBehaviors()*
@@ -63,7 +76,11 @@ Get a reference to the Behavior Service and pass your behaviors as the only argu
 In a route, for example:
 
 ```
-this.controllerFor( 'application' ).get( 'behaviorService' ).setBehaviors( yourBehaviorData );
+behavior: Ember.inject.service(),
+
+beforeModel() {
+    this.get( 'behavior' ).setBehaviors( yourBehaviorData );
+}
 ```
 
 The structure of your behavior data should be as follows:
@@ -181,9 +198,12 @@ or
 
 ```
 MyEventModel = Model.extend({
-    behaviorGroup: function() {
-        return this.get( 'event' );
-    }.property( 'event' )
+    behaviorGroup: Ember.computed(
+        'event',
+        function() {
+            return this.get( 'event' );
+        }
+    )
 });
 ```
 
@@ -194,8 +214,8 @@ MyEventModel = Model.extend({
     behaviorGroup: 'event',
 
     behaviors: {
-        setDate: function() {
-            var canSetDate = false;
+        setDate() {
+            let canSetDate = false;
 
             if ( this.get( 'venueHasBeenSelected' ) && this.get( 'hasDepositBeenPlaced' ) ) {
                 canSetDate = true;
@@ -216,11 +236,11 @@ MyEventModel = Model.extend({
     behaviorGroup: 'event',
 
     behaviors: {
-        setDate: function() {
+        setDate() {
             ...
         },
 
-        reschedule: function() {
+        reschedule() {
             ...
         },
     }
@@ -253,30 +273,21 @@ export default Ember.Route.extend( Behavior, {
 
 
 
-## Controllers and Views
+## Direct usage of the Behavior Service
 
 Make sure you have read the "Components" section to understand what the `behavior` and `provider` parameters represent and how they are used.
 
 The Behavior Service provides two methods, `isAble()` and `isUnable()` that are the methods behind the Component logic.
 
-The use of these methods and the Behavior Service in Controllers or Views is very simple.  Some examples:
-
-*Controller*
+The use of these methods and the Behavior Service in Controllers, Objects or other structures is very simple.
 
 ```
-if ( this.get( 'behaviorService' ).isAble( 'setData', 'event' ) ) { ... }
-```
+behavior: Ember.inject.service(),
 
-```
-if ( this.get( 'behaviorService' ).isUnable( 'setData', this.get( 'model' ) ) ) { ... }
-```
+if ( this.get( 'behavior' ).isAble( 'setData', 'event' ) ) { ... }
 
-*View*
-
+if ( this.get( 'behavior' ).isUnable( 'setData', this.get( 'model' ) ) ) { ... }
 ```
-if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event' ) ) { ... }
-```
-
 
 
 
