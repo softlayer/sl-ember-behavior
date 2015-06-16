@@ -1,4 +1,5 @@
 import Ember from 'ember';
+/** In order for this import to work correctly the /tests/dummy/app/services/behavior.js file has to exist */
 import BehaviorService from 'sl-ember-behavior/services/behavior';
 import { moduleFor, test } from 'ember-qunit';
 
