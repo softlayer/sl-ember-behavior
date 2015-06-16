@@ -29,6 +29,13 @@ export default Ember.Mixin.create({
     // -------------------------------------------------------------------------
     // Properties
 
+    /**
+     * The behavior service used to check if behavior is allowed
+     *
+     * @type {ember/Service}
+     */
+    behaviorService: Ember.inject.service( 'behavior' ),
+
     // -------------------------------------------------------------------------
     // Observers
 
@@ -42,7 +49,7 @@ export default Ember.Mixin.create({
      * @param {Transition} [transition]
      * @returns {void}
      */
-    beforeModel: function( transition ) {
+    beforeModel( transition ) {
         var unableRoute;
 
         this._super.apply( this, arguments );

@@ -1,32 +1,34 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-    beforeModel: function() {
-        var behaviors = Ember.Object.create({
-            'event': Ember.Object.create({
+    beforeModel() {
+        var behaviors = {
+            'event': {
                 reschedule: false,
                 cancel: false,
                 setDate: true
-            }),
+            },
 
-            route: Ember.Object.create()
-        });
+            route: {}
+        };
 
         this._super.apply( this, arguments );
 
-        Ember.keys( this.get( 'router.router.recognizer.names' ) ).forEach( function( route ) {
+        Ember.keys( this.get( 'router.router.recognizer.names' ) ).forEach( ( route ) => {
             behaviors[ 'route' ][ route ] = true;
         });
 
-        this.controllerFor( 'application' ).get( 'behaviorService' ).setBehaviors( behaviors );
+        this.get( 'behaviorService' ).setBehaviors( behaviors );
     },
 
-    model: function() {
+    behaviorService: Ember.inject.service( 'behavior' ),
+
+    model() {
         return Ember.Object.create({
             behaviorGroup: 'event',
 
             behaviors: {
-                setDate: function() {
+                setDate() {
                     return true;
                 }
             }

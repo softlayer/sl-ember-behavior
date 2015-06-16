@@ -1,22 +1,27 @@
 /* jshint node: true */
 /* global require, module */
 
-var EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' ),
-    replace    = require( 'broccoli-string-replace' ),
-    app        = new EmberAddon(),
-    tree       = replace( app.toTree(), {
-        files: [ 'index.html' ],
-        patterns: [
-            {
-                match: /REPLACE_META_DESCRIPTION/g,
-                replacement: require('./package.json')['description']
-            },
-            {
-                match: /REPLACE_META_KEYWORDS/g,
-                replacement: require('./package.json')['keywords'].join( ', ' ) + ', ember, ember cli'
-            }
-        ]
-    });
+var EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' );
+var packageConfig = require( './package.json' );
+var replace = require( 'broccoli-string-replace' );
+var app = new EmberAddon();
+
+var tree = replace( app.toTree(), {
+    files: [
+        'index.html'
+    ],
+
+    patterns: [
+        {
+            match: /REPLACE_META_DESCRIPTION/g,
+            replacement: packageConfig[ 'description' ]
+        }, {
+            match: /REPLACE_META_KEYWORDS/g,
+            replacement: packageConfig[ 'keywords' ].join( ', ' ) +
+                ', ember, ember cli'
+        }
+    ]
+});
 
 // Use `app.import` to add additional libraries to the generated
 // output files.
@@ -30,5 +35,9 @@ var EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' ),
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
+
+app.import( app.bowerDirectory + '/ember/ember-template-compiler.js', {
+    type: 'test'
+});
 
 module.exports = tree;

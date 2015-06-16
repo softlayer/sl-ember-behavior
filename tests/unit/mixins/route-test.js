@@ -3,7 +3,7 @@ import mixinUnderTest from 'sl-ember-behavior/mixins/route';
 
 var Mixin;
 
-module( 'Unit - mixins:route', {
+module( 'Unit | Mixin | route', {
     beforeEach: function() {
         Mixin = Ember.Route.extend( mixinUnderTest );
         Mixin = Mixin.create();

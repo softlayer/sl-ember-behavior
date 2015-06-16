@@ -2,9 +2,9 @@ import Ember from 'ember';
 
 /**
  * @module services
- * @class  behavior
+ * @class behavior
  */
-export default Ember.Object.extend({
+export default Ember.Service.extend({
 
     // -------------------------------------------------------------------------
     // Dependencies
@@ -25,7 +25,7 @@ export default Ember.Object.extend({
      * Behaviors
      *
      * @property {Ember.Object} behaviors
-     * @default  null
+     * @default null
      */
     behaviors: null,
 
@@ -39,17 +39,19 @@ export default Ember.Object.extend({
      * Retrieve Behavior Group string from Provider object
      *
      * @argument {Ember.Object} provider
-     * @throws   {Ember.assert} If argument is not an object
+     * @throws {Ember.assert} If argument is not an object
      * @return {Ember.String}
      */
-    getBehaviorGroup: function( provider ) {
-        var behaviorGroupType         = typeof provider.behaviorGroup,
+    getBehaviorGroup( provider ) {
+        var behaviorGroupType = Ember.typeOf( provider.behaviorGroup ),
             behaviorGroupTypeIsString = 'string' === behaviorGroupType,
+            providerType = Ember.typeOf( provider ),
             behaviorGroup;
 
         Ember.assert(
             'services/behavior.getBehaviorGroup() expects parameter to be an Object',
-            'object' === typeof provider && !Array.isArray( provider )
+            providerType === 'instance' ||
+            providerType === 'object'
         );
 
         Ember.assert(
@@ -58,8 +60,8 @@ export default Ember.Object.extend({
         );
 
         behaviorGroup = ( behaviorGroupTypeIsString ) ?
-                            Ember.get( provider, 'behaviorGroup' ) :
-                            provider.behaviorGroup();
+            Ember.get( provider, 'behaviorGroup' ) :
+            provider.behaviorGroup();
 
         return behaviorGroup;
     },
@@ -78,14 +80,16 @@ export default Ember.Object.extend({
      * @function isAble
      * @argument {Ember.String} behavior
      * @argument {Ember.String|Ember.Object} provider
-     * @throws   {Ember.assert} If: no arguments provided, first argument is not a string, or second argument is not a string or object
-     * @returns  {boolean}
+     * @throws {Ember.assert} If: no arguments provided, first argument is not a string, or second argument is not a string or object
+     * @returns {boolean}
      */
-    isAble: function( behavior, provider ) {
+    isAble( behavior, provider ) {
         var behaviors = this.getWithDefault( 'behaviors', null ),
-            isAble    = false,
-            behaviorGroup,
-            providerIsObject;
+            isAble = false,
+            providerType = Ember.typeOf( provider ),
+            providerIsObject = providerType === 'instance' ||
+                providerType === 'object',
+            behaviorGroup;
 
         Ember.assert(
             'services/behavior.isAble() expects two parameters to be provided',
@@ -94,20 +98,26 @@ export default Ember.Object.extend({
 
         Ember.assert(
             'services/behavior.isAble() expects "behavior" parameter to be a String',
-            'string' === typeof behavior
+            'string' === Ember.typeOf( behavior )
         );
-
-        providerIsObject = ( 'object' === typeof provider && !Array.isArray( provider ) );
 
         Ember.assert(
             'services/behavior.isAble() expects "provider" parameter to be either a String or Object',
-            'string' === typeof provider || providerIsObject
+            providerType === 'instance' ||
+            providerType === 'object' ||
+            providerType === 'string'
         );
 
-        behaviorGroup = ( providerIsObject  ) ? this.getBehaviorGroup( provider ) : provider;
+        behaviorGroup = providerIsObject ?
+            this.getBehaviorGroup( provider ) : provider;
 
-        if ( behaviors && behaviors[behaviorGroup] && behaviors[behaviorGroup][behavior] ) {
-            isAble = ( providerIsObject  ) ? provider.behaviors[behavior]() : true;
+        if (
+            behaviors &&
+            behaviors[ behaviorGroup ] &&
+            behaviors[ behaviorGroup ][ behavior ]
+        ) {
+            isAble = providerIsObject ?
+                provider.behaviors[ behavior ]() : true;
         }
 
         return isAble;
@@ -121,9 +131,9 @@ export default Ember.Object.extend({
      * @function isUnable
      * @argument {Ember.String} behavior
      * @argument {Ember.String|Ember.Object} provider
-     * @returns  {boolean}
+     * @returns {boolean}
      */
-    isUnable: function( behavior, provider ) {
+    isUnable( behavior, provider ) {
         return !this.isAble( behavior, provider );
     },
 
@@ -132,13 +142,13 @@ export default Ember.Object.extend({
      *
      * @function setBehaviors
      * @argument {Ember.Object} behaviors
-     * @throws   {Ember.assert} If argument is not an object
-     * @returns  {void}
+     * @throws {Ember.assert} If argument is not an object
+     * @returns {void}
      */
-    setBehaviors: function( behaviors ) {
+    setBehaviors( behaviors ) {
         Ember.assert(
             'services/behavior.setBehaviors() expects "behaviors" parameter to be an Object',
-            'object' === typeof behaviors && !Array.isArray( behaviors )
+            'object' === Ember.typeOf( behaviors )
         );
 
         this.set( 'behaviors', behaviors );
