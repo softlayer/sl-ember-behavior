@@ -51,6 +51,21 @@ test( 'getBehaviorGroup() requires an Object to be provided', function( assert )
         'Parameter was a Number'
     );
 
+    // Boolean parameter
+
+    assertionThrown = false;
+
+    try {
+        BS.getBehaviorGroup( false );
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        assertionThrown,
+        'Parameter was a Boolean'
+    );
+
     // Array Parameter
 
     assertionThrown = false;
@@ -142,6 +157,21 @@ test( 'getBehaviorGroup() "provider.behaviorGroup" must be a String or Function'
     assert.ok(
         assertionThrown,
         'Property was a Number'
+    );
+
+    // Boolean parameter
+
+    assertionThrown = false;
+
+    try {
+        BS.getBehaviorGroup({ behaviorGroup: false });
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        assertionThrown,
+        'Parameter was a Boolean'
     );
 
     // Array Property
@@ -259,6 +289,21 @@ test( 'setBehaviors() requires an Object to be provided', function( assert ) {
     assert.ok(
         assertionThrown,
         'Parameter was a Number'
+    );
+
+    // Boolean parameter
+
+    assertionThrown = false;
+
+    try {
+        BS.setBehaviors( false );
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        assertionThrown,
+        'Parameter was a Boolean'
     );
 
     // Array Parameter
@@ -414,6 +459,21 @@ test( 'isAble() requires first argument to be a String', function( assert ) {
         'Parameter was a Number'
     );
 
+    // Boolean parameter
+
+    assertionThrown = false;
+
+    try {
+        BS.isAble( false, 'notUnderTest' );
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        assertionThrown,
+        'Parameter was a Boolean'
+    );
+
     // Array Parameter
 
     assertionThrown = false;
@@ -489,6 +549,21 @@ test( 'isAble() requires second argument to be a String or Object', function( as
     assert.ok(
         assertionThrown,
         'Parameter was a Number'
+    );
+
+    // Boolean parameter
+
+    assertionThrown = false;
+
+    try {
+        BS.isAble( 'notUnderTest', false );
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        assertionThrown,
+        'Parameter was a Boolean'
     );
 
     // Array Parameter
