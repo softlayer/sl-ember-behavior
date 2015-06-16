@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 
-var behaviorService = Ember.Object.create({
+let behaviorService = Ember.Object.create({
     isAble( behavior, provider ) {
         this.set( 'behavior', behavior );
         this.set( 'provider', provider );
@@ -9,7 +9,7 @@ var behaviorService = Ember.Object.create({
     }
 });
 
-moduleForComponent( 'sl-able', 'Unit | Component | sl-able', {
+moduleForComponent( 'sl-able', 'Unit | Component | sl able', {
     unit: true
 });
 
@@ -20,22 +20,30 @@ moduleForComponent( 'sl-able', 'Unit | Component | sl-able', {
  * component is rendered into the DOM is adhered to.
  */
 test( 'Renders as a span tag with no classes', function( assert ) {
-    var component = this.subject({ behaviorService: behaviorService });
+    let component = this.subject({
+        behaviorService: behaviorService
+    });
 
-    assert.equal( this.$().prop( 'tagName' ), 'SPAN' );
+    assert.equal(
+        this.$().prop( 'tagName' ),
+        'SPAN'
+    );
 });
 
 test( 'Renders content', function( assert ) {
-    var component = this.subject({
+    let component = this.subject({
         behaviorService: behaviorService,
         template: Ember.Handlebars.compile( 'I can do it' )
     });
 
-    assert.equal( Ember.$.trim( this.$().text() ), 'I can do it' );
+    assert.equal(
+        Ember.$.trim( this.$().text() ),
+        'I can do it'
+    );
 });
 
 test( 'isAble() calls isAble() on the behavior service', function( assert ) {
-    var component = this.subject({
+    let component = this.subject({
         behaviorService: behaviorService,
         behavior: 'the_behavior',
         provider: 'the_provider'
@@ -43,6 +51,13 @@ test( 'isAble() calls isAble() on the behavior service', function( assert ) {
 
     this.render();
 
-    assert.equal( behaviorService.get( 'behavior' ), 'the_behavior' );
-    assert.equal( behaviorService.get( 'provider' ), 'the_provider' );
+    assert.equal(
+        behaviorService.get( 'behavior' ),
+        'the_behavior'
+    );
+
+    assert.equal(
+        behaviorService.get( 'provider' ),
+        'the_provider'
+    );
 });
