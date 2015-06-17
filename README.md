@@ -87,33 +87,33 @@ The structure of your behavior data should be as follows:
 
 ```
 {
-    comments: {
-        create : true,
-        view   : true,
-        edit   : false
+    "comments": {
+        "create" : true,
+        "view"   : true,
+        "edit"   : false
     },
 
-    articles: {
-        read   : true,
-        create : false,
-        edit   : false
+    "articles": {
+        "read"   : true,
+        "create" : false,
+        "edit"   : false
     },
 
-    route: {
-        application         : true,
-        application_loading : true,
-        error               : true,
-        loading             : true,
-        devices             : true,
-        devices.details     : true,
-        devices.error       : true,
-        devices.index       : true,
-        devices.loading     : true,
-        users               : false,
-        users.details       : false,
-        users.error         : false,
-        users.index         : false,
-        users.loading       : false
+    "route": {
+        "application"         : true,
+        "application_loading" : true,
+        "error"               : true,
+        "loading"             : true,
+        "devices"             : true,
+        "devices.details"     : true,
+        "devices.error"       : true,
+        "devices.index"       : true,
+        "devices.loading"     : true,
+        "users"               : false,
+        "users.details"       : false,
+        "users.error"         : false,
+        "users.index"         : false,
+        "users.loading"       : false
     }
 }
 ```
