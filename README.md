@@ -256,11 +256,11 @@ This component is identical to the `sl-able` component, except that it checks fo
 
 ## Routes
 
-Restricting access to a route represents a permission-only use of the Behavior data.  For any route you wish to restrict access to simply mix in the [Route Mixin](addon/mixins/route.js), add the `route` Behavior Group in the Behaviors data, as well as list the appropriate route name and its boolean value representing the users permission.
+Restricting access to a route represents a permission-only use of the Behavior data.  For any route you wish to restrict access to simply mix in the [Route Mixin](https://github.com/softlayer/sl-ember-behavior/blob/develop/addon/mixins/route.js), add the `route` Behavior Group in the Behaviors data, as well as list the appropriate route name and its boolean value representing the users permission.
 
-The [Route Mixin](addon/mixins/route.js) extends beforeModel().  If a user is allowed access to the specified route then Ember is allowed to transition to the route as usual.  If the user is not allowed access to the route one of two things then happen, though they both represent the idea that the user is not allowed to transition to the route.
+The [Route Mixin](https://github.com/softlayer/sl-ember-behavior/blob/develop/addon/mixins/route.js) extends beforeModel().  If a user is allowed access to the specified route then Ember is allowed to transition to the route as usual.  If the user is not allowed access to the route one of two things then happen, though they both represent the idea that the user is not allowed to transition to the route.
 
-The [Route Mixin](addon/mixins/route.js) also introduces the `unableRoute` property which defaults to `null`.  If this value remains `null` and a user attempts to transition to a route they have been restricted from then the route transition is aborted through the use of `transition.abort()`.  If however the `unableRoute` property has been populated with a valid route for your application, such as one explaining why they couldn't access the route they were attempting to, the user will instead be transitioned there.
+The [Route Mixin](https://github.com/softlayer/sl-ember-behavior/blob/develop/addon/mixins/route.js) also introduces the `unableRoute` property which defaults to `null`.  If this value remains `null` and a user attempts to transition to a route they have been restricted from then the route transition is aborted through the use of `transition.abort()`.  If however the `unableRoute` property has been populated with a valid route for your application, such as one explaining why they couldn't access the route they were attempting to, the user will instead be transitioned there.
 
 ```
 import Ember from 'ember';
@@ -296,12 +296,12 @@ Employs [Semantic Versioning 2.0.0](http://semver.org/)
 
 
 # Contribution
-[See CONTRIBUTING.md](CONTRIBUTING.md)
+[See CONTRIBUTING.md](https://github.com/softlayer/sl-ember-behavior/blob/develop/CONTRIBUTING.md)
 
 
 # Copyright and License
 sl-ember-behavior and its source files are Copyright © 2014-2015 [SoftLayer Technologies, Inc.](http://www.softlayer.com/)
-The software is [MIT Licensed](LICENSE.md)
+The software is [MIT Licensed](https://github.com/softlayer/sl-ember-behavior/blob/develop/LICENSE.md)
 
 
 # Warranty
