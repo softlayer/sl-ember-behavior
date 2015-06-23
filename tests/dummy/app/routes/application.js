@@ -31,6 +31,7 @@ export default Ember.Route.extend({
                 setDate() {
                     return true;
                 }
+                // setDate: true
             }
         });
     }
