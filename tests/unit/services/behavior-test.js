@@ -670,7 +670,7 @@ test( 'isAble() 2nd argument is an object - getBehaviorGroup() is called', funct
     );
 });
 
-test( 'isAble() 2nd argument is an object - getBehaviorGroup() value is compared to Behavior data to make determination', function( assert ) {
+test( 'isAble() 2nd argument is an object (a function) - getBehaviorGroup() value is compared to Behavior data to make determination', function( assert ) {
     BS.setBehaviors({
         device: {
             reboot: false
@@ -690,7 +690,7 @@ test( 'isAble() 2nd argument is an object - getBehaviorGroup() value is compared
     );
 });
 
-test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refines determination', function( assert ) {
+test( 'isAble() 2nd argument is an object (a function) and is allowed - "behaviors" hash refines determination', function( assert ) {
     BS.setBehaviors({
         device: {
             reboot: true
@@ -716,6 +716,52 @@ test( 'isAble() 2nd argument is an object and is allowed - "behaviors" hash refi
                 reboot: function() {
                     return true;
                 }
+            }
+        }),
+        '"behaviors" hash refined determination'
+    );
+});
+
+test( 'isAble() 2nd argument is an object (a boolean) - getBehaviorGroup() value is compared to Behavior data to make determination', function( assert ) {
+    BS.setBehaviors({
+        device: {
+            reboot: false
+        }
+    });
+
+    assert.ok(
+        !BS.isAble( 'reboot', {
+            behaviorGroup: 'device',
+            behaviors: {
+                reboot: true
+            }
+        }),
+        'getBehaviorGroup() value was compared to Behavior data'
+    );
+});
+
+test( 'isAble() 2nd argument is an object (a boolean) and is allowed - "behaviors" hash refines determination', function( assert ) {
+    BS.setBehaviors({
+        device: {
+            reboot: true
+        }
+    });
+
+    assert.ok(
+        !BS.isAble( 'reboot', {
+            behaviorGroup: 'device',
+            behaviors: {
+                reboot: false
+            }
+        }),
+        '"behaviors" hash refined determination'
+    );
+
+    assert.ok(
+        BS.isAble( 'reboot', {
+            behaviorGroup: 'device',
+            behaviors: {
+                reboot: true
             }
         }),
         '"behaviors" hash refined determination'

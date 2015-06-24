@@ -168,7 +168,8 @@ If it is a string it corresponds to the Behavior Group key name used in the Beha
     event: {
         cancel     : false,
         setDate    : true,
-        reschedule : false
+        reschedule : false,
+        editDate   : true
     }
 }
 
@@ -207,7 +208,7 @@ MyEventModel = Model.extend({
 });
 ```
 
-The second property that must be populated is `behaviors`, which is an object whose keys are the names of Behaviors and whose values must be a function.  For example, if being able to set a date for an event, in the example we've been using, involves more checks than just whether or not the user has permission to set a date you could do something like:
+The second property that must be populated is `behaviors`, which is an object whose keys are the names of Behaviors and whose values are either a function or a boolean.  In the case of a function, if being able to set a date for an event, in the example we've been using, involves more checks than just whether or not the user has permission to set a date you could do something like:
 
 ```
 MyEventModel = Model.extend({
@@ -229,6 +230,18 @@ MyEventModel = Model.extend({
 
 where the `provider` object in this example is a specific instance of an Event model.
 
+In the case of a boolean, the object would look like this:
+
+```
+MyEventModel = Model.extend({
+    behaviorGroup: 'event',
+
+    behaviors: {
+        editDate: true
+    }
+});
+```
+
 You can specify as many Behavior refinements as desired:
 
 ```
@@ -243,6 +256,8 @@ MyEventModel = Model.extend({
         reschedule() {
             ...
         },
+
+        editDate: true
     }
 });
 ```

@@ -6,7 +6,8 @@ export default Ember.Route.extend({
             'event': {
                 reschedule: false,
                 cancel: false,
-                setDate: true
+                setDate: true,
+                editDate: true
             },
 
             route: {}
@@ -30,7 +31,8 @@ export default Ember.Route.extend({
             behaviors: {
                 setDate() {
                     return true;
-                }
+                },
+                editDate: true
             }
         });
     }

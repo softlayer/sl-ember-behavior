@@ -119,8 +119,18 @@ export default Ember.Service.extend({
             behaviors[ behaviorGroup ] &&
             behaviors[ behaviorGroup ][ behavior ]
         ) {
-            isAble = providerIsObject ?
-                provider.behaviors[ behavior ]() : true;
+
+            if ( providerIsObject ) {
+                let type = Ember.typeOf( provider.behaviors[ behavior ] );
+
+                if ( 'function' === type ) {
+                    isAble = provider.behaviors[ behavior ]();
+                } else if ( 'boolean' === type ) {
+                    isAble = provider.behaviors[ behavior ];
+                }
+            } else {
+                isAble = true;
+            }
         }
 
         return isAble;
