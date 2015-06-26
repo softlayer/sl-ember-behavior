@@ -56,18 +56,6 @@ For more information on using ember-cli, visit [http://www.ember-cli.com/](http:
 ember install sl-ember-behavior
 ```
 
-## Create a service
-```
-ember g service behavior
-```
-
-Then, within this file:
-
-```
-import BehaviorService from 'sl-ember-behavior/services/behavior';
-
-export default BehaviorService;
-```
 
 ## Set behaviors on Behavior Service
 
@@ -76,10 +64,10 @@ Get a reference to the Behavior Service and pass your behaviors as the only argu
 In a route, for example:
 
 ```
-behavior: Ember.inject.service(),
+behaviorService: Ember.inject.service( 'sl-behavior' ),
 
 beforeModel() {
-    this.get( 'behavior' ).setBehaviors( yourBehaviorData );
+    this.get( 'behaviorService' ).setBehaviors( yourBehaviorData );
 }
 ```
 
@@ -297,11 +285,11 @@ The Behavior Service provides two methods, `isAble()` and `isUnable()` that are 
 The use of these methods and the Behavior Service in Controllers, Objects or other structures is very simple.
 
 ```
-behavior: Ember.inject.service(),
+behaviorService: Ember.inject.service( 'sl-behavior' ),
 
-if ( this.get( 'behavior' ).isAble( 'setData', 'event' ) ) { ... }
+if ( this.get( 'behaviorService' ).isAble( 'setData', 'event' ) ) { ... }
 
-if ( this.get( 'behavior' ).isUnable( 'setData', this.get( 'model' ) ) ) { ... }
+if ( this.get( 'behaviorService' ).isUnable( 'setData', this.get( 'model' ) ) ) { ... }
 ```
 
 

@@ -22,7 +22,7 @@ export default Ember.Route.extend({
         this.get( 'behaviorService' ).setBehaviors( behaviors );
     },
 
-    behaviorService: Ember.inject.service( 'behavior' ),
+    behaviorService: Ember.inject.service( 'sl-behavior' ),
 
     model() {
         return Ember.Object.create({
