@@ -10,6 +10,14 @@ module( 'Unit | Mixin | route', {
     }
 });
 
+test ( 'The correct service is being injected into the mixin', function( assert ) {
+    assert.equal(
+        Mixin.behaviorService['name'],
+        'sl-behavior',
+        'The correct service is being injected into the mixin'
+    );
+});
+
 // Though appears to be a duplicate of the module.setup() call this is an actual test,
 // whereas the other is configuration and might change in the future
 test( 'Successfully mixed', function( assert ) {

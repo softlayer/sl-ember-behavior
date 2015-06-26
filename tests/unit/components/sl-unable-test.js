@@ -13,6 +13,16 @@ moduleForComponent( 'sl-unable', 'Unit | Component | sl unable', {
     unit: true
 });
 
+test ( 'The correct service is being injected into the component', function( assert ) {
+    let component = this.subject();
+
+    assert.equal(
+        component.behaviorService['name'],
+        'sl-behavior',
+        'The correct service is being injected into the component'
+    );
+});
+
 /**
  * Ensures that the template is wrapping the content in a span tag and not in any block-level tags. While it appears
  * that core Ember functionality is being tested this test is ensuring that the implied contract about how this non-UI
