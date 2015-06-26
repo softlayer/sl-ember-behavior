@@ -33,7 +33,7 @@ export default Ember.Component.extend({
      *
      * @type {ember/Service}
      */
-    behaviorService: Ember.inject.service( 'behavior' ),
+    behaviorService: Ember.inject.service( 'sl-behavior' ),
 
     // -------------------------------------------------------------------------
     // Observers

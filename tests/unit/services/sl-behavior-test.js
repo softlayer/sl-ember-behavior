@@ -1,11 +1,10 @@
 import Ember from 'ember';
-/** In order for this import to work correctly the /tests/dummy/app/services/behavior.js file has to exist */
-import BehaviorService from 'sl-ember-behavior/services/behavior';
+import BehaviorService from 'sl-ember-behavior/services/sl-behavior';
 import { moduleFor, test } from 'ember-qunit';
 
 let BS;
 
-moduleFor( 'service:behavior', 'Unit | Service | behavior', {
+moduleFor( 'service:sl-behavior', 'Unit | Service | sl behavior', {
     unit: true,
 
     beforeEach() {
