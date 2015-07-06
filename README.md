@@ -41,10 +41,15 @@ You define all possible behaviors you wish to present as possibilities in your a
 ### Running
 
 * `ember server`
-* View the demo at http://localhost:4200
+* View the demo at *http://localhost:4200*
 
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
 
+
+### Documentation
+
+* `ember ember-cli-jsoc` or `npm run docs` (shortcut setup in this repo)
+* Visit *http://localhost:4200/docs*
 
 
 
