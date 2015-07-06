@@ -56,6 +56,7 @@
     "behaviors"
   ],
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "demoURL": "http://softlayer.github.io/sl-ember-behavior/"
   }
 }
