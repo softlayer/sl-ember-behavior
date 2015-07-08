@@ -8,7 +8,8 @@ var app = new EmberAddon();
 
 var tree = replace( app.toTree(), {
     files: [
-        'index.html'
+        'index.html',
+        'assets/dummy.js'
     ],
 
     patterns: [
@@ -19,7 +20,10 @@ var tree = replace( app.toTree(), {
             match: /REPLACE_META_KEYWORDS/g,
             replacement: packageConfig[ 'keywords' ].join( ', ' ) +
                 ', ember, ember cli'
-        }
+        }, {
+            match: /REPLACE_APPLICATION_VERSION/g,
+            replacement: packageConfig[ 'version' ]
+         }
     ]
 });
 
