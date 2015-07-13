@@ -4,6 +4,7 @@
 var EmberAddon = require( 'ember-cli/lib/broccoli/ember-addon' );
 var packageConfig = require( './package.json' );
 var replace = require( 'broccoli-string-replace' );
+var isProduction = ( process.env.EMBER_ENV || 'development' ) === 'production';
 var app = new EmberAddon();
 
 var tree = replace( app.toTree(), {
@@ -39,6 +40,12 @@ var tree = replace( app.toTree(), {
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
+
+if ( !isProduction ) {
+    app.import(app.bowerDirectory + '/sinonjs/sinon.js', {
+        type: 'test'
+    });
+}
 
 app.import( app.bowerDirectory + '/ember/ember-template-compiler.js', {
     type: 'test'

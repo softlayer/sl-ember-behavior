@@ -1,16 +1,21 @@
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 
-let behaviorService = Ember.Object.create({
-    isAble( behavior, provider ) {
-        this.set( 'behavior', behavior );
-        this.set( 'provider', provider );
-        return true;
-    }
-});
+let behaviorService;
 
 moduleForComponent( 'sl-able', 'Unit | Component | sl able', {
-    unit: true
+    unit: true,
+
+    beforeEach() {
+        behaviorService = Ember.Object.create({
+            behaviors: {
+                'aResource': {
+                    'anActivity': true
+                }
+            },
+            isAble: sinon.stub().returns( true )
+        });
+    }
 });
 
 test ( 'The correct service is being injected into the component', function( assert ) {
@@ -40,7 +45,7 @@ test( 'Renders as a span tag with no classes', function( assert ) {
     );
 });
 
-test( 'Renders content', function( assert ) {
+test( 'Renders content when isAble() returns true', function( assert ) {
     let component = this.subject({
         behaviorService: behaviorService,
         template: Ember.Handlebars.compile( 'I can do it' )
@@ -52,22 +57,111 @@ test( 'Renders content', function( assert ) {
     );
 });
 
+test( 'Does not render content when isAble() returns false', function( assert ) {
+    behaviorService.isAble = sinon.stub().returns( false );
+
+    let component = this.subject({
+        behaviorService: behaviorService,
+        template: Ember.Handlebars.compile( 'I can do it' )
+    });
+
+    assert.equal(
+        Ember.$.trim( this.$().text() ),
+        ''
+    );
+});
+
 test( 'isAble() calls isAble() on the behavior service', function( assert ) {
     let component = this.subject({
         behaviorService: behaviorService,
-        behavior: 'the_behavior',
-        provider: 'the_provider'
+        activity: 'anActivity',
+        resource: 'aResource',
+        possible: true
     });
 
     this.render();
 
-    assert.equal(
-        behaviorService.get( 'behavior' ),
-        'the_behavior'
+    assert.ok(
+        behaviorService.isAble.withArgs( 'anActivity', 'aResource', true ).calledOnce,
+        'isAble() was called with the correct params'
+    );
+});
+
+test( 'Accepts a function as the third parameter', function( assert ) {
+    let component = this.subject({
+        behaviorService: behaviorService,
+        activity: 'anActivity',
+        resource: 'aResource',
+        possible: function() {
+            return false;
+        }
+    });
+
+    this.render();
+
+    assert.ok(
+        behaviorService.isAble.withArgs( 'anActivity', 'aResource', false ).calledOnce,
+        'isAble() was called with the correct params'
+    );
+});
+
+test( 'Assert is thrown when `possible` is a function not returning a Boolean', function( assert ) {
+    let component = this.subject({
+        behaviorService: behaviorService,
+        activity: 'anActivity',
+        resource: 'aResource',
+        possible: () => 'not a boolean'
+    });
+
+    assert.throws(
+        this.render,
+        'Assert is thrown'
+    );
+});
+
+test( 'Is responsive to changes in the behavior data on the service', function( assert ) {
+    let component = this.subject({
+        behaviorService: behaviorService,
+        activity: 'anActivity',
+        resource: 'aResource'
+    });
+
+    this.render();
+
+    Ember.run( () => {
+        behaviorService.set( 'behaviors', {
+            'aResource': {
+                'anActivity': false
+            }
+        });
+    });
+
+    assert.ok(
+        behaviorService.isAble.withArgs( 'anActivity', 'aResource', true ).calledTwice,
+        'isAble() is called twice'
+    );
+});
+
+test( 'Is responsive to changes to the `possible` parameter', function( assert ) {
+    let component = this.subject({
+        behaviorService: behaviorService,
+        activity: 'anActivity',
+        resource: 'aResource'
+    });
+
+    this.render();
+
+    assert.ok(
+        behaviorService.isAble.withArgs( 'anActivity', 'aResource', true ).calledOnce,
+        'isAble() is called with `true` as a third param'
     );
 
-    assert.equal(
-        behaviorService.get( 'provider' ),
-        'the_provider'
+    Ember.run( function() {
+        component.set( 'possible', false );
+    });
+
+    assert.ok(
+        behaviorService.isAble.withArgs( 'anActivity', 'aResource', false ).calledOnce,
+        'isAble() is called with `false` as a third param'
     );
 });

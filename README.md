@@ -20,7 +20,7 @@ Want to restrict access to routes?  It is very easy to use only the permission c
 
 # Theory of Operation
 
-You define all possible behaviors you wish to present as possibilities in your application.  Setting their values to either true or false represents whether the user has the permission to perform this behavior.  You can define additional logic that should be executed to further refine whether the behavior can be executed once it has been determined that the user has permission to do so.  This additional logic can be contained in any object you desire, such as your models.
+You define all possible behaviors you wish to present as possibilities in your application.  Setting their values to either true or false represents whether the user has the permission to perform this behavior.  You can define additional logic that should be executed to further refine whether the activity can be performed on a resource once it has been determined that the user has permission to do so.  This additional logic can be contained in any object you desire, such as your models.
 
 
 
@@ -113,16 +113,16 @@ The structure of your behavior data should be as follows:
 
 ### Structure breakout
 
-In this example, the `comments`, `articles`, and `routes` keys represent what is referred to internally to the Behavior Service as "Behavior Groups".  Within these groups are the individual "Behaviors" that, in this structure, represent whether a user has permission to perform the listed behavior.  These same behavior key names can be used in other code, as discussed in the "Components" section, to further refine the desired behavior beyond just whether or not a user has permission.
+In this example, the `comments`, `articles`, and `routes` keys represent what is referred to internally to the Behavior Service as "Resources".  Within these groups are the individual "Activities" that, in this structure, represent whether a user has permission to perform the listed action.
 
-**NOTE:** *Except for the `route` key name it DOES NOT matter what you name the keys (either Behavior Groups or Behaviors) as they represent whatever CONCEPTS you want them to relate to in your application.*
+**NOTE:** *Except for the `route` key name it DOES NOT matter what you name the keys (Resources) as they represent whatever CONCEPTS you want them to relate to in your application.*
 
-**NOTE:** *Except for the `route` key name it DOES NOT matter what case you use for the keys (either Behavior Groups or Behaviors) though you will need to use the same case when referencing them in use of the Components or in Controllers.*
+**NOTE:** *Except for the `route` key name it DOES NOT matter what case you use for the keys (Resources) though you will need to use the same case when referencing them in use of the Components or in Controllers.*
 
 
 #### Restricting routes
 
-The `route` key (Behavior Group) entries are only needed if you want to restrict access to routes.  If you are going to restrict route access we recommend using code such as
+The `route` key (Resource) entries are only needed if you want to restrict access to routes.  If you are going to restrict route access we recommend using code such as
 
 ```
 Ember.keys( this.get( 'router.router.recognizer.names' ) ).forEach( function( route ) { ... });
@@ -140,21 +140,19 @@ from within the `ApplicationRoute` in order to correctly capture all of the rout
 The `sl-able` component is a block form component that is used to determine whether its content should be rendered.
 
 ```
-{{#sl-able behavior="setDate" provider="event"}}
+{{#sl-able activity="setDate" resource="event"}}
     This will be displayed.
     So will the {{sl-calendar}} component
 {{/sl-able}}
 ```
 
-#### `behavior` parameter
+#### `activity` parameter
 
-This parameter must be a string.  It corresponds to the Behavior key name used in the Behaviors structure previously explained.
+This parameter must be a string.  It corresponds to the Activity key name used in the Behaviors structure previously explained.
 
-#### `provider` parameter
+#### `resource` parameter
 
-This parameter must be either a string or an object.
-
-If it is a string it corresponds to the Behavior Group key name used in the Behaviors structure previously explained and represents a permission-only use of the data to make a determination.  For example, given these Behaviors and their usage:
+This parameter must a string. It corresponds to the Resource key name used in the Behaviors structure previously explained and represents a permission-only use of the data to make a determination.  For example, given these Behaviors and their usage:
 
 ```
 {
@@ -166,25 +164,25 @@ If it is a string it corresponds to the Behavior Group key name used in the Beha
     }
 }
 
-{{#sl-able behavior="setDate" provider="event"}}
+{{#sl-able activity="setDate" resource="event"}}
     This will be displayed.
     So will the {{sl-calendar}} component
 {{/sl-able}}
 ```
 
-the `provider` and `behavior` values are compared to the related keys to return their associatively combined boolean value, which in this example is `true`.
+the `resource` and `activity` values are compared to the related keys to return their associatively combined boolean value, which in this example is `true`.
 
-If the `provider` parameter is an object then additional logic will be employed beyond the initial permission check to determine whether the user is allowed to perform the provided behavior.
+#### `possible` parameter
 
-As already alluded to, but which will now be stated explicitly, in order for additional logic to considered in the determination of allowable behaviors, the user first must have permission for the behavior in question.  This means that the Behavior must be set to `true`, otherwise even if additional logic is defined it will never be considered because the user doesn't first and foremost have the correct permission.
+If the optional `possible` parameter is provided, its value will be applied as additional logic beyond the initial permission check to determine whether the user is allowed to perform the provided behavior.
 
-It is the responsibility of the `provider` object to populate certain properties on itself in order to be compatible with the Behavior Service.
+As already alluded to, but which will now be stated explicitly, in order for additional logic to considered in the determination of allowable behaviors, the user first must have permission for the behavior in question.  This means that the Activity must be set to `true` for the Resource, otherwise even if additional logic is defined it will never be considered because the user doesn't first and foremost have the correct permission.
 
-The first property that must be populated is `behaviorGroup` (case-sensitive).  It can be either a string or a function, but if it is a function it must return a string.
+The `possible` parameter accepts a boolean value a boolean computed property, or a function that returns a boolean value:
 
 ```
 MyEventModel = Model.extend({
-    behaviorGroup: 'event'
+    canCancel: false
 });
 ```
 
@@ -192,68 +190,30 @@ or
 
 ```
 MyEventModel = Model.extend({
-    behaviorGroup: Ember.computed(
-        'event',
-        function() {
-            return this.get( 'event' );
-        }
-    )
+    canCancel: Ember.computed( function () {
+        return false;
+    })
 });
 ```
 
-The second property that must be populated is `behaviors`, which is an object whose keys are the names of Behaviors and whose values are either a function or a boolean.  In the case of a function, if being able to set a date for an event, in the example we've been using, involves more checks than just whether or not the user has permission to set a date you could do something like:
+or
 
 ```
 MyEventModel = Model.extend({
-    behaviorGroup: 'event',
-
-    behaviors: {
-        setDate() {
-            let canSetDate = false;
-
-            if ( this.get( 'venueHasBeenSelected' ) && this.get( 'hasDepositBeenPlaced' ) ) {
-                canSetDate = true;
-            }
-
-            return canSetDate;
-        }
+    canCancel: function () {
+        return false;
     }
 });
 ```
-
-where the `provider` object in this example is a specific instance of an Event model.
-
-In the case of a boolean, the object would look like this:
+Any of the above could be used with the following template code when `eventModel` is an instance of `MyEventModel`:
 
 ```
-MyEventModel = Model.extend({
-    behaviorGroup: 'event',
-
-    behaviors: {
-        editDate: true
-    }
-});
+{{#sl-able activity="setDate" resource="event" possible=eventModel.canCancel }}
+    This will NOT be displayed.
+{{/sl-able}}
 ```
 
-You can specify as many Behavior refinements as desired:
-
-```
-MyEventModel = Model.extend({
-    behaviorGroup: 'event',
-
-    behaviors: {
-        setDate() {
-            ...
-        },
-
-        reschedule() {
-            ...
-        },
-
-        editDate: true
-    }
-});
-```
+It should be noted that when a function is used as the `possible` parameter, as in the third example above, its return value will not be observed by the sl-able component or the Behavior service. If the block content's visibility needs to be reactive to the value of `possible`, a boolean or computed property should be used as in one of the prior two examples.
 
 
 ### sl-unable
@@ -283,7 +243,7 @@ export default Ember.Route.extend( Behavior, {
 
 ## Direct usage of the Behavior Service
 
-Make sure you have read the "Components" section to understand what the `behavior` and `provider` parameters represent and how they are used.
+Make sure you have read the "Components" section to understand what the `activity`, `resource`, and `possible` parameters represent and how they are used.
 
 The Behavior Service provides two methods, `isAble()` and `isUnable()` that are the methods behind the Component logic.
 
@@ -294,7 +254,7 @@ behaviorService: Ember.inject.service( 'sl-behavior' ),
 
 if ( this.get( 'behaviorService' ).isAble( 'setData', 'event' ) ) { ... }
 
-if ( this.get( 'behaviorService' ).isUnable( 'setData', this.get( 'model' ) ) ) { ... }
+if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event', true ) ) { ... }
 ```
 
 
