@@ -42,7 +42,7 @@ var tree = replace( app.toTree(), {
 // along with the exports of each module as its value.
 
 if ( !isProduction ) {
-    app.import(app.bowerDirectory + '/sinonjs/sinon.js', {
+    app.import( app.bowerDirectory + '/sinonjs/sinon.js', {
         type: 'test'
     });
 }

@@ -6,7 +6,7 @@ module( 'Unit | Utility | resolve value' );
 test( 'Returns the passed value if the value is not a function', function( assert ) {
     let result = resolveValue( true );
 
-    assert.equal(
+    assert.strictEqual(
         result,
         true,
         'resolveValue is a Boolean'
@@ -14,7 +14,7 @@ test( 'Returns the passed value if the value is not a function', function( asser
 
     result = resolveValue( 'arbitrary string' );
 
-    assert.equal(
+    assert.strictEqual(
         result,
         'arbitrary string',
         'resolveValue is a String'
@@ -22,7 +22,7 @@ test( 'Returns the passed value if the value is not a function', function( asser
 
     result = resolveValue( 123 );
 
-    assert.equal(
+    assert.strictEqual(
         result,
         123,
         'resolveValue is a Number'
@@ -43,12 +43,37 @@ test( 'Returns the passed value if the value is not a function', function( asser
         {},
         'resolveValue is an Object'
     );
+
+    let aSymbol = Symbol();
+    result = resolveValue( aSymbol );
+
+    assert.strictEqual(
+        result,
+        aSymbol,
+        'resolveValue is a Symbol'
+    );
+
+    result = resolveValue( null );
+
+    assert.strictEqual(
+        result,
+        null,
+        'resolveValue is null'
+    );
+
+    result = resolveValue();
+
+    assert.strictEqual(
+        result,
+        undefined,
+        'resolveValue is undefined'
+    );
 });
 
-test( 'Returns the return value of the function if value is a function', function(assert) {
+test( 'Returns the return value of the function if value is a function', function( assert ) {
     let result = resolveValue( () => 'a return value' );
 
-    assert.equal(
+    assert.strictEqual(
         result,
         'a return value',
         'resolveValue is a Function'

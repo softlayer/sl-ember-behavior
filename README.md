@@ -117,7 +117,7 @@ In this example, the `comments`, `articles`, and `routes` keys represent what is
 
 **NOTE:** *Except for the `route` key name it DOES NOT matter what you name the keys (Resources) as they represent whatever CONCEPTS you want them to relate to in your application.*
 
-**NOTE:** *Except for the `route` key name it DOES NOT matter what case you use for the keys (Resources) though you will need to use the same case when referencing them in use of the Components or in Controllers.*
+**NOTE:** *Except for the `route` key name it DOES NOT matter what case you use for the keys (Resources) though you will need to use the same case when referencing them.*
 
 
 #### Restricting routes
@@ -178,7 +178,7 @@ If the optional `possible` parameter is provided, its value will be applied as a
 
 As already alluded to, but which will now be stated explicitly, in order for additional logic to considered in the determination of allowable behaviors, the user first must have permission for the behavior in question.  This means that the Activity must be set to `true` for the Resource, otherwise even if additional logic is defined it will never be considered because the user doesn't first and foremost have the correct permission.
 
-The `possible` parameter accepts a boolean value a boolean computed property, or a function that returns a boolean value:
+The `possible` parameter accepts a boolean value, a boolean computed property, or a function that returns a boolean value:
 
 ```
 MyEventModel = Model.extend({
@@ -190,9 +190,11 @@ or
 
 ```
 MyEventModel = Model.extend({
-    canCancel: Ember.computed( function () {
-        return false;
-    })
+    canCancel: Ember.computed( 'anotherProperty', function() {
+        return this.get( 'another' );
+    }),
+
+    anotherProperty: false
 });
 ```
 
@@ -200,7 +202,7 @@ or
 
 ```
 MyEventModel = Model.extend({
-    canCancel: function () {
+    canCancel: function() {
         return false;
     }
 });
@@ -245,18 +247,89 @@ export default Ember.Route.extend( Behavior, {
 
 Make sure you have read the "Components" section to understand what the `activity`, `resource`, and `possible` parameters represent and how they are used.
 
-The Behavior Service provides two methods, `isAble()` and `isUnable()` that are the methods behind the Component logic.
-
-The use of these methods and the Behavior Service in Controllers, Objects or other structures is very simple.
+To use the Behavior Service, simply inject it into a property in the class in which you will use it.
 
 ```
 behaviorService: Ember.inject.service( 'sl-behavior' ),
-
-if ( this.get( 'behaviorService' ).isAble( 'setData', 'event' ) ) { ... }
-
-if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event', true ) ) { ... }
 ```
 
+The Behavior Service provides two methods, `isAble()` and `isUnable()` that are the methods behind the Component logic.
+
+### The isAble() Method
+#### `.isAble( activity, resource, [possible])`
+
+The simplest use of the `isAble()` method is shown in the first example. The remaining two examples show the use of `isAble()` with the optional possible parameter.
+
+Example 1
+
+```
+if ( this.get( 'behaviorService' ).isAble( 'setData', 'event' ) ) { ... }
+```
+
+Example 2: Boolean value in the `possible` parameter
+
+```
+let canSetEventData = false;
+
+if ( this.get( 'behaviorService' ).isAble( 'setData', 'event', canSetEventData ) ) { ... }
+```
+Example 3: Using a computed property's value in the `possible` parameter
+
+```
+canSetEventData: Ember.computed( 'isReady', function() {
+    return this.get( 'isReady' ) && !myEvent.get( 'readOnly' );
+}),
+
+isReady: false,
+
+...
+
+if (
+    this.get( 'behaviorService' ).isAble(
+        'setData',
+        'event',
+        this.get( 'canSetEventData' )
+    )
+) { ... }
+````
+
+### The isUnable() Method
+#### `.isUnable( activity, resource, [possible])`
+
+The `isUnable()` function takes the same parameters as `isAble()` and is used the same way:
+
+Example 1
+
+```
+if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event' ) ) { ... }
+```
+
+Example 2: Boolean value in the `possible` parameter
+
+```
+let canSetEventData = false;
+
+if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event', canSetEventData ) ) { ... }
+```
+Example 3: Using a computed property's value in the `possible` parameter
+
+```
+canSetEventData: Ember.computed( 'isReady', function() {
+    return this.get( 'isReady' ) && !myEvent.get( 'readOnly' );
+}),
+
+isReady: false,
+
+...
+
+if (
+    this.get( 'behaviorService' ).isUnable(
+        'setData',
+        'event',
+        this.get( 'canSetEventData' )
+    )
+) { ... }
+````
 
 
 # Versioning

@@ -47,25 +47,26 @@ export default Ember.Service.extend({
      */
     isAble( activity, resource, possible ) {
         Ember.assert(
-            'services/behavior.isAble() expects at least two parameters to be provided',
+            'services/sl-behavior.isAble() expects at least two parameters to be provided',
             activity && resource
         );
 
-        const behaviors = this.getWithDefault( 'behaviors', null );
+        const behaviors = this.get( 'behaviors' );
 
         Ember.assert(
-            'services/behavior.isAble() expects `activity` parameter to be a String',
+            'services/sl-behavior.isAble() expects `activity` parameter to be a String',
             'string' === Ember.typeOf( activity )
         );
 
         Ember.assert(
-            'services/behavior.isAble() expects `resource` parameter to be a String',
+            'services/sl-behavior.isAble() expects `resource` parameter to be a String',
             'string' === Ember.typeOf( resource )
         );
 
         Ember.assert(
-            'services/behavior.isAble() expects `possible` parameter to be a Boolean or undefined',
-            'boolean' === Ember.typeOf( possible ) || 'undefined' === Ember.typeOf( possible )
+            'services/sl-behavior.isAble() expects `possible` parameter to be a Boolean or undefined',
+            'boolean' === Ember.typeOf( possible ) ||
+            'undefined' === Ember.typeOf( possible )
         );
 
         if ( 'undefined' === Ember.typeOf( possible ) ) {
@@ -88,7 +89,7 @@ export default Ember.Service.extend({
     /**
      * Determine whether the desired activity is unable to be performed on the resource
      *
-     * See {@link module:addon/services/behavior~isAble} for description of functionality.  This method returns the
+     * See {@link module:addon/services/sl-behavior~isAble} for description of functionality.  This method returns the
      * inverse of its result.
      *
      * @function
@@ -114,7 +115,7 @@ export default Ember.Service.extend({
         const behaviorTypeCheck = 'instance' === behaviorType || 'object' === behaviorType;
 
         Ember.assert(
-            'services/behavior.setBehaviors() expects "behaviors" parameter to be an Object',
+            'services/sl-behavior.setBehaviors() expects "behaviors" parameter to be an Object',
             behaviorTypeCheck
         );
 

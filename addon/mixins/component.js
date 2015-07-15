@@ -59,6 +59,7 @@ export default Ember.Mixin.create({
      *
      * @function
      * @abstract
+     * @throws {ember.assert} If this function has not been implemented on the derived class
      * @returns {Boolean} true if the content is viewable, otherwise false
      */
     isViewable() {
@@ -71,7 +72,7 @@ export default Ember.Mixin.create({
      * Determines whether or not to show the content in the template
      *
      * @function
-     * @throws {ember.assert} If the `possible` property is not a Boolean or afunction that evaluates to a Boolean
+     * @throws {ember.assert} If the `possible` property is not a Boolean or a function that evaluates to a Boolean
      * @returns {Boolean}
      */
     showContent: Ember.computed(
@@ -82,7 +83,7 @@ export default Ember.Mixin.create({
 
             Ember.assert(
                 'Expects `possible` property to be a Boolean or a function that evaluates to a Boolean',
-                typeof possible === 'boolean'
+                Ember.typeOf( possible ) === 'boolean'
             );
 
             return this.isViewable(
