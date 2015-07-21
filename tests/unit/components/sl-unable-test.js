@@ -13,16 +13,6 @@ moduleForComponent( 'sl-unable', 'Unit | Component | sl unable', {
     }
 });
 
-test ( 'The correct service is being injected into the component', function( assert ) {
-    let component = this.subject();
-
-    assert.equal(
-        component.behaviorService['name'],
-        'sl-behavior',
-        'The correct service is being injected into the component'
-    );
-});
-
 /**
  * Ensures that the template is wrapping the content in a span tag and not in any block-level tags. While it appears
  * that core Ember functionality is being tested this test is ensuring that the implied contract about how this non-UI
@@ -82,36 +72,6 @@ test( 'isUnable() calls isUnable() on the behavior service', function( assert ) 
     assert.ok(
         behaviorService.isUnable.withArgs( 'anActivity', 'aResource', true ).calledOnce,
         'isUnable() was called with the correct params'
-    );
-});
-
-test( 'Accepts a function as the third parameter', function( assert ) {
-    let component = this.subject({
-        behaviorService: behaviorService,
-        activity: 'anActivity',
-        resource: 'aResource',
-        possible: () => false
-    });
-
-    this.render();
-
-    assert.ok(
-        behaviorService.isUnable.withArgs( 'anActivity', 'aResource', false ).calledOnce,
-        'isAble() was called with the correct params'
-    );
-});
-
-test( 'Assert is thrown when `possible` is a function not returning a Boolean', function( assert ) {
-    let component = this.subject({
-        behaviorService: behaviorService,
-        activity: 'anActivity',
-        resource: 'aResource',
-        possible: () => 'not a boolean'
-    });
-
-    assert.throws(
-        this.render,
-        'Assert is thrown'
     );
 });
 

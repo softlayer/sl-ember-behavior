@@ -8,24 +8,9 @@ moduleForComponent( 'sl-able', 'Unit | Component | sl able', {
 
     beforeEach() {
         behaviorService = Ember.Object.create({
-            behaviors: {
-                'aResource': {
-                    'anActivity': true
-                }
-            },
             isAble: sinon.stub().returns( true )
         });
     }
-});
-
-test ( 'The correct service is being injected into the component', function( assert ) {
-    let component = this.subject();
-
-    assert.equal(
-        component.behaviorService['name'],
-        'sl-behavior',
-        'The correct service is being injected into the component'
-    );
 });
 
 /**
@@ -84,38 +69,6 @@ test( 'isAble() calls isAble() on the behavior service', function( assert ) {
     assert.ok(
         behaviorService.isAble.withArgs( 'anActivity', 'aResource', true ).calledOnce,
         'isAble() was called with the correct params'
-    );
-});
-
-test( 'Accepts a function as the third parameter', function( assert ) {
-    let component = this.subject({
-        behaviorService: behaviorService,
-        activity: 'anActivity',
-        resource: 'aResource',
-        possible: function() {
-            return false;
-        }
-    });
-
-    this.render();
-
-    assert.ok(
-        behaviorService.isAble.withArgs( 'anActivity', 'aResource', false ).calledOnce,
-        'isAble() was called with the correct params'
-    );
-});
-
-test( 'Assert is thrown when `possible` is a function not returning a Boolean', function( assert ) {
-    let component = this.subject({
-        behaviorService: behaviorService,
-        activity: 'anActivity',
-        resource: 'aResource',
-        possible: () => 'not a boolean'
-    });
-
-    assert.throws(
-        this.render,
-        'Assert is thrown'
     );
 });
 
