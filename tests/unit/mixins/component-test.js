@@ -90,11 +90,4 @@ test( 'Assert is thrown when `possible` is a function not returning a Boolean', 
         callShowContent,
         'possible is a number'
     );
-
-    subject.set( 'possible', () => Symbol() );
-
-    assert.throws(
-        callShowContent,
-        'possible is a symbol'
-    );
 });

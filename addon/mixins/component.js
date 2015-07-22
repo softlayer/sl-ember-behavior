@@ -62,10 +62,10 @@ export default Ember.Mixin.create({
      * @throws {ember.assert} If this function has not been implemented on the derived class
      * @returns {Boolean} true if the content is viewable, otherwise false
      */
-    isViewable() {
+    isViewable( activity, resource, possible ) {
         Ember.assert( 'The mixins/component.isViewable() method should be implemented on the derived class' );
 
-        return false;
+        return activity && resource && possible && false;
     },
 
     /**
