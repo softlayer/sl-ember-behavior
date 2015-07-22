@@ -44,15 +44,6 @@ test( 'Returns the passed value if the value is not a function', function( asser
         'resolveValue is an Object'
     );
 
-    let aSymbol = Symbol();
-    result = resolveValue( aSymbol );
-
-    assert.strictEqual(
-        result,
-        aSymbol,
-        'resolveValue is a Symbol'
-    );
-
     result = resolveValue( null );
 
     assert.strictEqual(
