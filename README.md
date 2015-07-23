@@ -152,7 +152,7 @@ This parameter must be a string.  It corresponds to the Activity key name used i
 
 #### `resource` parameter
 
-This parameter must a string. It corresponds to the Resource key name used in the Behaviors structure previously explained and represents a permission-only use of the data to make a determination.  For example, given these Behaviors and their usage:
+This parameter must be a string. It corresponds to the Resource key name used in the Behaviors structure previously explained and represents a permission-only use of the data to make a determination.  For example, given these Behaviors and their usage:
 
 ```
 {
