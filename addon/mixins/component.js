@@ -13,6 +13,13 @@ export default Ember.Mixin.create({
     // -------------------------------------------------------------------------
     // Dependencies
 
+    /**
+     * The behavior service used to check if a supplied behavior is allowed
+     *
+     * @type {ember/Service}
+     */
+    behaviorService: Ember.inject.service( 'sl-behavior' ),
+
     // -------------------------------------------------------------------------
     // Attributes
 
@@ -30,13 +37,6 @@ export default Ember.Mixin.create({
 
     // -------------------------------------------------------------------------
     // Properties
-
-    /**
-     * The behavior service used to check if a supplied behavior is allowed
-     *
-     * @type {ember/Service}
-     */
-    behaviorService: Ember.inject.service( 'sl-behavior' ),
 
     /**
      * Indicates whether an activity is allowed if the behaviors set on the service allow it

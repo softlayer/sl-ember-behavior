@@ -190,9 +190,12 @@ or
 
 ```
 MyEventModel = Model.extend({
-    canCancel: Ember.computed( 'anotherProperty', function() {
-        return this.get( 'another' );
-    }),
+    canCancel: Ember.computed(
+        'anotherProperty',
+        function() {
+            return this.get( 'another' );
+        }
+    ),
 
     anotherProperty: false
 });
@@ -202,7 +205,7 @@ or
 
 ```
 MyEventModel = Model.extend({
-    canCancel: function() {
+    canCancel() {
         return false;
     }
 });
@@ -256,7 +259,7 @@ behaviorService: Ember.inject.service( 'sl-behavior' ),
 The Behavior Service provides two methods, `isAble()` and `isUnable()` that are the methods behind the Component logic.
 
 ### The isAble() Method
-#### `.isAble( activity, resource, [possible])`
+#### `.isAble( activity, resource [, possible])`
 
 The simplest use of the `isAble()` method is shown in the first example. The remaining two examples show the use of `isAble()` with the optional possible parameter.
 
@@ -276,9 +279,12 @@ if ( this.get( 'behaviorService' ).isAble( 'setData', 'event', canSetEventData )
 Example 3: Using a computed property's value in the `possible` parameter
 
 ```
-canSetEventData: Ember.computed( 'isReady', function() {
-    return this.get( 'isReady' ) && !myEvent.get( 'readOnly' );
-}),
+canSetEventData: Ember.computed(
+    'isReady',
+    function() {
+        return this.get( 'isReady' ) && !myEvent.get( 'readOnly' );
+    }
+),
 
 isReady: false,
 
@@ -294,7 +300,7 @@ if (
 ````
 
 ### The isUnable() Method
-#### `.isUnable( activity, resource, [possible])`
+#### `.isUnable( activity, resource [, possible])`
 
 The `isUnable()` function takes the same parameters as `isAble()` and is used the same way:
 
@@ -314,9 +320,12 @@ if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event', canSetEventData
 Example 3: Using a computed property's value in the `possible` parameter
 
 ```
-canSetEventData: Ember.computed( 'isReady', function() {
-    return this.get( 'isReady' ) && !myEvent.get( 'readOnly' );
-}),
+canSetEventData: Ember.computed(
+    'isReady',
+    function() {
+        return this.get( 'isReady' ) && !myEvent.get( 'readOnly' );
+    }
+),
 
 isReady: false,
 

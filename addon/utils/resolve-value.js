@@ -1,3 +1,5 @@
+import Ember from 'ember';
+
 /**
  * @module
  */
@@ -13,7 +15,7 @@
 let resolveValue = function( unresolved ) {
     let resolved;
 
-    if ( typeof unresolved === 'function' ) {
+    if ( Ember.typeOf( unresolved ) === 'function' ) {
         resolved = unresolved();
     } else {
         resolved = unresolved;
