@@ -62,7 +62,7 @@ test( 'Returns the passed value if the value is not a function', function( asser
 });
 
 test( 'Returns the return value of the function if value is a function', function( assert ) {
-    let result = resolveValue( () => 'a return value' );
+    const result = resolveValue( () => 'a return value' );
 
     assert.strictEqual(
         result,

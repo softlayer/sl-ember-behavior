@@ -83,7 +83,7 @@ export default Ember.Mixin.create({
 
             Ember.assert(
                 'Expects `possible` property to be a Boolean or a function that evaluates to a Boolean',
-                Ember.typeOf( possible ) === 'boolean'
+                'boolean' === Ember.typeOf( possible )
             );
 
             return this.isViewable(
