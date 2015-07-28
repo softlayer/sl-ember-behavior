@@ -1,26 +1,16 @@
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 
-let behaviorService = Ember.Object.create({
-    isUnable( behavior, provider ) {
-        this.set( 'behavior', behavior );
-        this.set( 'provider', provider );
-        return false;
-    }
-});
+let behaviorService;
 
 moduleForComponent( 'sl-unable', 'Unit | Component | sl unable', {
-    unit: true
-});
+    unit: true,
 
-test ( 'The correct service is being injected into the component', function( assert ) {
-    let component = this.subject();
-
-    assert.equal(
-        component.behaviorService['name'],
-        'sl-behavior',
-        'The correct service is being injected into the component'
-    );
+    beforeEach() {
+        behaviorService = Ember.Object.create({
+            isUnable: sinon.stub().returns( false )
+        });
+    }
 });
 
 /**
@@ -39,7 +29,7 @@ test( 'Renders as a span tag with no classes', function( assert ) {
     );
 });
 
-test( 'Does not render content', function( assert ) {
+test( 'Does not render content when isUnable() returns false', function( assert ) {
     let component = this.subject({
         behaviorService: behaviorService,
         template: Ember.Handlebars.compile(
@@ -53,22 +43,81 @@ test( 'Does not render content', function( assert ) {
     );
 });
 
+test( 'Renders content when isUnable() returns true', function( assert ) {
+    behaviorService.isUnable = sinon.stub().returns( true );
+
+    let component = this.subject({
+        behaviorService: behaviorService,
+        template: Ember.Handlebars.compile(
+            'Should render'
+        )
+    });
+
+    assert.equal(
+        Ember.$.trim( this.$().text() ),
+        'Should render'
+    );
+});
+
 test( 'isUnable() calls isUnable() on the behavior service', function( assert ) {
     let component = this.subject({
         behaviorService: behaviorService,
-        behavior: 'the_behavior',
-        provider: 'the_provider'
+        activity: 'anActivity',
+        resource: 'aResource',
+        possible: true
     });
 
     this.render();
 
-    assert.equal(
-        behaviorService.get( 'behavior' ),
-        'the_behavior'
+    assert.ok(
+        behaviorService.isUnable.withArgs( 'anActivity', 'aResource', true ).calledOnce,
+        'isUnable() was called with the correct params'
+    );
+});
+
+test( 'Is responsive to changes in the behavior data on the service', function( assert ) {
+    let component = this.subject({
+        behaviorService: behaviorService,
+        activity: 'anActivity',
+        resource: 'aResource'
+    });
+
+    this.render();
+
+    Ember.run( () => {
+        behaviorService.set( 'behaviors', {
+            'aResource': {
+                'anActivity': false
+            }
+        });
+    });
+
+    assert.ok(
+        behaviorService.isUnable.withArgs( 'anActivity', 'aResource', true ).calledTwice,
+        'isUnable() is called twice'
+    );
+});
+
+test( 'Is responsive to changes to the `possible` parameter', function( assert ) {
+    let component = this.subject({
+        behaviorService: behaviorService,
+        activity: 'anActivity',
+        resource: 'aResource'
+    });
+
+    this.render();
+
+    assert.ok(
+        behaviorService.isUnable.withArgs( 'anActivity', 'aResource', true ).calledOnce,
+        'isUnable() is called with `true` as a third param'
     );
 
-    assert.equal(
-        behaviorService.get( 'provider' ),
-        'the_provider'
+    Ember.run( function() {
+        component.set( 'possible', false );
+    });
+
+    assert.ok(
+        behaviorService.isUnable.withArgs( 'anActivity', 'aResource', false ).calledOnce,
+        'isUnable() is called with `false` as a third param'
     );
 });
