@@ -32,4 +32,5 @@ install:
     - bower install
 
 script:
+    - ember ember-cli-jsdoc
     - ember try $EMBER_TRY_SCENARIO test
