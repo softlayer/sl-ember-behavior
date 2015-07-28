@@ -1,47 +1,47 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
-  var ENV = {
-    modulePrefix: 'dummy',
-    environment: environment,
-    baseURL: '/',
-    locationType: 'auto',
-    EmberENV: {
-      FEATURES: {
-        // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
-      }
-    },
+module.exports = function( environment ) {
+    const ENV = {
+        modulePrefix: 'dummy',
+        environment: environment,
+        baseURL: '/',
+        locationType: 'auto',
+        EmberENV: {
+            FEATURES: {
+                // Here you can enable experimental features on an ember canary build
+                // e.g. 'with-controller': true
+            }
+        },
 
-    APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
+        APP: {
+            // Here you can pass flags/options to your application instance
+            // when it is created
+        }
+    };
+
+    if ( 'development' === environment ) {
+        // ENV.APP.LOG_RESOLVER = true;
+        // ENV.APP.LOG_ACTIVE_GENERATION = true;
+        // ENV.APP.LOG_TRANSITIONS = true;
+        // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+        // ENV.APP.LOG_VIEW_LOOKUPS = true;
     }
-  };
 
-  if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
-  }
+    if ( 'test' === environment ) {
+        // Testem prefers this...
+        ENV.baseURL = '/';
+        ENV.locationType = 'none';
 
-  if (environment === 'test') {
-    // Testem prefers this...
-    ENV.baseURL = '/';
-    ENV.locationType = 'none';
+        // keep test console output quieter
+        ENV.APP.LOG_ACTIVE_GENERATION = false;
+        ENV.APP.LOG_VIEW_LOOKUPS = false;
 
-    // keep test console output quieter
-    ENV.APP.LOG_ACTIVE_GENERATION = false;
-    ENV.APP.LOG_VIEW_LOOKUPS = false;
+        ENV.APP.rootElement = '#ember-testing';
+    }
 
-    ENV.APP.rootElement = '#ember-testing';
-  }
+    // if ( 'production' === environment ) {
 
-  if (environment === 'production') {
+    // }
 
-  }
-
-  return ENV;
+    return ENV;
 };
