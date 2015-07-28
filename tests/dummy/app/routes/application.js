@@ -3,12 +3,13 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
     beforeModel() {
-        let behaviors = this.get( 'behaviors' );
+        const superReference = Ember.get( this, '_super' );
+        superReference( ...arguments );
 
-        this._super.apply( this, arguments );
+        const behaviors = this.get( 'behaviors' );
 
         Ember.keys( this.get( 'router.router.recognizer.names' ) ).forEach( ( route ) => {
-            behaviors[ 'route' ][ route ] = true;
+            behaviors.route[ route ] = true;
         });
 
         this.get( 'behaviorService' ).setBehaviors( behaviors );

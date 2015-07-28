@@ -8,7 +8,7 @@ moduleForComponent( 'sl-able', 'Unit | Component | sl able', {
 
     beforeEach() {
         behaviorService = Ember.Object.create({
-            isAble: sinon.stub().returns( true )
+            isAble: window.sinon.stub().returns( true )
         });
     }
 });
@@ -20,7 +20,7 @@ moduleForComponent( 'sl-able', 'Unit | Component | sl able', {
  * component is rendered into the DOM is adhered to.
  */
 test( 'Renders as a span tag with no classes', function( assert ) {
-    let component = this.subject({
+    this.subject({
         behaviorService: behaviorService
     });
 
@@ -31,7 +31,7 @@ test( 'Renders as a span tag with no classes', function( assert ) {
 });
 
 test( 'Renders content when isAble() returns true', function( assert ) {
-    let component = this.subject({
+    this.subject({
         behaviorService: behaviorService,
         template: Ember.Handlebars.compile( 'I can do it' )
     });
@@ -43,9 +43,9 @@ test( 'Renders content when isAble() returns true', function( assert ) {
 });
 
 test( 'Does not render content when isAble() returns false', function( assert ) {
-    behaviorService.isAble = sinon.stub().returns( false );
+    behaviorService.isAble = window.sinon.stub().returns( false );
 
-    let component = this.subject({
+    this.subject({
         behaviorService: behaviorService,
         template: Ember.Handlebars.compile( 'I can do it' )
     });
@@ -57,7 +57,7 @@ test( 'Does not render content when isAble() returns false', function( assert ) 
 });
 
 test( 'isAble() calls isAble() on the behavior service', function( assert ) {
-    let component = this.subject({
+    this.subject({
         behaviorService: behaviorService,
         activity: 'anActivity',
         resource: 'aResource',
@@ -73,7 +73,7 @@ test( 'isAble() calls isAble() on the behavior service', function( assert ) {
 });
 
 test( 'Is responsive to changes in the behavior data on the service', function( assert ) {
-    let component = this.subject({
+    this.subject({
         behaviorService: behaviorService,
         activity: 'anActivity',
         resource: 'aResource'
@@ -96,7 +96,7 @@ test( 'Is responsive to changes in the behavior data on the service', function( 
 });
 
 test( 'Is responsive to changes to the `possible` parameter', function( assert ) {
-    let component = this.subject({
+    const component = this.subject({
         behaviorService: behaviorService,
         activity: 'anActivity',
         resource: 'aResource'

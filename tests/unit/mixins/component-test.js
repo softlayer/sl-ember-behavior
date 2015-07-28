@@ -15,17 +15,17 @@ module( 'Unit | Mixin | component', {
 });
 
 test( 'The correct service is being injected into the component', function( assert ) {
-    let subject = AugmentedObject.create();
+    const subject = AugmentedObject.create();
 
     assert.equal(
-        subject.behaviorService['name'],
+        subject.behaviorService.name,
         'sl-behavior',
         'The correct service is being injected into the component'
     );
 });
 
 test( 'Assert is thrown when isViewable() is not implemented on the derived class', function( assert ) {
-    let subject = AugmentedObject.create();
+    const subject = AugmentedObject.create();
 
     assert.throws(
         subject.isViewable,
@@ -34,9 +34,9 @@ test( 'Assert is thrown when isViewable() is not implemented on the derived clas
 });
 
 test( 'Accepts a function as the `possible` parameter', function( assert ) {
-    let isViewable = sinon.spy();
+    const isViewable = window.sinon.spy();
 
-    let subject = AugmentedObject.create({
+    const subject = AugmentedObject.create({
         behaviorService: behaviorService,
         isViewable: isViewable,
         activity: 'anActivity',
@@ -53,7 +53,7 @@ test( 'Accepts a function as the `possible` parameter', function( assert ) {
 });
 
 test( 'Assert is thrown when `possible` is a function not returning a Boolean', function( assert ) {
-    let subject = AugmentedObject.create({
+    const subject = AugmentedObject.create({
         behaviorService: behaviorService,
         activity: 'anActivity',
         resource: 'aResource'

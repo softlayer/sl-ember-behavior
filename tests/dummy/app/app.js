@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Resolver from 'ember/resolver';
 import config from './config/environment';
 
-var App;
+let App;
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
