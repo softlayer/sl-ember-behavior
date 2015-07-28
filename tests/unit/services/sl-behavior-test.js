@@ -535,11 +535,7 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
     };
 
     try {
-<<<<<<< HEAD
         BS.isAble( 'notUnderTest', 'notUnderTest', {} );
-=======
-        BS.isAble( 'notUnderTest', {} );
->>>>>>> upstream/master
     } catch( error ) {
         assertionThrown = true;
     }
