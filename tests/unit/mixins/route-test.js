@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import mixinUnderTest from 'sl-ember-behavior/mixins/route';
+import { module, test } from 'qunit';
 
 let Mixin;
 
@@ -10,9 +11,9 @@ module( 'Unit | Mixin | route', {
     }
 });
 
-test ( 'The correct service is being injected into the mixin', function( assert ) {
+test( 'The correct service is being injected into the mixin', function( assert ) {
     assert.equal(
-        Mixin.behaviorService['name'],
+        Mixin.behaviorService.name,
         'sl-behavior',
         'The correct service is being injected into the mixin'
     );
@@ -21,8 +22,8 @@ test ( 'The correct service is being injected into the mixin', function( assert 
 // Though appears to be a duplicate of the module.setup() call this is an actual test,
 // whereas the other is configuration and might change in the future
 test( 'Successfully mixed', function( assert ) {
-    let testObject = Ember.Route.extend( mixinUnderTest );
-    let subject = testObject.create();
+    const testObject = Ember.Route.extend( mixinUnderTest );
+    const subject = testObject.create();
 
     assert.ok(
         subject
@@ -37,14 +38,14 @@ test( '"unableRoute" property defaults to null', function( assert ) {
 });
 
 test( 'Call to isUnable() uses transition.targetName as first argument value', function( assert ) {
-    let testStringValue = 'test value';
+    const testStringValue = 'test value';
 
-    let transition = {};
+    const transition = {};
     transition.targetName = testStringValue;
 
     let parameterValuePassed;
     Mixin.behaviorService = {
-        isUnable( value1, value2 ) {
+        isUnable( value1 ) {
             parameterValuePassed = value1;
         }
     };
@@ -58,7 +59,7 @@ test( 'Call to isUnable() uses transition.targetName as first argument value', f
 });
 
 test( 'Call to isUnable() uses "route" as second argument value', function( assert ) {
-    let transition = {};
+    const transition = {};
     transition.targetName = 'test';
 
     let hardCodedValue;
@@ -77,7 +78,7 @@ test( 'Call to isUnable() uses "route" as second argument value', function( asse
 });
 
 test( 'If isUnable() and "unableRoute" is null, transition.abort() is called', function( assert ) {
-    let transition  = {};
+    const transition = {};
     transition.targetName = 'test';
 
     let iWasCalled = false;
@@ -86,7 +87,7 @@ test( 'If isUnable() and "unableRoute" is null, transition.abort() is called', f
     };
 
     Mixin.behaviorService = {
-        isUnable: function( value1, value2 ) {
+        isUnable: function() {
             return true;
         }
     };
@@ -99,49 +100,52 @@ test( 'If isUnable() and "unableRoute" is null, transition.abort() is called', f
     );
 });
 
-test( 'If isUnable() and "unableRoute" is not null, transitionTo() is called with "unableRoute" value', function( assert ) {
-    Mixin.unableRoute = 'notEmpty';
+test(
+    'If isUnable() and "unableRoute" is not null, transitionTo() is called with "unableRoute" value',
+    function( assert ) {
+        Mixin.unableRoute = 'notEmpty';
 
-    let transition  = {};
-    transition.targetName = 'test';
+        const transition = {};
+        transition.targetName = 'test';
 
-    let routeToTransitionTo;
-    Mixin.transitionTo = function( value ) {
-        routeToTransitionTo = value;
-    };
+        let routeToTransitionTo;
+        Mixin.transitionTo = function( value ) {
+            routeToTransitionTo = value;
+        };
 
-    Mixin.behaviorService = {
-        isUnable: function( value1, value2 ) {
-            return true;
-        }
-    };
+        Mixin.behaviorService = {
+            isUnable: function() {
+                return true;
+            }
+        };
 
-    Mixin.beforeModel( transition );
+        Mixin.beforeModel( transition );
 
-    assert.ok(
-        routeToTransitionTo,
-        'notEmpty'
-    );
-});
+        assert.ok(
+            routeToTransitionTo,
+            'notEmpty'
+        );
+    }
+);
 
 test( 'If not isUnable() then beforeModel() introduces no varying code path', function( assert ) {
     Mixin.unableRoute = 'notEmpty';
 
-    let transition = {};
+    const transition = {};
     transition.targetName = 'test';
 
     let abortWasCalled = false;
-    transition.abort   = function() {
+    transition.abort = function() {
         abortWasCalled = true;
     };
 
     let transitionWasCalled = false;
-    Mixin.transitionTo = function( value ) {
+    Mixin.transitionTo = function() {
         transitionWasCalled = true;
     };
 
     Mixin.behaviorService = {
-        isUnable: function( value1, value2 ) {
+        isUnable: function() {
             return false;
         }
     };

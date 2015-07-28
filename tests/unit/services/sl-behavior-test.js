@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import BehaviorService from 'sl-ember-behavior/services/sl-behavior';
 import { moduleFor, test } from 'ember-qunit';
 
@@ -101,7 +100,7 @@ test( 'setBehaviors() requires an Object to be provided', function( assert ) {
     assertionThrown = false;
 
     try {
-        BS.getBehaviorGroup( function(){} );
+        BS.getBehaviorGroup( function() {} );
     } catch( error ) {
         assertionThrown = true;
     }
@@ -143,7 +142,7 @@ test( 'setBehaviors() requires an Object to be provided', function( assert ) {
 });
 
 test( 'setBehaviors() sets data on the behaviors property', function( assert ) {
-    let testBehaviors = {
+    const testBehaviors = {
         'the_key': 'my value'
     };
 
@@ -299,7 +298,7 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
     assertionThrown = false;
 
     try {
-        BS.getBehaviorGroup( function(){} );
+        BS.getBehaviorGroup( function() {} );
     } catch( error ) {
         assertionThrown = true;
     }
@@ -406,7 +405,7 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
     assertionThrown = false;
 
     try {
-        BS.getBehaviorGroup( function(){} );
+        BS.getBehaviorGroup( function() {} );
     } catch( error ) {
         assertionThrown = true;
     }
@@ -502,7 +501,7 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
     assertionThrown = false;
 
     try {
-        BS.isAble( 'notUnderTest', 'notUnderTest', function(){} );
+        BS.isAble( 'notUnderTest', 'notUnderTest', function() {} );
     } catch( error ) {
         assertionThrown = true;
     }
@@ -536,7 +535,11 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
     };
 
     try {
+<<<<<<< HEAD
         BS.isAble( 'notUnderTest', 'notUnderTest', {} );
+=======
+        BS.isAble( 'notUnderTest', {} );
+>>>>>>> upstream/master
     } catch( error ) {
         assertionThrown = true;
     }
@@ -566,39 +569,42 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
     );
 });
 
-test( 'isAble() 3rd parameter is provided - value is used in addition to Behavior data to make a determination', function( assert ) {
-    BS.setBehaviors({
-        device: {
-            reboot: true
-        }
-    });
+test(
+    'isAble() 3rd parameter is provided - value is used in addition to Behavior data to make a determination',
+    function( assert ) {
+        BS.setBehaviors({
+            device: {
+                reboot: true
+            }
+        });
 
-    assert.ok(
-        !BS.isAble( 'reboot', 'device', false ),
-        'Was not able'
-    );
+        assert.ok(
+            !BS.isAble( 'reboot', 'device', false ),
+            'Was not able'
+        );
 
-    assert.ok(
-        BS.isAble( 'reboot', 'device', true ),
-        'Was able'
-    );
+        assert.ok(
+            BS.isAble( 'reboot', 'device', true ),
+            'Was able'
+        );
 
-    BS.setBehaviors({
-        device: {
-            reboot: false
-        }
-    });
+        BS.setBehaviors({
+            device: {
+                reboot: false
+            }
+        });
 
-    assert.ok(
-        !BS.isAble( 'reboot', 'device', true ),
-        'Was not able'
-    );
+        assert.ok(
+            !BS.isAble( 'reboot', 'device', true ),
+            'Was not able'
+        );
 
-    assert.ok(
-        !BS.isAble( 'reboot', 'device', false ),
-        'Was not able'
-    );
-});
+        assert.ok(
+            !BS.isAble( 'reboot', 'device', false ),
+            'Was not able'
+        );
+    }
+);
 
 test( 'isAble() returns false if no Behavior data has been set', function( assert ) {
     assert.ok(

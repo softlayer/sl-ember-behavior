@@ -12,10 +12,10 @@ import Ember from 'ember';
  * @param {*} unresolved
  * @returns {*}
  */
-let resolveValue = function( unresolved ) {
+const resolveValue = function( unresolved ) {
     let resolved;
 
-    if ( Ember.typeOf( unresolved ) === 'function' ) {
+    if ( 'function' === Ember.typeOf( unresolved ) ) {
         resolved = unresolved();
     } else {
         resolved = unresolved;
