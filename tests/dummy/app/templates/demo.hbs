@@ -83,14 +83,10 @@
             </div>
         </div>
         <br><br>
-        This also works with computed properties and functions in the <em>possible</em> property as in the following example:
+        This also works with computed properties in the <em>possible</em> property as in the following example:
         <br><br>
         <pre>\{{#sl-unable activity="create" resource="event" possible=model.computedReturnsFalse}}
     &lt;h3&gt;Creating an event is not possible&lt;/h3&gt;
-\{{/sl-unable}}
-
-\{{#sl-unable activity="reschedule" resource="event" possible=model.functionReturnsFalse}}
-    &lt;h3&gt;Rescheduling an event is not possible&lt;h3&gt;
 \{{/sl-unable}}</pre>
         <br>
         Which results in:
@@ -98,10 +94,6 @@
             <div class="col-md-12">
                 {{#sl-unable activity="create" resource="event" possible=model.computedReturnsFalse}}
                     <h3>Creating an event is not possible</h3>
-                {{/sl-unable}}
-
-                {{#sl-unable activity="reschedule" resource="event" possible=model.functionReturnsFalse}}
-                    <h3>Rescheduling an event is not possible</h3>
                 {{/sl-unable}}
             </div>
         </div>

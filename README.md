@@ -178,7 +178,7 @@ If the optional `possible` parameter is provided, its value will be applied as a
 
 As already alluded to, but which will now be stated explicitly, in order for additional logic to considered in the determination of allowable behaviors, the user first must have permission for the behavior in question.  This means that the Activity must be set to `true` for the Resource, otherwise even if additional logic is defined it will never be considered because the user doesn't first and foremost have the correct permission.
 
-The `possible` parameter accepts a boolean value, a boolean computed property, or a function that returns a boolean value:
+The `possible` parameter accepts a boolean value or a boolean computed property:
 
 ```
 MyEventModel = Model.extend({
@@ -201,25 +201,13 @@ MyEventModel = Model.extend({
 });
 ```
 
-or
-
-```
-MyEventModel = Model.extend({
-    canCancel() {
-        return false;
-    }
-});
-```
-Any of the above could be used with the following template code when `eventModel` is an instance of `MyEventModel`:
+Either of the above could be used with the following template code when `eventModel` is an instance of `MyEventModel`:
 
 ```
 {{#sl-able activity="setDate" resource="event" possible=eventModel.canCancel }}
     This will NOT be displayed.
 {{/sl-able}}
 ```
-
-It should be noted that when a function is used as the `possible` parameter, as in the third example above, its return value will not be observed by the sl-able component or the Behavior service. If the block content's visibility needs to be reactive to the value of `possible`, a boolean or computed property should be used as in one of the prior two examples.
-
 
 ### sl-unable
 
