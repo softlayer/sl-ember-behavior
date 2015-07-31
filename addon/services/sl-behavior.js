@@ -111,16 +111,17 @@ export default Ember.Service.extend({
      * @returns {undefined}
      */
     setBehaviors( behaviors ) {
-        const behaviorType = Ember.typeOf( behaviors );
-        const behaviorTypeCheck = 'instance' === behaviorType || 'object' === behaviorType;
-
+        /* jshint ignore:start */
         Ember.assert(
             'services/sl-behavior.setBehaviors() expects "behaviors" parameter to be an Object',
-            behaviorTypeCheck
+            (
+                'instance' === Ember.typeOf( behaviors ) ||
+                'object' === Ember.typeOf( behaviors )
+            ) &&
+            'symbol' !== Ember.typeOf( behaviors )
         );
+        /* jshint ignore:end */
 
-        if ( behaviorTypeCheck ) {
-            this.set( 'behaviors', behaviors );
-        }
+        this.set( 'behaviors', behaviors );
     }
 });
