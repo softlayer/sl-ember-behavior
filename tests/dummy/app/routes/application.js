@@ -32,8 +32,7 @@ export default Ember.Route.extend({
         const returnsFalse = () => false;
 
         const MyModel = Ember.Object.extend({
-            computedReturnsFalse: Ember.computed( returnsFalse ),
-            functionReturnsFalse: returnsFalse
+            computedReturnsFalse: Ember.computed( returnsFalse )
         });
 
         return MyModel.create();
