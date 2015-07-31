@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from '../templates/sl-behavior';
-import resolveValue from '../utils/resolve-value';
 
 /**
  * Adds ability to hide template content of a component under a given set of conditions
@@ -72,17 +71,17 @@ export default Ember.Mixin.create({
      * Determines whether or not to show the content in the template
      *
      * @function
-     * @throws {ember.assert} If the `possible` property is not a Boolean or a function that evaluates to a Boolean
+     * @throws {ember.assert} If the `possible` property is not a Boolean
      * @returns {Boolean}
      */
     showContent: Ember.computed(
         'behaviorService.behaviors',
         'possible',
         function() {
-            const possible = resolveValue( this.get( 'possible' ) );
+            const possible = this.get( 'possible' );
 
             Ember.assert(
-                'Expects `possible` property to be a Boolean or a function that evaluates to a Boolean',
+                'Expects `possible` property to be a Boolean',
                 'boolean' === Ember.typeOf( possible )
             );
 
