@@ -3,14 +3,10 @@ import ComponentMixin from 'sl-ember-behavior/mixins/component';
 import { module, test } from 'qunit';
 
 let AugmentedObject;
-let behaviorService;
 
 module( 'Unit | Mixin | component', {
     beforeEach() {
         AugmentedObject = Ember.Object.extend( ComponentMixin );
-        behaviorService = Ember.Object.create({
-            behaviors: Ember.Object.create()
-        });
     }
 });
 
