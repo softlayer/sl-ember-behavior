@@ -37,6 +37,29 @@ test( '"unableRoute" property defaults to null', function( assert ) {
     );
 });
 
+test( '_super() is called with transition.targetName as argument value', function( assert ) {
+    const testStringValue = 'test value';
+
+    const transition = {};
+    transition.targetName = testStringValue;
+
+    let superArgs;
+    Ember.set( Mixin, '_super', function( value ) {
+        superArgs = value;
+    });
+
+    Mixin.behaviorService = {
+        isUnable() {}
+    };
+
+    Mixin.beforeModel( transition );
+
+    assert.ok(
+        superArgs,
+        transition
+    );
+});
+
 test( 'Call to isUnable() uses transition.targetName as first argument value', function( assert ) {
     const testStringValue = 'test value';
 

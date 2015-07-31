@@ -3,8 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
     beforeModel() {
-        const superReference = Ember.get( this, '_super' );
-        superReference( ...arguments );
+        Ember.get( this, '_super' )( ...arguments );
 
         const behaviors = this.get( 'behaviors' );
 
