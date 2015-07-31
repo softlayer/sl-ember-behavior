@@ -49,8 +49,7 @@ export default Ember.Mixin.create({
      * @returns {undefined}
      */
     beforeModel( transition ) {
-        const superReference = Ember.get( this, '_super' );
-        superReference( ...arguments );
+        Ember.get( this, '_super' )( ...arguments );
 
         if ( this.get( 'behaviorService' ).isUnable( transition.targetName, 'route' ) ) {
             const unableRoute = this.get( 'unableRoute' );
