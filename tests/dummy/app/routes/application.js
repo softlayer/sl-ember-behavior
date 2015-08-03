@@ -3,8 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
     beforeModel() {
-        const superReference = Ember.get( this, '_super' );
-        superReference( ...arguments );
+        Ember.get( this, '_super' )( ...arguments );
 
         const behaviors = this.get( 'behaviors' );
 
@@ -33,8 +32,7 @@ export default Ember.Route.extend({
         const returnsFalse = () => false;
 
         const MyModel = Ember.Object.extend({
-            computedReturnsFalse: Ember.computed( returnsFalse ),
-            functionReturnsFalse: returnsFalse
+            computedReturnsFalse: Ember.computed( returnsFalse )
         });
 
         return MyModel.create();

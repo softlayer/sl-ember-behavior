@@ -35,6 +35,21 @@ test( 'setBehaviors() requires an Object to be provided', function( assert ) {
         'Parameter was empty'
     );
 
+    // null parameter
+
+    assertionThrown = false;
+
+    try {
+        BS.setBehaviors( null );
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        assertionThrown,
+        'Parameter was null'
+    );
+
     // Number parameter
 
     assertionThrown = false;
@@ -216,6 +231,21 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
     assert.ok(
         assertionThrown,
         'Parameter was empty'
+    );
+
+    // null parameter
+
+    assertionThrown = false;
+
+    try {
+        BS.isAble( null, 'notUnderTest' );
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        assertionThrown,
+        'Parameter was null'
     );
 
     // Number parameter
@@ -409,7 +439,7 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
     };
 
     try {
-        BS.isAble( 'notUnderTest', {});
+        BS.isAble( 'notUnderTest', {} );
     } catch( error ) {
         assertionThrown = true;
     }
@@ -505,7 +535,7 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
     };
 
     try {
-        BS.isAble( 'notUnderTest', {} );
+        BS.isAble( 'notUnderTest', 'notUnderTest', {} );
     } catch( error ) {
         assertionThrown = true;
     }
