@@ -355,6 +355,21 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
         'Parameter was a Number'
     );
 
+    // null parameter
+
+    assertionThrown = false;
+
+    try {
+        BS.isAble( 'notUnderTest', null );
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        assertionThrown,
+        'Parameter was null'
+    );
+
     // undefined parameter
 
     assertionThrown = false;
