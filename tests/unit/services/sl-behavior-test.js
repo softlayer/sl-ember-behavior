@@ -81,7 +81,7 @@ test( 'setBehaviors() requires an Object to be provided', function( assert ) {
 
     try {
         BS.setBehaviors( {} );
-    } catch ( error ) {
+    } catch( error ) {
         assertionThrown = true;
     }
 
