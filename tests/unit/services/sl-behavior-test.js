@@ -20,118 +20,68 @@ test( '"behaviors" property defaults to null', function( assert ) {
 
 test( 'setBehaviors() requires an Object to be provided', function( assert ) {
 
-    // Empty parameter
+    // Array
+    let callSetBehaviors = () => BS.setBehaviors( [] );
 
-    let assertionThrown = false;
-
-    try {
-        BS.setBehaviors();
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was empty'
-    );
-
-    // null parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.setBehaviors( null );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was null'
-    );
-
-    // Number parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.setBehaviors( 4 );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Number'
-    );
-
-    // Boolean parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.setBehaviors( false );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Boolean'
-    );
-
-    // Array Parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.setBehaviors( [] );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
+    assert.throws(
+        callSetBehaviors,
         'Parameter was an Array'
     );
 
+    // Boolean
+    callSetBehaviors = () => BS.setBehaviors( false );
+
+    assert.throws(
+        callSetBehaviors,
+        'Parameter was a Boolean'
+    );
+
     // Function
+    callSetBehaviors = () => BS.setBehaviors( () => {} );
 
-    assertionThrown = false;
-
-    try {
-        BS.getBehaviorGroup( function() {} );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
+    assert.throws(
+        callSetBehaviors,
         'Parameter was a Function'
     );
 
-    // String Parameter
+    // Null
+    callSetBehaviors = () => BS.setBehaviors( null );
 
-    assertionThrown = false;
+    assert.throws(
+        callSetBehaviors,
+        'Parameter was Null'
+    );
 
-    try {
-        BS.setBehaviors( 'test' );
-    } catch( error ) {
-        assertionThrown = true;
-    }
+    // Number
+    callSetBehaviors = () => BS.setBehaviors( 123 );
 
-    assert.ok(
-        assertionThrown,
+    assert.throws(
+        callSetBehaviors,
+        'Parameter was a Number'
+    );
+
+    // String
+    callSetBehaviors = () => BS.setBehaviors( 'a string' );
+
+    assert.throws(
+        callSetBehaviors,
         'Parameter was a String'
     );
 
-    // Object Parameter
+    // Undefined
+    callSetBehaviors = () => BS.setBehaviors();
 
-    assertionThrown = false;
+    assert.throws(
+        callSetBehaviors,
+        'Parameter was Undefined'
+    );
+
+    // Object
+    let assertionThrown = false;
 
     try {
         BS.setBehaviors( {} );
-    } catch( error ) {
+    } catch ( error ) {
         assertionThrown = true;
     }
 
@@ -157,38 +107,23 @@ test( 'setBehaviors() sets data on the behaviors property', function( assert ) {
 test( 'isAble() requires at least two parameters to be provided', function( assert ) {
 
     // No arguments
+    let callIsAble = () => BS.isAble();
 
-    let assertionThrown = false;
-
-    try {
-        BS.isAble();
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
+    assert.throws(
+        callIsAble,
         'No parameters were provided'
     );
 
     // One argument
+    callIsAble = () => BS.isAble( 'one' );
 
-    assertionThrown = false;
-
-    try {
-        BS.isAble( 'one' );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
+    assert.throws(
+        callIsAble,
         'One parameter was provided'
     );
 
     // Two arguments
-
-    assertionThrown = false;
+    let assertionThrown = false;
 
     try {
         BS.isAble( 'one', 'two' );
@@ -202,7 +137,6 @@ test( 'isAble() requires at least two parameters to be provided', function( asse
     );
 
     // Three arguments
-
     assertionThrown = false;
 
     try {
@@ -218,114 +152,65 @@ test( 'isAble() requires at least two parameters to be provided', function( asse
 });
 
 test( 'isAble() requires first parameter to be a String', function( assert ) {
-    // Empty parameter
-
-    let assertionThrown = false;
-
-    try {
-        BS.isAble();
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was empty'
-    );
-
-    // null parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.isAble( null, 'notUnderTest' );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was null'
-    );
-
-    // Number parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.isAble( 4, 'notUnderTest' );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Number'
-    );
-
-    // Boolean parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.isAble( false, 'notUnderTest' );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Boolean'
-    );
 
     // Array Parameter
+    let callIsAble = () => BS.isAble( [], 'notUnderTest' );
 
-    assertionThrown = false;
-
-    try {
-        BS.isAble( [], 'notUnderTest' );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
+    assert.throws(
+        callIsAble,
         'Parameter was an Array'
     );
 
-    // Function
+    // Boolean parameter
+    callIsAble = () => BS.isAble( false, 'notUnderTest' );
 
-    assertionThrown = false;
-
-    try {
-        BS.getBehaviorGroup( function() {} );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Function'
+    assert.throws(
+        callIsAble,
+        'Parameter was a Boolean'
     );
 
-    // String Parameter
+    // Function
+    callIsAble = () => BS.isAble( () => {}, 'notUnderTest' );
 
-    assertionThrown = false;
+    assert.throws(
+        callIsAble,
+        'Parameter was an Function'
+    );
 
-    try {
-        BS.isAble( {}, 'notUnderTest' );
-    } catch( error ) {
-        assertionThrown = true;
-    }
+    // Null parameter
+    callIsAble = () => BS.isAble( null, 'notUnderTest' );
 
-    assert.ok(
-        assertionThrown,
-        'Parameter was an Object'
+    assert.throws(
+        callIsAble,
+        'Parameter was Null'
+    );
+
+    // Number parameter
+    callIsAble = () => BS.isAble( 123, 'notUnderTest' );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was a Number'
     );
 
     // Object Parameter
+    callIsAble = () => BS.isAble( {}, 'notUnderTest' );
 
-    assertionThrown = false;
+    assert.throws(
+        callIsAble,
+        'Parameter was an Object'
+    );
+
+    // Undefined
+    callIsAble = () => BS.isAble();
+
+    assert.throws(
+        callIsAble,
+        'Parameter was Undefined'
+    );
+
+    // String Parameter
+    let assertionThrown = false;
 
     try {
         BS.isAble( 'test', 'notUnderTest' );
@@ -340,99 +225,65 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
 });
 
 test( 'isAble() requires second argument to be a String', function( assert ) {
-    // Number parameter
-
-    let assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', 4 );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Number'
-    );
-
-    // null parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', null );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was null'
-    );
-
-    // undefined parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', undefined );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was undefined'
-    );
-
-    // Boolean parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', false );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Boolean'
-    );
 
     // Array Parameter
+    let callIsAble = () => BS.isAble( 'notUnderTest', [] );
 
-    assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', [] );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
+    assert.throws(
+        callIsAble,
         'Parameter was an Array'
     );
 
+    // Boolean parameter
+    callIsAble = () => BS.isAble( 'notUnderTest', false );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was a Boolean'
+    );
+
     // Function
+    callIsAble = () => BS.isAble( 'notUnderTest', () => {} );
 
-    assertionThrown = false;
+    assert.throws(
+        callIsAble,
+        'Parameter was an Function'
+    );
 
-    try {
-        BS.getBehaviorGroup( function() {} );
-    } catch( error ) {
-        assertionThrown = true;
-    }
+    // Null parameter
+    callIsAble = () => BS.isAble( 'notUnderTest', null );
 
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Function'
+    assert.throws(
+        callIsAble,
+        'Parameter was Null'
+    );
+
+    // Number parameter
+    callIsAble = () => BS.isAble( 'notUnderTest', 123 );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was a Number'
+    );
+
+    // Object Parameter
+    callIsAble = () => BS.isAble( 'notUnderTest', {} );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was an Object'
+    );
+
+    // Undefined
+    callIsAble = () => BS.isAble( 'notUnderTest' );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was Undefined'
     );
 
     // String Parameter
-
-    assertionThrown = false;
+    let assertionThrown = false;
 
     try {
         BS.isAble( 'notUnderTest', 'test' );
@@ -444,46 +295,60 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
         !assertionThrown,
         'Parameter was a String'
     );
-
-    // Object Parameter
-
-    assertionThrown = false;
-
-    BS.getBehaviorGroup = function() {
-        return true;
-    };
-
-    try {
-        BS.isAble( 'notUnderTest', {} );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was an Object'
-    );
 });
 
 test( 'isAble() requires third argument to be a boolean or undefined', function( assert ) {
+
+    // Array Parameter
+    let callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', [] );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was an Array'
+    );
+
+    // Function
+    callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', () => {} );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was an Function'
+    );
+
+    // Null parameter
+    callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', null );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was Null'
+    );
+
     // Number parameter
+    callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', 123 );
 
-    let assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', 'notUnderTest', 4 );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
+    assert.throws(
+        callIsAble,
         'Parameter was a Number'
     );
 
-    // Boolean parameter
+    // Object Parameter
+    callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', {} );
 
-    assertionThrown = false;
+    assert.throws(
+        callIsAble,
+        'Parameter was an Object'
+    );
+
+    // String Parameter
+    callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', {} );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was an String'
+    );
+
+    // Boolean parameter
+    let assertionThrown = false;
 
     try {
         BS.isAble( 'notUnderTest', 'notUnderTest', false );
@@ -496,77 +361,8 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
         'Parameter was a Boolean'
     );
 
-    // Array Parameter
-
+    // Undefined
     assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', 'notUnderTest', [] );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was an Array'
-    );
-
-    // Function
-
-    assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', 'notUnderTest', function() {} );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a Function'
-    );
-
-    // String Parameter
-
-    assertionThrown = false;
-
-    try {
-        BS.isAble( 'notUnderTest', 'notUnderTest', 'test' );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was a String'
-    );
-
-    // Object Parameter
-
-    assertionThrown = false;
-
-    BS.getBehaviorGroup = function() {
-        return true;
-    };
-
-    try {
-        BS.isAble( 'notUnderTest', 'notUnderTest', {} );
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        assertionThrown,
-        'Parameter was an Object'
-    );
-
-    // No Parameter
-
-    assertionThrown = false;
-
-    BS.getBehaviorGroup = function() {
-        return true;
-    };
 
     try {
         BS.isAble( 'notUnderTest', 'notUnderTest' );
