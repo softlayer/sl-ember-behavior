@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import BehaviorService from 'sl-ember-behavior/services/sl-behavior';
 import { moduleFor, test } from 'ember-qunit';
 
@@ -18,7 +19,7 @@ test( '"behaviors" property defaults to null', function( assert ) {
     );
 });
 
-test( 'setBehaviors() requires an Object to be provided', function( assert ) {
+test( 'setBehaviors() requires an Object or Instance to be provided', function( assert ) {
 
     // Array
     let callSetBehaviors = () => BS.setBehaviors( [] );
@@ -76,8 +77,22 @@ test( 'setBehaviors() requires an Object to be provided', function( assert ) {
         'Parameter was Undefined'
     );
 
-    // Object
+    // Instance
     let assertionThrown = false;
+
+    try {
+        BS.setBehaviors( Ember.Object.create() );
+    } catch( error ) {
+        assertionThrown = true;
+    }
+
+    assert.ok(
+        !assertionThrown,
+        'Parameter was an Instance'
+    );
+
+    // Object
+    assertionThrown = false;
 
     try {
         BS.setBehaviors( {} );
@@ -153,7 +168,7 @@ test( 'isAble() requires at least two parameters to be provided', function( asse
 
 test( 'isAble() requires first parameter to be a String', function( assert ) {
 
-    // Array Parameter
+    // Array
     let callIsAble = () => BS.isAble( [], 'notUnderTest' );
 
     assert.throws(
@@ -161,7 +176,7 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
         'Parameter was an Array'
     );
 
-    // Boolean parameter
+    // Boolean
     callIsAble = () => BS.isAble( false, 'notUnderTest' );
 
     assert.throws(
@@ -177,7 +192,15 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
         'Parameter was an Function'
     );
 
-    // Null parameter
+    // Instance
+    callIsAble = () => BS.isAble( Ember.Object.create(), 'notUnderTest' );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was an Instance'
+    );
+
+    // Null
     callIsAble = () => BS.isAble( null, 'notUnderTest' );
 
     assert.throws(
@@ -185,7 +208,7 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
         'Parameter was Null'
     );
 
-    // Number parameter
+    // Number
     callIsAble = () => BS.isAble( 123, 'notUnderTest' );
 
     assert.throws(
@@ -193,7 +216,7 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
         'Parameter was a Number'
     );
 
-    // Object Parameter
+    // Object
     callIsAble = () => BS.isAble( {}, 'notUnderTest' );
 
     assert.throws(
@@ -202,14 +225,14 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
     );
 
     // Undefined
-    callIsAble = () => BS.isAble();
+    callIsAble = () => BS.isAble( undefined, 'notUnderTest' );
 
     assert.throws(
         callIsAble,
         'Parameter was Undefined'
     );
 
-    // String Parameter
+    // String
     let assertionThrown = false;
 
     try {
@@ -226,7 +249,7 @@ test( 'isAble() requires first parameter to be a String', function( assert ) {
 
 test( 'isAble() requires second argument to be a String', function( assert ) {
 
-    // Array Parameter
+    // Array
     let callIsAble = () => BS.isAble( 'notUnderTest', [] );
 
     assert.throws(
@@ -234,7 +257,7 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
         'Parameter was an Array'
     );
 
-    // Boolean parameter
+    // Boolean
     callIsAble = () => BS.isAble( 'notUnderTest', false );
 
     assert.throws(
@@ -250,7 +273,15 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
         'Parameter was an Function'
     );
 
-    // Null parameter
+    // Instance
+    callIsAble = () => BS.isAble( 'notUnderTest', Ember.Object.create() );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was an Instance'
+    );
+
+    // Null
     callIsAble = () => BS.isAble( 'notUnderTest', null );
 
     assert.throws(
@@ -258,7 +289,7 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
         'Parameter was Null'
     );
 
-    // Number parameter
+    // Number
     callIsAble = () => BS.isAble( 'notUnderTest', 123 );
 
     assert.throws(
@@ -266,7 +297,7 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
         'Parameter was a Number'
     );
 
-    // Object Parameter
+    // Object
     callIsAble = () => BS.isAble( 'notUnderTest', {} );
 
     assert.throws(
@@ -282,7 +313,7 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
         'Parameter was Undefined'
     );
 
-    // String Parameter
+    // String
     let assertionThrown = false;
 
     try {
@@ -299,7 +330,7 @@ test( 'isAble() requires second argument to be a String', function( assert ) {
 
 test( 'isAble() requires third argument to be a boolean or undefined', function( assert ) {
 
-    // Array Parameter
+    // Array
     let callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', [] );
 
     assert.throws(
@@ -315,7 +346,15 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
         'Parameter was an Function'
     );
 
-    // Null parameter
+    // Instance
+    callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', Ember.Object.create() );
+
+    assert.throws(
+        callIsAble,
+        'Parameter was an Instance'
+    );
+
+    // Null
     callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', null );
 
     assert.throws(
@@ -323,7 +362,7 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
         'Parameter was Null'
     );
 
-    // Number parameter
+    // Number
     callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', 123 );
 
     assert.throws(
@@ -331,7 +370,7 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
         'Parameter was a Number'
     );
 
-    // Object Parameter
+    // Object
     callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', {} );
 
     assert.throws(
@@ -339,15 +378,15 @@ test( 'isAble() requires third argument to be a boolean or undefined', function(
         'Parameter was an Object'
     );
 
-    // String Parameter
-    callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', {} );
+    // String
+    callIsAble = () => BS.isAble( 'notUnderTest', 'notUnderTest', 'test' );
 
     assert.throws(
         callIsAble,
         'Parameter was an String'
     );
 
-    // Boolean parameter
+    // Boolean
     let assertionThrown = false;
 
     try {
