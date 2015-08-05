@@ -118,7 +118,7 @@ export default Ember.Service.extend({
                 'instance' === Ember.typeOf( behaviors ) ||
                 'object' === Ember.typeOf( behaviors )
             ) &&
-            'symbol' !== Ember.typeOf( behaviors )
+            'symbol' !== typeof behaviors
         );
         /* jshint ignore:end */
 
