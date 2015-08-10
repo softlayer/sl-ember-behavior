@@ -49,22 +49,6 @@ test( 'showContent() computed property throws assertion when `possible` property
         'The `possible` property is an Array'
     );
 
-    // Boolean
-    subject.set( 'possible', false );
-
-    let assertionThrown = false;
-
-    try {
-        callShowContent();
-    } catch( error ) {
-        assertionThrown = true;
-    }
-
-    assert.ok(
-        !assertionThrown,
-        'The possible property is a Boolean'
-    );
-
     // Function
     subject.set( 'possible', () => {} );
 
@@ -111,6 +95,14 @@ test( 'showContent() computed property throws assertion when `possible` property
     assert.throws(
         callShowContent,
         'The `possible` property is Undefined'
+    );
+
+    // Boolean
+    subject.set( 'possible', true );
+
+    assert.ok(
+        callShowContent(),
+        'The `possible` property is a Boolean'
     );
 });
 
