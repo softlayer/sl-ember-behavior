@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
+import sinon from 'sinon';
 
 let behaviorService;
 
@@ -8,7 +9,7 @@ moduleForComponent( 'sl-unable', 'Unit | Component | sl unable', {
 
     beforeEach() {
         behaviorService = Ember.Object.create({
-            isUnable: window.sinon.stub().returns( false )
+            isUnable: sinon.stub().returns( false )
         });
     }
 });
@@ -44,7 +45,7 @@ test( 'Does not render content when isUnable() returns false', function( assert 
 });
 
 test( 'Renders content when isUnable() returns true', function( assert ) {
-    behaviorService.isUnable = window.sinon.stub().returns( true );
+    behaviorService.isUnable = sinon.stub().returns( true );
 
     this.subject({
         behaviorService: behaviorService,
