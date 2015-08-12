@@ -1,3 +1,13 @@
+# sl-ember-behavior Changelog
+
+### 1.3.0
+
+* [#22](https://github.com/softlayer/sl-ember-behavior/issues/22) [BREAKING ENHANCEMENT] Upgrade to Ember CLI 0.2.7
+* [#53](https://github.com/softlayer/sl-ember-behavior/issues/53) [BREAKING ENHANCEMENT] Simplify parameters on `sl-able` and `sl-unable`
+* [#73](https://github.com/softlayer/sl-ember-behavior/issues/73) [BREAKING ENHANCEMENT] Remove support for functions for `possible` parameter
+* [#56](https://github.com/softlayer/sl-ember-behavior/pull/56) [ENHANCEMENT] Install `ember-cli-jsdoc`
+
+[View complete changeset](https://github.com/softlayer/sl-ember-behavior/compare/v1.2.0...v1.3.0)
 
 ### 1.2.0
 
