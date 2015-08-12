@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><p><a href="https://github.com/softlayer/sl-ember-behavior/releases"><img src="https://img.shields.io/github/release/softlayer/sl-ember-behavior.svg" alt="Latest Release"></a> <img src="https://img.shields.io/badge/ember%20cli-0.2.7-orange.svg" alt="Ember CLI version"> <a href="LICENSE.md"><img src="https://img.shields.io/npm/l/sl-ember-behavior.svg" alt="License"></a> <a href="https://www.npmjs.com/package/sl-ember-behavior"><img src="https://img.shields.io/npm/dm/sl-ember-behavior.svg" alt="Downloads"></a></p>
+<p><a href="https://david-dm.org/softlayer/sl-ember-behavior"><img src="https://img.shields.io/david/softlayer/sl-ember-behavior.svg" alt="Dependencies"></a> <a href="https://david-dm.org/softlayer/sl-ember-behavior#info=devDependencies"><img src="https://img.shields.io/david/dev/softlayer/sl-ember-behavior.svg" alt="Dev Dependencies"></a></p>
+<p><a href="https://travis-ci.org/softlayer/sl-ember-behavior"><img src="https://img.shields.io/travis/softlayer/sl-ember-behavior/master.svg" alt="Build Status"></a> <a href="https://codeclimate.com/github/softlayer/sl-ember-behavior"><img src="https://img.shields.io/codeclimate/github/softlayer/sl-ember-behavior.svg" alt="Code Climate"></a></p>
+<p>To see which issues are currently being worked on or are scheduled to be worked on next, visit <a href="https://huboard.com/softlayer/sl-ember-behavior/#/">https://huboard.com/softlayer/sl-ember-behavior/#/</a></p>
+<hr>
+<h1>What is sl-ember-behavior</h1><p>An <a href="http://www.ember-cli.com">Ember CLI Addon</a> that provides the ability to define and enforce behaviors, combining the concepts of whether a user has permission to perform an action and whether that action can currently be performed.</p>
+<p>For example, does a user have permission to reboot a device and is that device currently able to be rebooted.</p>
+<p>Want to restrict access to routes?  It is very easy to use only the permission capabilities of the behaviors and we have included a route behavior mixin for just this purpose.</p>
+<h1>Theory of Operation</h1><p>You define all possible behaviors you wish to present as possibilities in your application.  Setting their values to either true or false represents whether the user has the permission to perform this behavior.  You can define additional logic that should be executed to further refine whether the activity can be performed on a resource once it has been determined that the user has permission to do so.  This additional logic can be contained in any object you desire, such as your models.</p>
+<h1>Demo</h1><h2>Live</h2><p><a href="http://softlayer.github.io/sl-ember-behavior/#/demo">http://softlayer.github.io/sl-ember-behavior/#/demo</a></p>
+<h2>Development Environment</h2><h3>Installation</h3><ul>
+<li><code>git clone</code> this repository</li>
+<li><code>npm install</code></li>
+<li><code>bower install</code></li>
+</ul>
+<h3>Running</h3><ul>
+<li><code>ember server</code></li>
+<li>View the demo at <em>http://localhost:4200</em></li>
+</ul>
+<p>For more information on using ember-cli, visit <a href="http://www.ember-cli.com/">http://www.ember-cli.com/</a>.</p>
+<h3>Documentation</h3><ul>
+<li><code>ember ember-cli-jsoc</code> or <code>npm run docs</code> (shortcut setup in this repo)</li>
+<li>Visit <em>http://localhost:4200/docs</em></li>
+</ul>
+<h1>How to use this addon in your application</h1><h2>Install this addon as a Node module</h2><pre class="prettyprint source"><code>ember install sl-ember-behavior</code></pre><h2>Set behaviors on Behavior Service</h2><p>Get a reference to the Behavior Service and pass your behaviors as the only argument to <em>setBehaviors()</em></p>
+<p>In a route, for example:</p>
+<pre class="prettyprint source"><code>behaviorService: Ember.inject.service( 'sl-behavior' ),
+
+beforeModel() {
+    this.get( 'behaviorService' ).setBehaviors( yourBehaviorData );
+}</code></pre><p>The structure of your behavior data should be as follows:</p>
+<pre class="prettyprint source"><code>{
+    &quot;comments&quot;: {
+        &quot;create&quot; : true,
+        &quot;view&quot;   : true,
+        &quot;edit&quot;   : false
+    },
+
+    &quot;articles&quot;: {
+        &quot;read&quot;   : true,
+        &quot;create&quot; : false,
+        &quot;edit&quot;   : false
+    },
+
+    &quot;route&quot;: {
+        &quot;application&quot;         : true,
+        &quot;application_loading&quot; : true,
+        &quot;error&quot;               : true,
+        &quot;loading&quot;             : true,
+        &quot;devices&quot;             : true,
+        &quot;devices.details&quot;     : true,
+        &quot;devices.error&quot;       : true,
+        &quot;devices.index&quot;       : true,
+        &quot;devices.loading&quot;     : true,
+        &quot;users&quot;               : false,
+        &quot;users.details&quot;       : false,
+        &quot;users.error&quot;         : false,
+        &quot;users.index&quot;         : false,
+        &quot;users.loading&quot;       : false
+    }
+}</code></pre><h3>Structure breakout</h3><p>In this example, the <code>comments</code>, <code>articles</code>, and <code>routes</code> keys represent what is referred to internally to the Behavior Service as &quot;Resources&quot;.  Within these groups are the individual &quot;Activities&quot; that, in this structure, represent whether a user has permission to perform the listed action.</p>
+<p><strong>NOTE:</strong> <em>Except for the <code>route</code> key name it DOES NOT matter what you name the keys (Resources) as they represent whatever CONCEPTS you want them to relate to in your application.</em></p>
+<p><strong>NOTE:</strong> <em>Except for the <code>route</code> key name it DOES NOT matter what case you use for the keys (Resources) though you will need to use the same case when referencing them.</em></p>
+<h4>Restricting routes</h4><p>The <code>route</code> key (Resource) entries are only needed if you want to restrict access to routes.  If you are going to restrict route access we recommend using code such as</p>
+<pre class="prettyprint source"><code>Ember.keys( this.get( 'router.router.recognizer.names' ) ).forEach( function( route ) { ... });</code></pre><p>from within the <code>ApplicationRoute</code> in order to correctly capture all of the routes that are auto-magically generated in your application, such as <code>error</code>, <code>routename.loading</code>, etc.  In the example given you can see these such routes represented and the user's access to them being managed.  If your application does not make use of the <code>error</code> and <code>loading</code> routes, for example, then you would not need to populate them.</p>
+<p> <strong>NOTE:</strong> <em>The <code>route</code> key name is important in both spelling and case, as it is used by the <a href="addon/mixins/route.js">Route Mixin</a> to restrict route access.</em></p>
+<h2>Components</h2><h3>sl-able</h3><p>The <code>sl-able</code> component is a block form component that is used to determine whether its content should be rendered.</p>
+<pre class="prettyprint source"><code>{{#sl-able activity=&quot;setDate&quot; resource=&quot;event&quot;}}
+    This will be displayed.
+    So will the {{sl-calendar}} component
+{{/sl-able}}</code></pre><h4><code>activity</code> parameter</h4><p>This parameter must be a string.  It corresponds to the Activity key name used in the Behaviors structure previously explained.</p>
+<h4><code>resource</code> parameter</h4><p>This parameter must be a string. It corresponds to the Resource key name used in the Behaviors structure previously explained and represents a permission-only use of the data to make a determination.  For example, given these Behaviors and their usage:</p>
+<pre class="prettyprint source"><code>{
+    event: {
+        cancel     : false,
+        setDate    : true,
+        reschedule : false,
+        editDate   : true
+    }
+}
+
+{{#sl-able activity=&quot;setDate&quot; resource=&quot;event&quot;}}
+    This will be displayed.
+    So will the {{sl-calendar}} component
+{{/sl-able}}</code></pre><p>the <code>resource</code> and <code>activity</code> values are compared to the related keys to return their associatively combined boolean value, which in this example is <code>true</code>.</p>
+<h4><code>possible</code> parameter</h4><p>If the optional <code>possible</code> parameter is provided, its value will be applied as additional logic beyond the initial permission check to determine whether the user is allowed to perform the provided behavior.</p>
+<p>As already alluded to, but which will now be stated explicitly, in order for additional logic to considered in the determination of allowable behaviors, the user first must have permission for the behavior in question.  This means that the Activity must be set to <code>true</code> for the Resource, otherwise even if additional logic is defined it will never be considered because the user doesn't first and foremost have the correct permission.</p>
+<p>The <code>possible</code> parameter accepts a boolean value or a boolean computed property:</p>
+<pre class="prettyprint source"><code>MyEventModel = Model.extend({
+    canCancel: false
+});</code></pre><p>or</p>
+<pre class="prettyprint source"><code>MyEventModel = Model.extend({
+    canCancel: Ember.computed(
+        'anotherProperty',
+        function() {
+            return this.get( 'another' );
+        }
+    ),
+
+    anotherProperty: false
+});</code></pre><p>Either of the above could be used with the following template code when <code>eventModel</code> is an instance of <code>MyEventModel</code>:</p>
+<pre class="prettyprint source"><code>{{#sl-able activity=&quot;setDate&quot; resource=&quot;event&quot; possible=eventModel.canCancel }}
+    This will NOT be displayed.
+{{/sl-able}}</code></pre><h3>sl-unable</h3><p>This component is identical to the <code>sl-able</code> component, except that it checks for the inverse condition.</p>
+<h2>Routes</h2><p>Restricting access to a route represents a permission-only use of the Behavior data.  For any route you wish to restrict access to simply mix in the <a href="https://github.com/softlayer/sl-ember-behavior/blob/develop/addon/mixins/route.js">Route Mixin</a>, add the <code>route</code> Behavior Group in the Behaviors data, as well as list the appropriate route name and its boolean value representing the users permission.</p>
+<p>The <a href="https://github.com/softlayer/sl-ember-behavior/blob/develop/addon/mixins/route.js">Route Mixin</a> extends beforeModel().  If a user is allowed access to the specified route then Ember is allowed to transition to the route as usual.  If the user is not allowed access to the route one of two things then happen, though they both represent the idea that the user is not allowed to transition to the route.</p>
+<p>The <a href="https://github.com/softlayer/sl-ember-behavior/blob/develop/addon/mixins/route.js">Route Mixin</a> also introduces the <code>unableRoute</code> property which defaults to <code>null</code>.  If this value remains <code>null</code> and a user attempts to transition to a route they have been restricted from then the route transition is aborted through the use of <code>transition.abort()</code>.  If however the <code>unableRoute</code> property has been populated with a valid route for your application, such as one explaining why they couldn't access the route they were attempting to, the user will instead be transitioned there.</p>
+<pre class="prettyprint source"><code>import Ember from 'ember';
+import Behavior from 'sl-ember-behavior/mixins/route';
+
+export default Ember.Route.extend( Behavior, {
+    unableRoute: 'event.restricted'
+});</code></pre><h2>Direct usage of the Behavior Service</h2><p>Make sure you have read the &quot;Components&quot; section to understand what the <code>activity</code>, <code>resource</code>, and <code>possible</code> parameters represent and how they are used.</p>
+<p>To use the Behavior Service, simply inject it into a property in the class in which you will use it.</p>
+<pre class="prettyprint source"><code>behaviorService: Ember.inject.service( 'sl-behavior' ),</code></pre><p>The Behavior Service provides two methods, <code>isAble()</code> and <code>isUnable()</code> that are the methods behind the Component logic.</p>
+<h3>The isAble() Method</h3><h4><code>.isAble( activity, resource [, possible])</code></h4><p>The simplest use of the <code>isAble()</code> method is shown in the first example. The remaining two examples show the use of <code>isAble()</code> with the optional possible parameter.</p>
+<p>Example 1</p>
+<pre class="prettyprint source"><code>if ( this.get( 'behaviorService' ).isAble( 'setData', 'event' ) ) { ... }</code></pre><p>Example 2: Boolean value in the <code>possible</code> parameter</p>
+<pre class="prettyprint source"><code>let canSetEventData = false;
+
+if ( this.get( 'behaviorService' ).isAble( 'setData', 'event', canSetEventData ) ) { ... }</code></pre><p>Example 3: Using a computed property's value in the <code>possible</code> parameter</p>
+<pre class="prettyprint source"><code>canSetEventData: Ember.computed(
+    'isReady',
+    function() {
+        return this.get( 'isReady' ) && !myEvent.get( 'readOnly' );
+    }
+),
+
+isReady: false,
+
+...
+
+if (
+    this.get( 'behaviorService' ).isAble(
+        'setData',
+        'event',
+        this.get( 'canSetEventData' )
+    )
+) { ... }
+`</code></pre><h3>The isUnable() Method</h3><h4><code>.isUnable( activity, resource [, possible])</code></h4><p>The <code>isUnable()</code> function takes the same parameters as <code>isAble()</code> and is used the same way:</p>
+<p>Example 1</p>
+<pre class="prettyprint source"><code>if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event' ) ) { ... }</code></pre><p>Example 2: Boolean value in the <code>possible</code> parameter</p>
+<pre class="prettyprint source"><code>let canSetEventData = false;
+
+if ( this.get( 'behaviorService' ).isUnable( 'setData', 'event', canSetEventData ) ) { ... }</code></pre><p>Example 3: Using a computed property's value in the <code>possible</code> parameter</p>
+<pre class="prettyprint source"><code>canSetEventData: Ember.computed(
+    'isReady',
+    function() {
+        return this.get( 'isReady' ) && !myEvent.get( 'readOnly' );
+    }
+),
+
+isReady: false,
+
+...
+
+if (
+    this.get( 'behaviorService' ).isUnable(
+        'setData',
+        'event',
+        this.get( 'canSetEventData' )
+    )
+) { ... }
+`</code></pre><h1>Versioning</h1><p>Employs <a href="http://semver.org/">Semantic Versioning 2.0.0</a></p>
+<h1>Contribution</h1><p><a href="https://github.com/softlayer/sl-ember-behavior/blob/develop/CONTRIBUTING.md">See CONTRIBUTING.md</a></p>
+<h1>Copyright and License</h1><p>sl-ember-behavior and its source files are Copyright © 2014-2015 <a href="http://www.softlayer.com/">SoftLayer Technologies, Inc.</a>
+The software is <a href="https://github.com/softlayer/sl-ember-behavior/blob/develop/LICENSE.md">MIT Licensed</a></p>
+<h1>Warranty</h1><p>This software is provided “as is” and without any express or implied warranties, including, without limitation, the
+implied warranties of merchantability and fitness for a particular purpose.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addon_components_sl-able.html">addon/components/sl-able</a></li><li><a href="module-addon_components_sl-unable.html">addon/components/sl-unable</a></li><li><a href="module-addon_mixins_component.html">addon/mixins/component</a></li><li><a href="module-addon_mixins_route.html">addon/mixins/route</a></li><li><a href="module-addon_services_sl-behavior.html">addon/services/sl-behavior</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0-dev</a> on Wed Aug 12 2015 16:03:06 GMT-0500 (CDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
