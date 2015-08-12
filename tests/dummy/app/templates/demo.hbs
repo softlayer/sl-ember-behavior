@@ -7,81 +7,94 @@
 
 <div class="row">
     <div class="col-md-12">
-    Given this Behavior data that is set on the Behavior Service
+    Given this Behavior data that is set on the Behavior Service:
     <br><br>
     <pre>{
     event: {
-        reschedule: false
+        create: true,
+        reschedule: true
+    },
+    user: {
+        edit: false,
+        remove: false
     }
 }</pre>
         <br>
-        and the use of this component where behavior is set to reschedule and the provider is set to event.
+        and the use of the following in a template:
         <br><br>
-        <pre>\{{#sl-unable behavior="reschedule" provider="event"}}
-    &lt;h3&gt;You cannot reschedule this event&lt;/h3&gt;
+        <pre>\{{#sl-able activity="create" resource="event"}}
+    &lt;h3&gt;You can create this event&lt;/h3&gt;
+\{{/sl-able}}
+
+\{{#sl-unable activity="reschedule" resource="event"}}
+    &lt;h3&gt;You can reschedule this event&lt;/h3&gt;
+\{{/sl-unable}}
+
+\{{#sl-able activity="edit" resource="user"}}
+    &lt;h3&gt;You cannot edit this user&lt;h3&gt;
+\{{/sl-able}}
+
+\{{#sl-unable activity="remove" resource="user"}}
+    &lt;h3&gt;You cannot remove this user&lt;h3&gt;
 \{{/sl-unable}}</pre>
         <br>
-        Reschedule is set to false and we are using the sl-unable component so you will see this result:
+        You will see this result:
         <div class="row">
             <div class="col-md-12">
-                {{#sl-unable behavior="reschedule" provider="event"}}
-                    <h3>You cannot reschedule this event</h3>
+                {{#sl-able activity="create" resource="event"}}
+                    <h3>You can create this event</h3>
+                {{/sl-able}}
+
+                {{#sl-unable activity="reschedule" resource="event"}}
+                    <h3>You can reschedule this event</h3>
+                {{/sl-unable}}
+
+                {{#sl-able activity="edit" resource="user"}}
+                    <h3>You cannot edit this user</h3>
+                {{/sl-able}}
+
+                {{#sl-unable activity="remove" resource="user"}}
+                    <h3>You cannot remove this user</h3>
                 {{/sl-unable}}
             </div>
         </div>
         <br><br>
-        In the next two examples, we will use this Behavior data that is set on the Behavior Service
-    <br><br>
-    <pre>{
-    event: {
-        setDate: true,
-        editDate: true
-    }
-}</pre>
-        <br>
-        In the component, behavior is set to setDate and the provider is set to a model
+        Using the same Behavior data from the previous example and the following in the template:
         <br><br>
-        <pre>\{{#sl-able behavior="setDate" provider=model}}
-    &lt;h3&gt;You can set a date for this event.&lt;/h3&gt;
-\{{/sl-able}}</pre>
-        <br>
-        The model has these values defined on it
-    <br><br>
-    <pre>{
-    behaviorGroup: 'event',
+        <pre>\{{#sl-able activity="create" resource=event possible=false}}
+    &lt;h3&gt;Creating an event is not possible&lt;/h3&gt;
+\{{/sl-able}}
 
-    behaviors: {
-        setDate: function() {
-            return true;
-        },
-        editDate: true
-    }
-}</pre>
+\{{#sl-unable activity="reschedule" resource=event possible=false}}
+    &lt;h3&gt;Rescheduling an event is not possible&lt;/h3&gt;
+\{{/sl-unable}}</pre>
         <br>
-        Since the behavior data has setDate set to true we will look in the model for setDate. In this case, it is a function used to evaluate some criteria and return a boolean response. Ours returns true so the component will render the following result:
+        Although both activities are set to <em>true</em> in the Behavior data, passing a value of <em>false</em> to the <em>possible</em> property causes the following to be rendered:
         <br>
         <div class="row">
             <div class="col-md-12">
-                {{#sl-able behavior="setDate" provider=model}}
-                    <h3>You can set a date for this event.</h3>
+                {{#sl-able activity="create" resource="event" possible=false}}
+                    <h3>Creating an event is not possible.</h3>
                 {{/sl-able}}
+
+                {{#sl-unable activity="reschedule" resource="event" possible=false}}
+                    <h3>Rescheduling an event is not possible.</h3>
+                {{/sl-unable}}
             </div>
         </div>
-
         <br><br>
-        With the same behavior and model data above we set behavior to editDate in this component.
+        This also works with computed properties in the <em>possible</em> property as in the following example:
         <br><br>
-        <pre>\{{#sl-able behavior="editDate" provider=model}}
-    &lt;h3&gt;You can edit a date for this event.&lt;/h3&gt;
-\{{/sl-able}}</pre>
+        <pre>\{{#sl-unable activity="create" resource="event" possible=model.computedReturnsFalse}}
+    &lt;h3&gt;Creating an event is not possible&lt;/h3&gt;
+\{{/sl-unable}}</pre>
         <br>
-         In this case, editDate is true in the behavior data so we will look for it in the model. Note that editDate in the model is set to a boolean. Ours is set to true so we will see the following result:
-         <br>
-         <div class="row">
+        Which results in:
+        <div class="row">
             <div class="col-md-12">
-                {{#sl-able behavior="editDate" provider=model}}
-                    <h3>You can edit a date for this event.</h3>
-                {{/sl-able}}
+                {{#sl-unable activity="create" resource="event" possible=model.computedReturnsFalse}}
+                    <h3>Creating an event is not possible</h3>
+                {{/sl-unable}}
             </div>
         </div>
     </div>

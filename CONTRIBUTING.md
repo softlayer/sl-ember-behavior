@@ -71,10 +71,16 @@ functionality or fixing a bug, we need a test!
 
 4. Make the test pass.
 
-5. Commit your changes. If your pull request fixes an issue specify it in the commit message. Here's an example:
-`git commit -m "Close #12 Fix passing of context"`
+5. Document your code and make sure the documentation is still able to generate and creates the result you are
+expecting.  This addon leverages the [ember-cli-jsdoc](https://github.com/softlayer/ember-cli-jsdoc) addon to
+generate documentation.  Simply run either `ember ember-cli-jsdoc` or `npm run docs` (shortcut setup in this repo)
+and then visit *http://localhost:4200/docs*.
 
-6. Push to your fork and submit a pull request againt the `master` branch. Please provide us with some explanation
+6. Commit your changes. If your pull request fixes an issue specify it in the commit message. Here's an example:
+`git commit -m "Close #12 Fix passing of context"`.
+[GitHub offers additional examples here.](https://help.github.com/articles/closing-issues-via-commit-messages/)
+
+7. Push to your fork and submit a pull request againt the `master` branch. Please provide us with some explanation
 of why you made the changes you made. For new features make sure to explain a standard use case to us.
 
 We try to be quick about responding to tickets but sometimes we get a bit backlogged.  If the response is slow, try

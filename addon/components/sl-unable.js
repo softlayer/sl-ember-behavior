@@ -1,23 +1,20 @@
 import Ember from 'ember';
-import layout from '../templates/components/sl-unable';
+import ComponentMixin from '../mixins/component';
 
 /**
+ * A block form component that renders its content when an activity on a resource is not possible or not allowed
+ *
  * @module
  * @augments ember/Component
+ * @augments mixins/component
  */
-export default Ember.Component.extend({
+export default Ember.Component.extend( ComponentMixin, {
 
     // -------------------------------------------------------------------------
     // Dependencies
 
     // -------------------------------------------------------------------------
     // Attributes
-
-    /** @type {Object} */
-    layout,
-
-    /** @type {String} */
-    tagName: 'span',
 
     // -------------------------------------------------------------------------
     // Actions
@@ -28,13 +25,6 @@ export default Ember.Component.extend({
     // -------------------------------------------------------------------------
     // Properties
 
-    /**
-     * The behavior service used to check if the supplied behavior is allowed
-     *
-     * @type {ember/Service}
-     */
-    behaviorService: Ember.inject.service( 'sl-behavior' ),
-
     // -------------------------------------------------------------------------
     // Observers
 
@@ -42,15 +32,16 @@ export default Ember.Component.extend({
     // Methods
 
     /**
-     * Whether the behavior is not allowed
+     * Calls the appropriate method on the behavior service to determine if it should be viewable
      *
      * @function
+     * @param {String} activity
+     * @param {String} resource
+     * @param {Boolean} possible
      * @returns {Boolean}
      */
-    isUnable: Ember.computed( function() {
-        return this.get( 'behaviorService' ).isUnable(
-            this.get( 'behavior' ),
-            this.get( 'provider' )
-        );
-    })
+    isViewable( activity, resource, possible ) {
+        return this.get( 'behaviorService' ).isUnable( activity, resource, possible );
+    }
+
 });
