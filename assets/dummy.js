@@ -391,7 +391,7 @@ define('dummy/templates/application', ['exports'], function (exports) {
         dom.appendChild(el5, el6);
         var el6 = dom.createElement("li");
         var el7 = dom.createElement("a");
-        dom.setAttribute(el7,"href","docs");
+        dom.setAttribute(el7,"href","http://softlayer.github.io/sl-ember-behavior/docs");
         dom.setAttribute(el7,"target","new");
         var el8 = dom.createElement("i");
         dom.setAttribute(el8,"class","fa fa-book");
@@ -2393,7 +2393,7 @@ catch(err) {
 if (runningTests) {
   require("dummy/tests/test-helper");
 } else {
-  require("dummy/app")["default"].create({"name":"sl-ember-behavior","version":"1.3.0.33a05125"});
+  require("dummy/app")["default"].create({"name":"sl-ember-behavior","version":"1.3.0.39c6a1a1"});
 }
 
 /* jshint ignore:end */
