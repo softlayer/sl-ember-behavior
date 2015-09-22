@@ -2,7 +2,7 @@
 
 [![Dependencies](https://img.shields.io/david/softlayer/sl-ember-behavior.svg)](https://david-dm.org/softlayer/sl-ember-behavior) [![Dev Dependencies](https://img.shields.io/david/dev/softlayer/sl-ember-behavior.svg)](https://david-dm.org/softlayer/sl-ember-behavior#info=devDependencies)
 
-[![Build Status](https://img.shields.io/travis/softlayer/sl-ember-behavior/master.svg)](https://travis-ci.org/softlayer/sl-ember-behavior) [![Code Climate](https://img.shields.io/codeclimate/github/softlayer/sl-ember-behavior.svg)](https://codeclimate.com/github/softlayer/sl-ember-behavior)
+[![Build Status](https://img.shields.io/travis/softlayer/sl-ember-behavior/master.svg)](https://travis-ci.org/softlayer/sl-ember-behavior) [![Code Climate](https://img.shields.io/codeclimate/github/softlayer/sl-ember-behavior.svg)](https://codeclimate.com/github/softlayer/sl-ember-behavior) [![Ember Observer](http://emberobserver.com/badges/sl-ember-behavior.svg)](http://emberobserver.com/addons/sl-ember-behavior)
 
 To see which issues are currently being worked on or are scheduled to be worked on next, visit [https://huboard.com/softlayer/sl-ember-behavior/#/](https://huboard.com/softlayer/sl-ember-behavior/#/)
 
