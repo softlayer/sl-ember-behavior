@@ -8,7 +8,7 @@ We use [https://waffle.io/softlayer/sl-ember-behavior](https://waffle.io/softlay
 
 [![Stories in Ready](https://badge.waffle.io/softlayer/sl-ember-behavior.png?label=ready&title=Ready)](https://waffle.io/softlayer/sl-ember-behavior) [![Stories in In Progress](https://badge.waffle.io/softlayer/sl-ember-behavior.png?label=in%20progress&title=In%20Progress)](https://waffle.io/softlayer/sl-ember-behavior) [![Stories in Ready For Review](https://badge.waffle.io/softlayer/sl-ember-behavior.png?label=ready%20for%20review&title=Ready%20For%20Review)](https://waffle.io/softlayer/sl-ember-behavior) [![Stories in In Review](https://badge.waffle.io/softlayer/sl-ember-behavior.png?label=in%20review&title=In%20Review)](https://waffle.io/softlayer/sl-ember-behavior)
 
-[![Throughput Graph](https://graphs.waffle.io/softlayer/sl-ember-behavior/throughput.svg)](https://waffle.io/softlayer/sl-ember-components/metrics)
+[![Throughput Graph](https://graphs.waffle.io/softlayer/sl-ember-behavior/throughput.svg)](https://waffle.io/softlayer/sl-ember-behavior/metrics)
 
 ---
 
