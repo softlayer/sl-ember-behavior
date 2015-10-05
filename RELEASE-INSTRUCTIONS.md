@@ -3,9 +3,11 @@
 This document captures the steps a project maintainer should follow when releasing a new version of this Addon.
 
 * Merge all desired pull requests into `master` branch
+* Create a test Ember application and run `ember install sl-ember-behavior#master` to ensure addon installs correctly
+    * Exercise the functionality of this addon in the test application
 * If change is due to upgrading Ember CLI version
-    * Update Ember CLI version badge in README.md file
-* Update CHANGELOG.md
+    * Update Ember CLI version badge in *README.md* file
+* Update *CHANGELOG.md*
     * Prefix the entries with one of the following tags inside brackets:
         * BUGFIX
             * A link to a bug and a link to a patch.
@@ -22,7 +24,7 @@ This document captures the steps a project maintainer should follow when releasi
     * `git push origin --tags`
     * `npm publish --registry http://registry.npmjs.org/`
         * Note: `--registry` flag is workaround for occasional issues with default SSL url
-* Copy the content of the additions made to the CHANGELOG.md file to the Release Notes of the just-released tag
+* Copy the content of the additions made to the *CHANGELOG.md* file to the Release Notes of the just-released tag
 * Run `ember build`
 * Run `npm run docs`
 * Copy the following resources outside of the working directory so they can be retained between switching branches:
