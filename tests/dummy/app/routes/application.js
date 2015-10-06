@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 
         const behaviors = this.get( 'behaviors' );
 
-        Ember.keys( this.get( 'router.router.recognizer.names' ) ).forEach( ( route ) => {
+        Object.keys( this.get( 'router.router.recognizer.names' ) ).forEach( ( route ) => {
             behaviors.route[ route ] = true;
         });
 
