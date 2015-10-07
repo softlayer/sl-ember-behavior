@@ -32,10 +32,17 @@ test( 'Renders as a span tag with no classes', function( assert ) {
 });
 
 test( 'Renders content when isAble() returns true', function( assert ) {
+    this.registry.register(
+        'template:test-template',
+        Ember.Handlebars.compile( 'I can do it' )
+    );
+
     this.subject({
         behaviorService: behaviorService,
-        template: Ember.Handlebars.compile( 'I can do it' )
+        templateName: 'test-template'
     });
+
+    this.render();
 
     assert.equal(
         Ember.$.trim( this.$().text() ),
