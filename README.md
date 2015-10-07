@@ -129,7 +129,7 @@ In this example, the `comments`, `articles`, and `routes` keys represent what is
 The `route` key (Resource) entries are only needed if you want to restrict access to routes.  If you are going to restrict route access we recommend using code such as
 
 ```
-Ember.keys( this.get( 'router.router.recognizer.names' ) ).forEach( function( route ) { ... });
+Object.keys( this.get( 'router.router.recognizer.names' ) ).forEach( function( route ) { ... });
 ```
 
 from within the `ApplicationRoute` in order to correctly capture all of the routes that are auto-magically generated in your application, such as `error`, `routename.loading`, etc.  In the example given you can see these such routes represented and the user's access to them being managed.  If your application does not make use of the `error` and `loading` routes, for example, then you would not need to populate them.
