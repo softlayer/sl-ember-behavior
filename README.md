@@ -2,9 +2,13 @@
 
 [![Dependencies](https://img.shields.io/david/softlayer/sl-ember-behavior.svg)](https://david-dm.org/softlayer/sl-ember-behavior) [![Dev Dependencies](https://img.shields.io/david/dev/softlayer/sl-ember-behavior.svg)](https://david-dm.org/softlayer/sl-ember-behavior#info=devDependencies)
 
-[![Build Status](https://img.shields.io/travis/softlayer/sl-ember-behavior/master.svg)](https://travis-ci.org/softlayer/sl-ember-behavior) [![Code Climate](https://img.shields.io/codeclimate/github/softlayer/sl-ember-behavior.svg)](https://codeclimate.com/github/softlayer/sl-ember-behavior) [![Ember Observer](http://emberobserver.com/badges/sl-ember-behavior.svg)](http://emberobserver.com/addons/sl-ember-behavior)
+[![Build Status](https://img.shields.io/travis/softlayer/sl-ember-behavior/master.svg)](https://travis-ci.org/softlayer/sl-ember-behavior) [![Code Climate](https://img.shields.io/codeclimate/github/softlayer/sl-ember-behavior.svg)](https://codeclimate.com/github/softlayer/sl-ember-behavior) [![Ember Observer](http://emberobserver.com/badges/sl-ember-behavior.svg)](http://emberobserver.com/addons/sl-ember-behavior) [![Inch CI](http://inch-ci.org/github/softlayer/sl-ember-behavior.svg?branch=master)](http://inch-ci.org/github/softlayer/sl-ember-behavior)
 
-To see which issues are currently being worked on or are scheduled to be worked on next, visit [https://huboard.com/softlayer/sl-ember-behavior/#/](https://huboard.com/softlayer/sl-ember-behavior/#/)
+We use [https://waffle.io/softlayer/sl-ember-behavior](https://waffle.io/softlayer/sl-ember-behavior) to work our issues.
+
+[![Stories in Ready](https://badge.waffle.io/softlayer/sl-ember-behavior.png?label=ready&title=Ready)](https://waffle.io/softlayer/sl-ember-behavior) [![Stories in In Progress](https://badge.waffle.io/softlayer/sl-ember-behavior.png?label=in%20progress&title=In%20Progress)](https://waffle.io/softlayer/sl-ember-behavior) [![Stories in Ready For Review](https://badge.waffle.io/softlayer/sl-ember-behavior.png?label=ready%20for%20review&title=Ready%20For%20Review)](https://waffle.io/softlayer/sl-ember-behavior) [![Stories in In Review](https://badge.waffle.io/softlayer/sl-ember-behavior.png?label=in%20review&title=In%20Review)](https://waffle.io/softlayer/sl-ember-behavior)
+
+[![Throughput Graph](https://graphs.waffle.io/softlayer/sl-ember-behavior/throughput.svg)](https://waffle.io/softlayer/sl-ember-behavior/metrics)
 
 ---
 
@@ -125,7 +129,7 @@ In this example, the `comments`, `articles`, and `routes` keys represent what is
 The `route` key (Resource) entries are only needed if you want to restrict access to routes.  If you are going to restrict route access we recommend using code such as
 
 ```
-Ember.keys( this.get( 'router.router.recognizer.names' ) ).forEach( function( route ) { ... });
+Object.keys( this.get( 'router.router.recognizer.names' ) ).forEach( function( route ) { ... });
 ```
 
 from within the `ApplicationRoute` in order to correctly capture all of the routes that are auto-magically generated in your application, such as `error`, `routename.loading`, etc.  In the example given you can see these such routes represented and the user's access to them being managed.  If your application does not make use of the `error` and `loading` routes, for example, then you would not need to populate them.
