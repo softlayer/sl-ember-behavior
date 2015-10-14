@@ -19,6 +19,25 @@
   "engines": {
     "node": ">= 0.10.0"
   },
+  "keywords": [
+    "ember-addon",
+    "acl",
+    "permissions",
+    "authorization",
+    "authorize",
+    "declarative",
+    "rules",
+    "activity",
+    "actor",
+    "role",
+    "permit",
+    "allow",
+    "behaviors"
+  ],
+  "ember-addon": {
+    "configPath": "tests/dummy/config",
+    "demoURL": "http://softlayer.github.io/sl-ember-behavior/"
+  },
   "author": "Jeremy Brown <jeremy@notmessenger.com> (http://www.notmessenger.com)",
   "license": "MIT",
   "dependencies": {
@@ -46,24 +65,5 @@
     "ember-try": "0.0.6",
     "phantomjs": "1.9.18",
     "sl-eslint": "0.4.0"
-  },
-  "keywords": [
-    "ember-addon",
-    "acl",
-    "permissions",
-    "authorization",
-    "authorize",
-    "declarative",
-    "rules",
-    "activity",
-    "actor",
-    "role",
-    "permit",
-    "allow",
-    "behaviors"
-  ],
-  "ember-addon": {
-    "configPath": "tests/dummy/config",
-    "demoURL": "http://softlayer.github.io/sl-ember-behavior/"
   }
 }
