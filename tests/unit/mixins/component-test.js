@@ -19,7 +19,7 @@ module( 'Unit | Mixin | component', {
 test( 'The correct service is being injected into the component', function( assert ) {
     const subject = AugmentedObject.create();
 
-    assert.equal(
+    assert.strictEqual(
         subject.behaviorService.name,
         'sl-behavior',
         'The correct service is being injected into the component'
@@ -109,7 +109,7 @@ test( 'showContent() computed property throws assertion when `possible` property
 test( 'showContent() computed property returns the value the isViewable method returns', function( assert ) {
     let subject = AugmentedObject.create();
 
-    assert.equal(
+    assert.strictEqual(
         subject.get( 'showContent' ),
         true,
         'Is viewable returns true'
@@ -121,7 +121,7 @@ test( 'showContent() computed property returns the value the isViewable method r
 
     subject = AugmentedObject.create();
 
-    assert.equal(
+    assert.strictEqual(
         subject.get( 'showContent' ),
         false,
         'Is viewable returns false'

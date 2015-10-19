@@ -25,7 +25,7 @@ test( 'Renders as a span tag with no classes', function( assert ) {
         behaviorService: behaviorService
     });
 
-    assert.equal(
+    assert.strictEqual(
         this.$().prop( 'tagName' ),
         'SPAN'
     );
@@ -44,7 +44,7 @@ test( 'Renders content when isAble() returns true', function( assert ) {
 
     this.render();
 
-    assert.equal(
+    assert.strictEqual(
         Ember.$.trim( this.$().text() ),
         'I can do it'
     );
@@ -58,7 +58,7 @@ test( 'Does not render content when isAble() returns false', function( assert ) 
         template: Ember.Handlebars.compile( 'I can do it' )
     });
 
-    assert.equal(
+    assert.strictEqual(
         Ember.$.trim( this.$().text() ),
         ''
     );
