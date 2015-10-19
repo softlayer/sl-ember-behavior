@@ -34,9 +34,7 @@ test( 'Renders as a span tag with no classes', function( assert ) {
 test( 'Does not render content when isUnable() returns false', function( assert ) {
     this.subject({
         behaviorService: behaviorService,
-        template: Ember.Handlebars.compile(
-            'Should not render'
-        )
+        template: hbs`Should not render`
     });
 
     assert.equal(

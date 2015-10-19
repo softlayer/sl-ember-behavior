@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
 import sinon from 'sinon';
 
 let behaviorService;
@@ -32,10 +33,7 @@ test( 'Renders as a span tag with no classes', function( assert ) {
 });
 
 test( 'Renders content when isAble() returns true', function( assert ) {
-    this.registry.register(
-        'template:test-template',
-        Ember.Handlebars.compile( 'I can do it' )
-    );
+    this.registry.register( 'template:test-template',  hbs`I can do it` );
 
     this.subject({
         behaviorService: behaviorService,
@@ -55,7 +53,7 @@ test( 'Does not render content when isAble() returns false', function( assert ) 
 
     this.subject({
         behaviorService: behaviorService,
-        template: Ember.Handlebars.compile( 'I can do it' )
+        template: hbs`I can do it`
     });
 
     assert.equal(
