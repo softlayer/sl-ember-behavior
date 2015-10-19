@@ -28,13 +28,13 @@ test( 'Yielded content passes through when "activity" is true', function( assert
             activity="reschedule"
             resource="event"
         }}
-            <h3>You can create this event</h3>
+            <h3>You can reschedule this event</h3>
         {{/sl-able}}
     ` );
 
     assert.strictEqual(
         this.$( '>:first-child' ).find( 'h3' ).text().trim(),
-        'You can create this event',
+        'You can reschedule this event',
         'Yielded content is passed through correctly'
     );
 });
@@ -46,7 +46,7 @@ test( 'Yielded content does not pass through when "activity" is false', function
             activity="create"
             resource="event"
         }}
-            <h3>You cannot create this event</h3>
+            <h3>You can create this event</h3>
         {{/sl-able}}
     ` );
 
@@ -61,15 +61,17 @@ test( 'Setting "possible" property effects yielded content when activity is true
 
     this.set( 'possible', false );
 
-    this.render( hbs`
+    const template = hbs`
         {{#sl-able
             activity="edit"
             resource="user"
             possible=possible
         }}
-            <h3>You can create this event</h3>
+            <h3>You can edit this user</h3>
         {{/sl-able}}
-    ` );
+    `;
+
+    this.render( template );
 
     assert.strictEqual(
         this.$( '>:first-child' ).find( 'h3' ).length,
@@ -79,19 +81,11 @@ test( 'Setting "possible" property effects yielded content when activity is true
 
     this.set( 'possible', true );
 
-    this.render( hbs`
-        {{#sl-able
-            activity="edit"
-            resource="user"
-            possible=possible
-        }}
-            <h3>You can create this event</h3>
-        {{/sl-able}}
-    ` );
+    this.render( template );
 
     assert.strictEqual(
         this.$( '>:first-child' ).find( 'h3' ).text().trim(),
-        'You can create this event',
+        'You can edit this user',
         'Yielded content is passed through correctly'
     );
 });
