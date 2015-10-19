@@ -26,6 +26,23 @@ test( 'The correct service is being injected into the component', function( asse
     );
 });
 
+test( 'Dependent keys are correct', function( assert ) {
+    AugmentedObject = Ember.Object.extend( ComponentMixin );
+
+    const subject = AugmentedObject.create();
+
+    const showContentDependentKeys = [
+        'behaviorService.behaviors',
+        'possible'
+    ];
+
+    assert.deepEqual(
+        subject.showContent._dependentKeys,
+        showContentDependentKeys,
+        'Dependent keys are correct for showContent()'
+    );
+});
+
 test( 'Assert is thrown when isViewable() is not implemented on the derived class', function( assert ) {
     AugmentedObject = Ember.Object.extend( ComponentMixin );
 
