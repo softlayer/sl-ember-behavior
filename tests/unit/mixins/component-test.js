@@ -16,13 +16,25 @@ module( 'Unit | Mixin | component', {
     }
 });
 
-test( 'The correct service is being injected into the component', function( assert ) {
+test ( 'Default property values are set correctly', function( assert ) {
     const subject = AugmentedObject.create();
 
-    assert.equal(
+    assert.strictEqual(
         subject.behaviorService.name,
         'sl-behavior',
-        'The correct service is being injected into the component'
+        'service: "sl-behavior"'
+    );
+
+    assert.strictEqual(
+        subject.get( 'tagName' ),
+        'span',
+        'tagName: "span"'
+    );
+
+    assert.strictEqual(
+        subject.get( 'possible' ),
+        true,
+        'possible: true'
     );
 });
 
