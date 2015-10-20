@@ -56,7 +56,7 @@ test( 'Yielded content passes through when "activity" is true', function( assert
     );
 });
 
-test( 'Setting "possible" property effects yielded content when activity is true', function( assert ) {
+test( 'Setting "possible" property affects yielded content when activity is true', function( assert ) {
 
     this.set( 'possible', false );
 
