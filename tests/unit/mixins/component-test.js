@@ -16,7 +16,7 @@ module( 'Unit | Mixin | component', {
     }
 });
 
-test ( 'Default property values are set correctly', function( assert ) {
+test( 'Default property values are set correctly', function( assert ) {
     const subject = AugmentedObject.create();
 
     assert.strictEqual(
