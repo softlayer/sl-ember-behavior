@@ -32,19 +32,22 @@ test( 'Renders as a span tag with no classes', function( assert ) {
 });
 
 test( 'Does not render content when isUnable() returns false', function( assert ) {
+    this.registry.register( 'template:test-template',  hbs`Should not render` );
+
     this.subject({
         behaviorService: behaviorService,
-        template: hbs`Should not render`
+        templateName: 'test-template'
     });
 
     assert.equal(
         this.$().text(),
         ''
     );
+
+    this.registry.unregister( 'template:test-template' );
 });
 
 test( 'Renders content when isUnable() returns true', function( assert ) {
-
     this.registry.register( 'template:test-template',  hbs`Should render` );
 
     behaviorService.isUnable = sinon.stub().returns( true );
@@ -60,6 +63,8 @@ test( 'Renders content when isUnable() returns true', function( assert ) {
         Ember.$.trim( this.$().text() ),
         'Should render'
     );
+
+    this.registry.unregister( 'template:test-template' );
 });
 
 test( 'isUnable() calls isUnable() on the behavior service', function( assert ) {

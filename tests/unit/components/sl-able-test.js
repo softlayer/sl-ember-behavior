@@ -46,20 +46,26 @@ test( 'Renders content when isAble() returns true', function( assert ) {
         Ember.$.trim( this.$().text() ),
         'I can do it'
     );
+
+    this.registry.unregister( 'template:test-template' );
 });
 
 test( 'Does not render content when isAble() returns false', function( assert ) {
     behaviorService.isAble = sinon.stub().returns( false );
 
+    this.registry.register( 'template:test-template',  hbs`I can do it` );
+
     this.subject({
         behaviorService: behaviorService,
-        template: hbs`I can do it`
+        templateName: 'test-template'
     });
 
     assert.equal(
         Ember.$.trim( this.$().text() ),
         ''
     );
+
+    this.registry.unregister( 'template:test-template' );
 });
 
 test( 'isAble() calls isAble() on the behavior service', function( assert ) {
