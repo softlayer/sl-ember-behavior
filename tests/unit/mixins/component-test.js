@@ -16,13 +16,42 @@ module( 'Unit | Mixin | component', {
     }
 });
 
-test( 'The correct service is being injected into the component', function( assert ) {
+test( 'Default property values are set correctly', function( assert ) {
     const subject = AugmentedObject.create();
 
-    assert.equal(
+    assert.strictEqual(
         subject.behaviorService.name,
         'sl-behavior',
-        'The correct service is being injected into the component'
+        'service: "sl-behavior"'
+    );
+
+    assert.strictEqual(
+        subject.get( 'tagName' ),
+        'span',
+        'tagName: "span"'
+    );
+
+    assert.strictEqual(
+        subject.get( 'possible' ),
+        true,
+        'possible: true'
+    );
+});
+
+test( 'Dependent keys are correct', function( assert ) {
+    AugmentedObject = Ember.Object.extend( ComponentMixin );
+
+    const subject = AugmentedObject.create();
+
+    const showContentDependentKeys = [
+        'behaviorService.behaviors',
+        'possible'
+    ];
+
+    assert.deepEqual(
+        subject.showContent._dependentKeys,
+        showContentDependentKeys,
+        'Dependent keys are correct for showContent()'
     );
 });
 
@@ -35,6 +64,23 @@ test( 'Assert is thrown when isViewable() is not implemented on the derived clas
         subject.isViewable,
         'Assertion was thrown'
     );
+});
+
+test( 'isViewable() returns false when not implemented on the derived class', function( assert ) {
+    AugmentedObject = Ember.Object.extend( ComponentMixin );
+
+    const originalEmberAssert = Ember.assert;
+    const subject = AugmentedObject.create();
+
+    Ember.assert = function() {};
+
+    assert.strictEqual(
+        subject.isViewable(),
+        false,
+        'isViewable() returns false when not overriden'
+    );
+
+    Ember.assert = originalEmberAssert;
 });
 
 test( 'showContent() computed property throws assertion when `possible` property is not a boolean', function( assert ) {
@@ -109,7 +155,7 @@ test( 'showContent() computed property throws assertion when `possible` property
 test( 'showContent() computed property returns the value the isViewable method returns', function( assert ) {
     let subject = AugmentedObject.create();
 
-    assert.equal(
+    assert.strictEqual(
         subject.get( 'showContent' ),
         true,
         'Is viewable returns true'
@@ -121,7 +167,7 @@ test( 'showContent() computed property returns the value the isViewable method r
 
     subject = AugmentedObject.create();
 
-    assert.equal(
+    assert.strictEqual(
         subject.get( 'showContent' ),
         false,
         'Is viewable returns false'

@@ -31,7 +31,7 @@ test( 'Renders as a span tag with no classes', function( assert ) {
         behaviorService: behaviorService
     });
 
-    assert.equal(
+    assert.strictEqual(
         this.$().prop( 'tagName' ),
         'SPAN'
     );
