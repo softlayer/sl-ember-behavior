@@ -89,22 +89,3 @@ test( 'Setting "possible" property effects yielded content when activity is true
         'Yielded content is passed through correctly'
     );
 });
-
-test( 'Setting "possible" property does not effect yielded content when activity is false', function( assert ) {
-
-    this.render( hbs`
-        {{#sl-able
-            activity="create"
-            resource="event"
-            possible=false
-        }}
-            <h3>You can create this event</h3>
-        {{/sl-able}}
-    ` );
-
-    assert.strictEqual(
-        this.$( '>:first-child' ).find( 'h3' ).length,
-        0,
-        'When "possible" is false, yielded content is not passed through'
-    );
-});
