@@ -37,41 +37,6 @@ test( 'Renders as a span tag with no classes', function( assert ) {
     );
 });
 
-test( 'Does not render content when isUnable() returns false', function( assert ) {
-    this.subject({
-        behaviorService: behaviorService,
-        template: Ember.Handlebars.compile(
-            'Should not render'
-        )
-    });
-
-    assert.equal(
-        this.$().text(),
-        ''
-    );
-});
-
-test( 'Renders content when isUnable() returns true', function( assert ) {
-    this.registry.register(
-        'template:test-template',
-        Ember.Handlebars.compile( 'Should render' )
-    );
-
-    behaviorService.isUnable = sinon.stub().returns( true );
-
-    this.subject({
-        behaviorService: behaviorService,
-        templateName: 'test-template'
-    });
-
-    this.render();
-
-    assert.equal(
-        Ember.$.trim( this.$().text() ),
-        'Should render'
-    );
-});
-
 test( 'isUnable() calls isUnable() on the behavior service', function( assert ) {
     this.subject({
         behaviorService: behaviorService,
