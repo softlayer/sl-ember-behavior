@@ -16,13 +16,42 @@ module( 'Unit | Mixin | component', {
     }
 });
 
-test( 'The correct service is being injected into the component', function( assert ) {
+test( 'Default property values are set correctly', function( assert ) {
     const subject = AugmentedObject.create();
 
     assert.strictEqual(
         subject.behaviorService.name,
         'sl-behavior',
-        'The correct service is being injected into the component'
+        'service: "sl-behavior"'
+    );
+
+    assert.strictEqual(
+        subject.get( 'tagName' ),
+        'span',
+        'tagName: "span"'
+    );
+
+    assert.strictEqual(
+        subject.get( 'possible' ),
+        true,
+        'possible: true'
+    );
+});
+
+test( 'Dependent keys are correct', function( assert ) {
+    AugmentedObject = Ember.Object.extend( ComponentMixin );
+
+    const subject = AugmentedObject.create();
+
+    const showContentDependentKeys = [
+        'behaviorService.behaviors',
+        'possible'
+    ];
+
+    assert.deepEqual(
+        subject.showContent._dependentKeys,
+        showContentDependentKeys,
+        'Dependent keys are correct for showContent()'
     );
 });
 
