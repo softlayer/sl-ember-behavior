@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 import sinon from 'sinon';
+import componentMixin from 'sl-ember-behavior/mixins/component';
 
 let behaviorService;
 
@@ -12,6 +13,12 @@ moduleForComponent( 'sl-unable', 'Unit | Component | sl unable', {
             isUnable: sinon.stub().returns( false )
         });
     }
+});
+
+test( 'Successfully mixed component', function( assert ) {
+    assert.ok(
+        componentMixin.detect( this.subject() )
+    );
 });
 
 /**
@@ -27,41 +34,6 @@ test( 'Renders as a span tag with no classes', function( assert ) {
     assert.strictEqual(
         this.$().prop( 'tagName' ),
         'SPAN'
-    );
-});
-
-test( 'Does not render content when isUnable() returns false', function( assert ) {
-    this.subject({
-        behaviorService: behaviorService,
-        template: Ember.Handlebars.compile(
-            'Should not render'
-        )
-    });
-
-    assert.strictEqual(
-        this.$().text(),
-        ''
-    );
-});
-
-test( 'Renders content when isUnable() returns true', function( assert ) {
-    this.registry.register(
-        'template:test-template',
-        Ember.Handlebars.compile( 'Should render' )
-    );
-
-    behaviorService.isUnable = sinon.stub().returns( true );
-
-    this.subject({
-        behaviorService: behaviorService,
-        templateName: 'test-template'
-    });
-
-    this.render();
-
-    assert.strictEqual(
-        Ember.$.trim( this.$().text() ),
-        'Should render'
     );
 });
 
