@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 import sinon from 'sinon';
+import componentMixin from 'sl-ember-behavior/mixins/component';
 
 let behaviorService;
 
@@ -12,6 +13,12 @@ moduleForComponent( 'sl-unable', 'Unit | Component | sl unable', {
             isUnable: sinon.stub().returns( false )
         });
     }
+});
+
+test( 'Successfully mixed component', function( assert ) {
+    assert.ok(
+        componentMixin.detect( this.subject() )
+    );
 });
 
 /**
