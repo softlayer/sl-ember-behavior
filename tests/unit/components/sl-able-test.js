@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
 import sinon from 'sinon';
+import componentMixin from 'sl-ember-behavior/mixins/component';
 
 let behaviorService;
 
@@ -15,6 +15,12 @@ moduleForComponent( 'sl-able', 'Unit | Component | sl able', {
     }
 });
 
+test( 'Successfully mixed component', function( assert ) {
+    assert.ok(
+        componentMixin.detect( this.subject() )
+    );
+});
+
 /**
  * Ensures that the template is wrapping the content in a span tag and not in
  * any block-level tags. While it appears that core Ember functionality is being
@@ -26,46 +32,10 @@ test( 'Renders as a span tag with no classes', function( assert ) {
         behaviorService: behaviorService
     });
 
-    assert.equal(
+    assert.strictEqual(
         this.$().prop( 'tagName' ),
         'SPAN'
     );
-});
-
-test( 'Renders content when isAble() returns true', function( assert ) {
-    this.registry.register( 'template:test-template',  hbs`I can do it` );
-
-    this.subject({
-        behaviorService: behaviorService,
-        templateName: 'test-template'
-    });
-
-    this.render();
-
-    assert.equal(
-        Ember.$.trim( this.$().text() ),
-        'I can do it'
-    );
-
-    this.registry.unregister( 'template:test-template' );
-});
-
-test( 'Does not render content when isAble() returns false', function( assert ) {
-    behaviorService.isAble = sinon.stub().returns( false );
-
-    this.registry.register( 'template:test-template',  hbs`I can do it` );
-
-    this.subject({
-        behaviorService: behaviorService,
-        templateName: 'test-template'
-    });
-
-    assert.equal(
-        Ember.$.trim( this.$().text() ),
-        ''
-    );
-
-    this.registry.unregister( 'template:test-template' );
 });
 
 test( 'isAble() calls isAble() on the behavior service', function( assert ) {

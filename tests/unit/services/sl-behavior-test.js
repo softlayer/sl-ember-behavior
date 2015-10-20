@@ -13,7 +13,7 @@ moduleFor( 'service:sl-behavior', 'Unit | Service | sl behavior', {
 });
 
 test( '"behaviors" property defaults to null', function( assert ) {
-    assert.equal(
+    assert.strictEqual(
         BS.get( 'behaviors' ),
         null
     );

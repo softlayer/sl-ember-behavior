@@ -12,7 +12,7 @@ module( 'Unit | Mixin | route', {
 });
 
 test( 'The correct service is being injected into the mixin', function( assert ) {
-    assert.equal(
+    assert.strictEqual(
         Mixin.behaviorService.name,
         'sl-behavior',
         'The correct service is being injected into the mixin'
@@ -31,7 +31,7 @@ test( 'Successfully mixed', function( assert ) {
 });
 
 test( '"unableRoute" property defaults to null', function( assert ) {
-    assert.equal(
+    assert.strictEqual(
         Mixin.get( 'unableRoute' ),
         null
     );
