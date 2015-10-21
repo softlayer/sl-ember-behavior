@@ -1,5 +1,13 @@
 # sl-ember-behavior Changelog
 
+### 1.4.0
+
+* [#66](https://github.com/softlayer/sl-ember-behavior/issues/66) [BREAKING ENHANCEMENT] Upgrade to Ember CLI 1.13.8
+* Improved tests
+* General development enhancements
+
+[View complete changeset](https://github.com/softlayer/sl-ember-behavior/compare/v1.3.0...v1.4.0)
+
 ### 1.3.0
 
 * [#22](https://github.com/softlayer/sl-ember-behavior/issues/22) [BREAKING ENHANCEMENT] Upgrade to Ember CLI 0.2.7
