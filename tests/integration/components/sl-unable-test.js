@@ -88,5 +88,3 @@ test( 'Setting "possible" property affects yielded content when activity is true
         'When "possible" is false, yielded content is not passed through'
     );
 });
-
-
