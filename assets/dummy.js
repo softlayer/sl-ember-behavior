@@ -1,3 +1,4 @@
+"use strict";
 /* jshint ignore:start */
 
 /* jshint ignore:end */
@@ -8,10 +9,10 @@ define('dummy/acceptance-tests/sinon', ['exports', 'ember-sinon/acceptance-tests
 
 
 
-	exports.default = sinon.default;
+	exports['default'] = sinon['default'];
 
 });
-define('dummy/app', ['exports', 'ember', 'ember/resolver', 'dummy/config/environment'], function (exports, Ember, Resolver, config) {
+define('dummy/app', ['exports', 'ember', 'ember/resolver', 'ember/load-initializers', 'dummy/config/environment'], function (exports, Ember, Resolver, loadInitializers, config) {
 
     'use strict';
 
@@ -25,7 +26,23 @@ define('dummy/app', ['exports', 'ember', 'ember/resolver', 'dummy/config/environ
         Resolver: Resolver['default']
     });
 
+    loadInitializers['default'](App, config['default'].modulePrefix);
+
     exports['default'] = App;
+
+});
+define('dummy/components/app-version', ['exports', 'ember-cli-app-version/components/app-version', 'dummy/config/environment'], function (exports, AppVersionComponent, config) {
+
+  'use strict';
+
+  var _config$APP = config['default'].APP;
+  var name = _config$APP.name;
+  var version = _config$APP.version;
+
+  exports['default'] = AppVersionComponent['default'].extend({
+    version: version,
+    name: name
+  });
 
 });
 define('dummy/components/sl-able', ['exports', 'sl-ember-behavior/components/sl-able'], function (exports, component) {
@@ -63,22 +80,17 @@ define('dummy/controllers/object', ['exports', 'ember'], function (exports, Embe
 	exports['default'] = Ember['default'].Controller;
 
 });
-define('dummy/initializers/app-version', ['exports', 'dummy/config/environment', 'ember'], function (exports, config, Ember) {
+define('dummy/initializers/app-version', ['exports', 'ember-cli-app-version/initializer-factory', 'dummy/config/environment'], function (exports, initializerFactory, config) {
 
   'use strict';
 
-  var classify = Ember['default'].String.classify;
-  var registered = false;
+  var _config$APP = config['default'].APP;
+  var name = _config$APP.name;
+  var version = _config$APP.version;
 
   exports['default'] = {
     name: 'App Version',
-    initialize: function initialize(container, application) {
-      if (!registered) {
-        var appName = classify(application.toString());
-        Ember['default'].libraries.register(appName, config['default'].APP.version);
-        registered = true;
-      }
-    }
+    initialize: initializerFactory['default'](name, version)
   };
 
 });
@@ -88,7 +100,8 @@ define('dummy/initializers/export-application-global', ['exports', 'ember', 'dum
 
   exports.initialize = initialize;
 
-  function initialize(container, application) {
+  function initialize() {
+    var application = arguments[1] || arguments[0];
     if (config['default'].exportApplicationGlobal !== false) {
       var value = config['default'].exportApplicationGlobal;
       var globalName;
@@ -111,8 +124,6 @@ define('dummy/initializers/export-application-global', ['exports', 'ember', 'dum
       }
     }
   }
-
-  ;
 
   exports['default'] = {
     name: 'export-application-global',
@@ -148,7 +159,7 @@ define('dummy/routes/application', ['exports', 'ember'], function (exports, Embe
 
             var behaviors = this.get('behaviors');
 
-            Ember['default'].keys(this.get('router.router.recognizer.names')).forEach(function (route) {
+            Object.keys(this.get('router.router.recognizer.names')).forEach(function (route) {
                 behaviors.route[route] = true;
             });
 
@@ -195,9 +206,9 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/components/sl-ab
 
   'use strict';
 
-  module('JSHint - modules/sl-ember-behavior/components');
-  test('modules/sl-ember-behavior/components/sl-able.js should pass jshint', function () {
-    ok(true, 'modules/sl-ember-behavior/components/sl-able.js should pass jshint.');
+  QUnit.module('JSHint - modules/sl-ember-behavior/components');
+  QUnit.test('modules/sl-ember-behavior/components/sl-able.js should pass jshint', function (assert) {
+    assert.ok(true, 'modules/sl-ember-behavior/components/sl-able.js should pass jshint.');
   });
 
 });
@@ -205,9 +216,9 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/components/sl-un
 
   'use strict';
 
-  module('JSHint - modules/sl-ember-behavior/components');
-  test('modules/sl-ember-behavior/components/sl-unable.js should pass jshint', function () {
-    ok(true, 'modules/sl-ember-behavior/components/sl-unable.js should pass jshint.');
+  QUnit.module('JSHint - modules/sl-ember-behavior/components');
+  QUnit.test('modules/sl-ember-behavior/components/sl-unable.js should pass jshint', function (assert) {
+    assert.ok(true, 'modules/sl-ember-behavior/components/sl-unable.js should pass jshint.');
   });
 
 });
@@ -215,9 +226,9 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/mixins/component
 
   'use strict';
 
-  module('JSHint - modules/sl-ember-behavior/mixins');
-  test('modules/sl-ember-behavior/mixins/component.js should pass jshint', function () {
-    ok(true, 'modules/sl-ember-behavior/mixins/component.js should pass jshint.');
+  QUnit.module('JSHint - modules/sl-ember-behavior/mixins');
+  QUnit.test('modules/sl-ember-behavior/mixins/component.js should pass jshint', function (assert) {
+    assert.ok(true, 'modules/sl-ember-behavior/mixins/component.js should pass jshint.');
   });
 
 });
@@ -225,9 +236,9 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/mixins/route.jsh
 
   'use strict';
 
-  module('JSHint - modules/sl-ember-behavior/mixins');
-  test('modules/sl-ember-behavior/mixins/route.js should pass jshint', function () {
-    ok(true, 'modules/sl-ember-behavior/mixins/route.js should pass jshint.');
+  QUnit.module('JSHint - modules/sl-ember-behavior/mixins');
+  QUnit.test('modules/sl-ember-behavior/mixins/route.js should pass jshint', function (assert) {
+    assert.ok(true, 'modules/sl-ember-behavior/mixins/route.js should pass jshint.');
   });
 
 });
@@ -235,9 +246,9 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/services/sl-beha
 
   'use strict';
 
-  module('JSHint - modules/sl-ember-behavior/services');
-  test('modules/sl-ember-behavior/services/sl-behavior.js should pass jshint', function () {
-    ok(true, 'modules/sl-ember-behavior/services/sl-behavior.js should pass jshint.');
+  QUnit.module('JSHint - modules/sl-ember-behavior/services');
+  QUnit.test('modules/sl-ember-behavior/services/sl-behavior.js should pass jshint', function (assert) {
+    assert.ok(true, 'modules/sl-ember-behavior/services/sl-behavior.js should pass jshint.');
   });
 
 });
@@ -248,12 +259,25 @@ define('dummy/templates/application', ['exports'], function (exports) {
   exports['default'] = Ember.HTMLBars.template((function() {
     var child0 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 12,
+              "column": 20
+            },
+            "end": {
+              "line": 12,
+              "column": 71
+            }
+          },
+          "moduleName": "dummy/templates/application.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createElement("i");
           dom.setAttribute(el1,"class","fa fa-home");
@@ -262,37 +286,35 @@ define('dummy/templates/application', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     var child1 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 13,
+              "column": 20
+            },
+            "end": {
+              "line": 13,
+              "column": 71
+            }
+          },
+          "moduleName": "dummy/templates/application.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createElement("i");
           dom.setAttribute(el1,"class","fa fa-cubes");
@@ -301,36 +323,34 @@ define('dummy/templates/application', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     return {
-      isHTMLBars: true,
-      revision: "Ember@1.12.0",
-      blockParams: 0,
+      meta: {
+        "revision": "Ember@1.13.7",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 32,
+            "column": 6
+          }
+        },
+        "moduleName": "dummy/templates/application.hbs"
+      },
+      arity: 0,
       cachedFragment: null,
       hasRendered: false,
-      build: function build(dom) {
+      buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("br");
         dom.appendChild(el0, el1);
@@ -492,36 +512,22 @@ define('dummy/templates/application', ['exports'], function (exports) {
         dom.appendChild(el0, el1);
         return el0;
       },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, block = hooks.block, content = hooks.content;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [2]);
         var element1 = dom.childAt(element0, [1, 1, 1, 3]);
-        var morph0 = dom.createMorphAt(dom.childAt(element1, [1]),0,0);
-        var morph1 = dom.createMorphAt(dom.childAt(element1, [3]),0,0);
-        var morph2 = dom.createMorphAt(element0,3,3);
-        block(env, morph0, context, "link-to", ["index"], {}, child0, null);
-        block(env, morph1, context, "link-to", ["demo"], {}, child1, null);
-        content(env, morph2, context, "outlet");
-        return fragment;
-      }
+        var morphs = new Array(3);
+        morphs[0] = dom.createMorphAt(dom.childAt(element1, [1]),0,0);
+        morphs[1] = dom.createMorphAt(dom.childAt(element1, [3]),0,0);
+        morphs[2] = dom.createMorphAt(element0,3,3);
+        return morphs;
+      },
+      statements: [
+        ["block","link-to",["index"],[],0,null,["loc",[null,[12,20],[12,83]]]],
+        ["block","link-to",["demo"],[],1,null,["loc",[null,[13,20],[13,83]]]],
+        ["content","outlet",["loc",[null,[23,4],[23,14]]]]
+      ],
+      locals: [],
+      templates: [child0, child1]
     };
   }()));
 
@@ -533,12 +539,25 @@ define('dummy/templates/demo', ['exports'], function (exports) {
   exports['default'] = Ember.HTMLBars.template((function() {
     var child0 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 44,
+              "column": 16
+            },
+            "end": {
+              "line": 46,
+              "column": 16
+            }
+          },
+          "moduleName": "dummy/templates/demo.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("                    ");
           dom.appendChild(el0, el1);
@@ -550,37 +569,35 @@ define('dummy/templates/demo', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     var child1 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 48,
+              "column": 16
+            },
+            "end": {
+              "line": 50,
+              "column": 16
+            }
+          },
+          "moduleName": "dummy/templates/demo.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("                    ");
           dom.appendChild(el0, el1);
@@ -592,37 +609,35 @@ define('dummy/templates/demo', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     var child2 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 52,
+              "column": 16
+            },
+            "end": {
+              "line": 54,
+              "column": 16
+            }
+          },
+          "moduleName": "dummy/templates/demo.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("                    ");
           dom.appendChild(el0, el1);
@@ -634,37 +649,35 @@ define('dummy/templates/demo', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     var child3 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 56,
+              "column": 16
+            },
+            "end": {
+              "line": 58,
+              "column": 16
+            }
+          },
+          "moduleName": "dummy/templates/demo.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("                    ");
           dom.appendChild(el0, el1);
@@ -676,37 +689,35 @@ define('dummy/templates/demo', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     var child4 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 76,
+              "column": 16
+            },
+            "end": {
+              "line": 78,
+              "column": 16
+            }
+          },
+          "moduleName": "dummy/templates/demo.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("                    ");
           dom.appendChild(el0, el1);
@@ -718,37 +729,35 @@ define('dummy/templates/demo', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     var child5 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 80,
+              "column": 16
+            },
+            "end": {
+              "line": 82,
+              "column": 16
+            }
+          },
+          "moduleName": "dummy/templates/demo.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("                    ");
           dom.appendChild(el0, el1);
@@ -760,37 +769,35 @@ define('dummy/templates/demo', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     var child6 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 95,
+              "column": 16
+            },
+            "end": {
+              "line": 97,
+              "column": 16
+            }
+          },
+          "moduleName": "dummy/templates/demo.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createTextNode("                    ");
           dom.appendChild(el0, el1);
@@ -802,36 +809,34 @@ define('dummy/templates/demo', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     return {
-      isHTMLBars: true,
-      revision: "Ember@1.12.0",
-      blockParams: 0,
+      meta: {
+        "revision": "Ember@1.13.7",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 104,
+            "column": 0
+          }
+        },
+        "moduleName": "dummy/templates/demo.hbs"
+      },
+      arity: 0,
       cachedFragment: null,
       hasRendered: false,
-      build: function build(dom) {
+      buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
         dom.setAttribute(el1,"class","row");
@@ -891,7 +896,21 @@ define('dummy/templates/demo', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("pre");
-        var el4 = dom.createTextNode("{{#sl-able activity=\"create\" resource=\"event\"}}\n    <h3>You can create this event</h3>\n{{/sl-able}}\n\n{{#sl-unable activity=\"reschedule\" resource=\"event\"}}\n    <h3>You can reschedule this event</h3>\n{{/sl-unable}}\n\n{{#sl-able activity=\"edit\" resource=\"user\"}}\n    <h3>You cannot edit this user<h3>\n{{/sl-able}}\n\n{{#sl-unable activity=\"remove\" resource=\"user\"}}\n    <h3>You cannot remove this user<h3>\n{{/sl-unable}}");
+        var el4 = dom.createTextNode("{{#sl-able activity=\"create\" resource=\"event\"}}\n    <h3>You can create this event</h3>\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{/sl-able}}\n\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{#sl-unable activity=\"reschedule\" resource=\"event\"}}\n    <h3>You can reschedule this event</h3>\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{/sl-unable}}\n\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{#sl-able activity=\"edit\" resource=\"user\"}}\n    <h3>You cannot edit this user<h3>\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{/sl-able}}\n\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{#sl-unable activity=\"remove\" resource=\"user\"}}\n    <h3>You cannot remove this user<h3>\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{/sl-unable}}");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n        ");
@@ -943,7 +962,13 @@ define('dummy/templates/demo', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("pre");
-        var el4 = dom.createTextNode("{{#sl-able activity=\"create\" resource=event possible=false}}\n    <h3>Creating an event is not possible</h3>\n{{/sl-able}}\n\n{{#sl-unable activity=\"reschedule\" resource=event possible=false}}\n    <h3>Rescheduling an event is not possible</h3>\n{{/sl-unable}}");
+        var el4 = dom.createTextNode("{{#sl-able activity=\"create\" resource=event possible=false}}\n    <h3>Creating an event is not possible</h3>\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{/sl-able}}\n\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{#sl-unable activity=\"reschedule\" resource=event possible=false}}\n    <h3>Rescheduling an event is not possible</h3>\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{/sl-unable}}");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n        ");
@@ -1015,7 +1040,9 @@ define('dummy/templates/demo', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("pre");
-        var el4 = dom.createTextNode("{{#sl-unable activity=\"create\" resource=\"event\" possible=model.computedReturnsFalse}}\n    <h3>Creating an event is not possible</h3>\n{{/sl-unable}}");
+        var el4 = dom.createTextNode("{{#sl-unable activity=\"create\" resource=\"event\" possible=model.computedReturnsFalse}}\n    <h3>Creating an event is not possible</h3>\n");
+        dom.appendChild(el3, el4);
+        var el4 = dom.createTextNode("{{/sl-unable}}");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n        ");
@@ -1050,45 +1077,31 @@ define('dummy/templates/demo', ['exports'], function (exports) {
         dom.appendChild(el0, el1);
         return el0;
       },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, block = hooks.block, get = hooks.get;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [2, 1]);
         var element1 = dom.childAt(element0, [15, 1]);
         var element2 = dom.childAt(element0, [35, 1]);
-        var morph0 = dom.createMorphAt(element1,1,1);
-        var morph1 = dom.createMorphAt(element1,3,3);
-        var morph2 = dom.createMorphAt(element1,5,5);
-        var morph3 = dom.createMorphAt(element1,7,7);
-        var morph4 = dom.createMorphAt(element2,1,1);
-        var morph5 = dom.createMorphAt(element2,3,3);
-        var morph6 = dom.createMorphAt(dom.childAt(element0, [49, 1]),1,1);
-        block(env, morph0, context, "sl-able", [], {"activity": "create", "resource": "event"}, child0, null);
-        block(env, morph1, context, "sl-unable", [], {"activity": "reschedule", "resource": "event"}, child1, null);
-        block(env, morph2, context, "sl-able", [], {"activity": "edit", "resource": "user"}, child2, null);
-        block(env, morph3, context, "sl-unable", [], {"activity": "remove", "resource": "user"}, child3, null);
-        block(env, morph4, context, "sl-able", [], {"activity": "create", "resource": "event", "possible": false}, child4, null);
-        block(env, morph5, context, "sl-unable", [], {"activity": "reschedule", "resource": "event", "possible": false}, child5, null);
-        block(env, morph6, context, "sl-unable", [], {"activity": "create", "resource": "event", "possible": get(env, context, "model.computedReturnsFalse")}, child6, null);
-        return fragment;
-      }
+        var morphs = new Array(7);
+        morphs[0] = dom.createMorphAt(element1,1,1);
+        morphs[1] = dom.createMorphAt(element1,3,3);
+        morphs[2] = dom.createMorphAt(element1,5,5);
+        morphs[3] = dom.createMorphAt(element1,7,7);
+        morphs[4] = dom.createMorphAt(element2,1,1);
+        morphs[5] = dom.createMorphAt(element2,3,3);
+        morphs[6] = dom.createMorphAt(dom.childAt(element0, [49, 1]),1,1);
+        return morphs;
+      },
+      statements: [
+        ["block","sl-able",[],["activity","create","resource","event"],0,null,["loc",[null,[44,16],[46,28]]]],
+        ["block","sl-unable",[],["activity","reschedule","resource","event"],1,null,["loc",[null,[48,16],[50,30]]]],
+        ["block","sl-able",[],["activity","edit","resource","user"],2,null,["loc",[null,[52,16],[54,28]]]],
+        ["block","sl-unable",[],["activity","remove","resource","user"],3,null,["loc",[null,[56,16],[58,30]]]],
+        ["block","sl-able",[],["activity","create","resource","event","possible",false],4,null,["loc",[null,[76,16],[78,28]]]],
+        ["block","sl-unable",[],["activity","reschedule","resource","event","possible",false],5,null,["loc",[null,[80,16],[82,30]]]],
+        ["block","sl-unable",[],["activity","create","resource","event","possible",["subexpr","@mut",[["get","model.computedReturnsFalse",["loc",[null,[95,73],[95,99]]]]],[],[]]],6,null,["loc",[null,[95,16],[97,30]]]]
+      ],
+      locals: [],
+      templates: [child0, child1, child2, child3, child4, child5, child6]
     };
   }()));
 
@@ -1100,49 +1113,60 @@ define('dummy/templates/index', ['exports'], function (exports) {
   exports['default'] = Ember.HTMLBars.template((function() {
     var child0 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 10,
+              "column": 12
+            },
+            "end": {
+              "line": 10,
+              "column": 64
+            }
+          },
+          "moduleName": "dummy/templates/index.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createElement("i");
           dom.setAttribute(el1,"class","fa fa-cubes fa-5x");
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     var child1 = (function() {
       return {
-        isHTMLBars: true,
-        revision: "Ember@1.12.0",
-        blockParams: 0,
+        meta: {
+          "revision": "Ember@1.13.7",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 11,
+              "column": 11
+            },
+            "end": {
+              "line": 11,
+              "column": 41
+            }
+          },
+          "moduleName": "dummy/templates/index.hbs"
+        },
+        arity: 0,
         cachedFragment: null,
         hasRendered: false,
-        build: function build(dom) {
+        buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
           var el1 = dom.createElement("b");
           var el2 = dom.createTextNode("Demo");
@@ -1150,36 +1174,34 @@ define('dummy/templates/index', ['exports'], function (exports) {
           dom.appendChild(el0, el1);
           return el0;
         },
-        render: function render(context, env, contextualElement) {
-          var dom = env.dom;
-          dom.detectNamespace(contextualElement);
-          var fragment;
-          if (env.useFragmentCache && dom.canClone) {
-            if (this.cachedFragment === null) {
-              fragment = this.build(dom);
-              if (this.hasRendered) {
-                this.cachedFragment = fragment;
-              } else {
-                this.hasRendered = true;
-              }
-            }
-            if (this.cachedFragment) {
-              fragment = dom.cloneNode(this.cachedFragment, true);
-            }
-          } else {
-            fragment = this.build(dom);
-          }
-          return fragment;
-        }
+        buildRenderNodes: function buildRenderNodes() { return []; },
+        statements: [
+
+        ],
+        locals: [],
+        templates: []
       };
     }());
     return {
-      isHTMLBars: true,
-      revision: "Ember@1.12.0",
-      blockParams: 0,
+      meta: {
+        "revision": "Ember@1.13.7",
+        "loc": {
+          "source": null,
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 21,
+            "column": 6
+          }
+        },
+        "moduleName": "dummy/templates/index.hbs"
+      },
+      arity: 0,
       cachedFragment: null,
       hasRendered: false,
-      build: function build(dom) {
+      buildFragment: function buildFragment(dom) {
         var el0 = dom.createDocumentFragment();
         var el1 = dom.createElement("div");
         dom.setAttribute(el1,"class","row");
@@ -1190,7 +1212,7 @@ define('dummy/templates/index', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("h1");
-        var el4 = dom.createTextNode("sl-ember-behavior 1.3.0");
+        var el4 = dom.createTextNode("sl-ember-behavior 1.4.0");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n        ");
@@ -1292,33 +1314,19 @@ define('dummy/templates/index', ['exports'], function (exports) {
         dom.appendChild(el0, el1);
         return el0;
       },
-      render: function render(context, env, contextualElement) {
-        var dom = env.dom;
-        var hooks = env.hooks, block = hooks.block;
-        dom.detectNamespace(contextualElement);
-        var fragment;
-        if (env.useFragmentCache && dom.canClone) {
-          if (this.cachedFragment === null) {
-            fragment = this.build(dom);
-            if (this.hasRendered) {
-              this.cachedFragment = fragment;
-            } else {
-              this.hasRendered = true;
-            }
-          }
-          if (this.cachedFragment) {
-            fragment = dom.cloneNode(this.cachedFragment, true);
-          }
-        } else {
-          fragment = this.build(dom);
-        }
+      buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
         var element0 = dom.childAt(fragment, [2, 1]);
-        var morph0 = dom.createMorphAt(dom.childAt(element0, [1]),0,0);
-        var morph1 = dom.createMorphAt(dom.childAt(element0, [3]),0,0);
-        block(env, morph0, context, "link-to", ["demo"], {}, child0, null);
-        block(env, morph1, context, "link-to", ["demo"], {}, child1, null);
-        return fragment;
-      }
+        var morphs = new Array(2);
+        morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]),0,0);
+        morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]),0,0);
+        return morphs;
+      },
+      statements: [
+        ["block","link-to",["demo"],[],0,null,["loc",[null,[10,12],[10,76]]]],
+        ["block","link-to",["demo"],[],1,null,["loc",[null,[11,11],[11,53]]]]
+      ],
+      locals: [],
+      templates: [child0, child1]
     };
   }()));
 
@@ -1327,9 +1335,46 @@ define('dummy/tests/app.jshint', function () {
 
   'use strict';
 
-  module('JSHint - .');
-  test('app.js should pass jshint', function() { 
-    ok(true, 'app.js should pass jshint.'); 
+  QUnit.module('JSHint - .');
+  QUnit.test('app.js should pass jshint', function(assert) { 
+    assert.ok(true, 'app.js should pass jshint.'); 
+  });
+
+});
+define('dummy/tests/blanket-options', function () {
+
+    'use strict';
+
+    /* globals blanket, module */
+
+    var options = {
+        modulePrefix: 'sl-ember-behavior',
+        filter: '//.*sl-ember-behavior/.*/',
+        antifilter: '//.*(tests|template).*/',
+        loaderExclusions: [],
+        enableCoverage: true,
+        modulePattern: '\/(\\w+)',
+        branchTracking: true,
+        cliOptions: {
+            reporters: ['json'],
+            autostart: true
+        }
+    };
+
+    if ('undefined' === typeof exports) {
+        blanket.options(options);
+    } else {
+        module.exports = options;
+    }
+
+});
+define('dummy/tests/blanket-options.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - .');
+  QUnit.test('blanket-options.js should pass jshint', function(assert) { 
+    assert.ok(true, 'blanket-options.js should pass jshint.'); 
   });
 
 });
@@ -1337,33 +1382,33 @@ define('dummy/tests/controllers/application.jshint', function () {
 
   'use strict';
 
-  module('JSHint - controllers');
-  test('controllers/application.js should pass jshint', function() { 
-    ok(true, 'controllers/application.js should pass jshint.'); 
+  QUnit.module('JSHint - controllers');
+  QUnit.test('controllers/application.js should pass jshint', function(assert) { 
+    assert.ok(true, 'controllers/application.js should pass jshint.'); 
   });
 
 });
 define('dummy/tests/helpers/resolver', ['exports', 'ember/resolver', 'dummy/config/environment'], function (exports, Resolver, config) {
 
-  'use strict';
+    'use strict';
 
-  var resolver = Resolver['default'].create();
+    var resolver = Resolver['default'].create();
 
-  resolver.namespace = {
-    modulePrefix: config['default'].modulePrefix,
-    podModulePrefix: config['default'].podModulePrefix
-  };
+    resolver.namespace = {
+        modulePrefix: config['default'].modulePrefix,
+        podModulePrefix: config['default'].podModulePrefix
+    };
 
-  exports['default'] = resolver;
+    exports['default'] = resolver;
 
 });
 define('dummy/tests/helpers/resolver.jshint', function () {
 
   'use strict';
 
-  module('JSHint - helpers');
-  test('helpers/resolver.js should pass jshint', function() { 
-    ok(true, 'helpers/resolver.js should pass jshint.'); 
+  QUnit.module('JSHint - helpers');
+  QUnit.test('helpers/resolver.js should pass jshint', function(assert) { 
+    assert.ok(true, 'helpers/resolver.js should pass jshint.'); 
   });
 
 });
@@ -1394,9 +1439,607 @@ define('dummy/tests/helpers/start-app.jshint', function () {
 
   'use strict';
 
-  module('JSHint - helpers');
-  test('helpers/start-app.js should pass jshint', function() { 
-    ok(true, 'helpers/start-app.js should pass jshint.'); 
+  QUnit.module('JSHint - helpers');
+  QUnit.test('helpers/start-app.js should pass jshint', function(assert) { 
+    assert.ok(true, 'helpers/start-app.js should pass jshint.'); 
+  });
+
+});
+define('dummy/tests/integration/components/sl-able-test', ['ember-qunit'], function (ember_qunit) {
+
+    'use strict';
+
+    ember_qunit.moduleForComponent('sl-able', 'Integration | Component | sl able', {
+
+        beforeEach: function beforeEach() {
+            this.inject.service('sl-behavior');
+
+            this.set('sl-behavior.behaviors', {
+                event: {
+                    create: false,
+                    reschedule: true
+                },
+                user: {
+                    edit: true
+                }
+            });
+        },
+
+        integration: true
+    });
+
+    ember_qunit.test('Yielded content passes through when "activity" is true', function (assert) {
+
+        this.render(Ember.HTMLBars.template((function () {
+            var child0 = (function () {
+                return {
+                    meta: {
+                        'revision': 'Ember@1.13.7',
+                        'loc': {
+                            'source': null,
+                            'start': {
+                                'line': 2,
+                                'column': 8
+                            },
+                            'end': {
+                                'line': 7,
+                                'column': 8
+                            }
+                        }
+                    },
+                    arity: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    buildFragment: function buildFragment(dom) {
+                        var el0 = dom.createDocumentFragment();
+                        var el1 = dom.createTextNode('            ');
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createElement('h3');
+                        var el2 = dom.createTextNode('You can reschedule this event');
+                        dom.appendChild(el1, el2);
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createTextNode('\n');
+                        dom.appendChild(el0, el1);
+                        return el0;
+                    },
+                    buildRenderNodes: function buildRenderNodes() {
+                        return [];
+                    },
+                    statements: [],
+                    locals: [],
+                    templates: []
+                };
+            })();
+
+            return {
+                meta: {
+                    'revision': 'Ember@1.13.7',
+                    'loc': {
+                        'source': null,
+                        'start': {
+                            'line': 1,
+                            'column': 0
+                        },
+                        'end': {
+                            'line': 8,
+                            'column': 4
+                        }
+                    }
+                },
+                arity: 0,
+                cachedFragment: null,
+                hasRendered: false,
+                buildFragment: function buildFragment(dom) {
+                    var el0 = dom.createDocumentFragment();
+                    var el1 = dom.createTextNode('\n');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createComment('');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createTextNode('    ');
+                    dom.appendChild(el0, el1);
+                    return el0;
+                },
+                buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+                    var morphs = new Array(1);
+                    morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+                    return morphs;
+                },
+                statements: [['block', 'sl-able', [], ['activity', 'reschedule', 'resource', 'event'], 0, null, ['loc', [null, [2, 8], [7, 20]]]]],
+                locals: [],
+                templates: [child0]
+            };
+        })()));
+
+        assert.strictEqual(this.$('>:first-child').find('h3').text().trim(), 'You can reschedule this event', 'Yielded content is passed through correctly');
+    });
+
+    ember_qunit.test('Yielded content does not pass through when "activity" is false', function (assert) {
+
+        this.render(Ember.HTMLBars.template((function () {
+            var child0 = (function () {
+                return {
+                    meta: {
+                        'revision': 'Ember@1.13.7',
+                        'loc': {
+                            'source': null,
+                            'start': {
+                                'line': 2,
+                                'column': 8
+                            },
+                            'end': {
+                                'line': 7,
+                                'column': 8
+                            }
+                        }
+                    },
+                    arity: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    buildFragment: function buildFragment(dom) {
+                        var el0 = dom.createDocumentFragment();
+                        var el1 = dom.createTextNode('            ');
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createElement('h3');
+                        var el2 = dom.createTextNode('You can create this event');
+                        dom.appendChild(el1, el2);
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createTextNode('\n');
+                        dom.appendChild(el0, el1);
+                        return el0;
+                    },
+                    buildRenderNodes: function buildRenderNodes() {
+                        return [];
+                    },
+                    statements: [],
+                    locals: [],
+                    templates: []
+                };
+            })();
+
+            return {
+                meta: {
+                    'revision': 'Ember@1.13.7',
+                    'loc': {
+                        'source': null,
+                        'start': {
+                            'line': 1,
+                            'column': 0
+                        },
+                        'end': {
+                            'line': 8,
+                            'column': 4
+                        }
+                    }
+                },
+                arity: 0,
+                cachedFragment: null,
+                hasRendered: false,
+                buildFragment: function buildFragment(dom) {
+                    var el0 = dom.createDocumentFragment();
+                    var el1 = dom.createTextNode('\n');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createComment('');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createTextNode('    ');
+                    dom.appendChild(el0, el1);
+                    return el0;
+                },
+                buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+                    var morphs = new Array(1);
+                    morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+                    return morphs;
+                },
+                statements: [['block', 'sl-able', [], ['activity', 'create', 'resource', 'event'], 0, null, ['loc', [null, [2, 8], [7, 20]]]]],
+                locals: [],
+                templates: [child0]
+            };
+        })()));
+
+        assert.strictEqual(this.$('>:first-child').find('h3').length, 0, 'Yielded content is not passed through');
+    });
+
+    ember_qunit.test('Setting "possible" property effects yielded content when activity is true', function (assert) {
+
+        this.set('possible', false);
+
+        var template = Ember.HTMLBars.template((function () {
+            var child0 = (function () {
+                return {
+                    meta: {
+                        'revision': 'Ember@1.13.7',
+                        'loc': {
+                            'source': null,
+                            'start': {
+                                'line': 2,
+                                'column': 8
+                            },
+                            'end': {
+                                'line': 8,
+                                'column': 8
+                            }
+                        }
+                    },
+                    arity: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    buildFragment: function buildFragment(dom) {
+                        var el0 = dom.createDocumentFragment();
+                        var el1 = dom.createTextNode('            ');
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createElement('h3');
+                        var el2 = dom.createTextNode('You can edit this user');
+                        dom.appendChild(el1, el2);
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createTextNode('\n');
+                        dom.appendChild(el0, el1);
+                        return el0;
+                    },
+                    buildRenderNodes: function buildRenderNodes() {
+                        return [];
+                    },
+                    statements: [],
+                    locals: [],
+                    templates: []
+                };
+            })();
+
+            return {
+                meta: {
+                    'revision': 'Ember@1.13.7',
+                    'loc': {
+                        'source': null,
+                        'start': {
+                            'line': 1,
+                            'column': 0
+                        },
+                        'end': {
+                            'line': 9,
+                            'column': 4
+                        }
+                    }
+                },
+                arity: 0,
+                cachedFragment: null,
+                hasRendered: false,
+                buildFragment: function buildFragment(dom) {
+                    var el0 = dom.createDocumentFragment();
+                    var el1 = dom.createTextNode('\n');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createComment('');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createTextNode('    ');
+                    dom.appendChild(el0, el1);
+                    return el0;
+                },
+                buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+                    var morphs = new Array(1);
+                    morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+                    return morphs;
+                },
+                statements: [['block', 'sl-able', [], ['activity', 'edit', 'resource', 'user', 'possible', ['subexpr', '@mut', [['get', 'possible', ['loc', [null, [5, 21], [5, 29]]]]], [], []]], 0, null, ['loc', [null, [2, 8], [8, 20]]]]],
+                locals: [],
+                templates: [child0]
+            };
+        })());
+
+        this.render(template);
+
+        assert.strictEqual(this.$('>:first-child').find('h3').length, 0, 'When "possible" is false, yielded content is not passed through');
+
+        this.set('possible', true);
+
+        this.render(template);
+
+        assert.strictEqual(this.$('>:first-child').find('h3').text().trim(), 'You can edit this user', 'Yielded content is passed through correctly');
+    });
+
+});
+define('dummy/tests/integration/components/sl-able-test.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - integration/components');
+  QUnit.test('integration/components/sl-able-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'integration/components/sl-able-test.js should pass jshint.'); 
+  });
+
+});
+define('dummy/tests/integration/components/sl-unable-test', ['ember-qunit'], function (ember_qunit) {
+
+    'use strict';
+
+    ember_qunit.moduleForComponent('sl-unable', 'Integration | Component | sl unable', {
+
+        beforeEach: function beforeEach() {
+            this.inject.service('sl-behavior');
+
+            this.set('sl-behavior.behaviors', {
+                event: {
+                    create: false,
+                    reschedule: true
+                },
+                user: {
+                    edit: true
+                }
+            });
+        },
+
+        integration: true
+    });
+
+    ember_qunit.test('Yielded content passes through when "activity" is false', function (assert) {
+
+        this.render(Ember.HTMLBars.template((function () {
+            var child0 = (function () {
+                return {
+                    meta: {
+                        'revision': 'Ember@1.13.7',
+                        'loc': {
+                            'source': null,
+                            'start': {
+                                'line': 2,
+                                'column': 8
+                            },
+                            'end': {
+                                'line': 7,
+                                'column': 8
+                            }
+                        }
+                    },
+                    arity: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    buildFragment: function buildFragment(dom) {
+                        var el0 = dom.createDocumentFragment();
+                        var el1 = dom.createTextNode('            ');
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createElement('h3');
+                        var el2 = dom.createTextNode('You cannot create this event');
+                        dom.appendChild(el1, el2);
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createTextNode('\n');
+                        dom.appendChild(el0, el1);
+                        return el0;
+                    },
+                    buildRenderNodes: function buildRenderNodes() {
+                        return [];
+                    },
+                    statements: [],
+                    locals: [],
+                    templates: []
+                };
+            })();
+
+            return {
+                meta: {
+                    'revision': 'Ember@1.13.7',
+                    'loc': {
+                        'source': null,
+                        'start': {
+                            'line': 1,
+                            'column': 0
+                        },
+                        'end': {
+                            'line': 8,
+                            'column': 4
+                        }
+                    }
+                },
+                arity: 0,
+                cachedFragment: null,
+                hasRendered: false,
+                buildFragment: function buildFragment(dom) {
+                    var el0 = dom.createDocumentFragment();
+                    var el1 = dom.createTextNode('\n');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createComment('');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createTextNode('    ');
+                    dom.appendChild(el0, el1);
+                    return el0;
+                },
+                buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+                    var morphs = new Array(1);
+                    morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+                    return morphs;
+                },
+                statements: [['block', 'sl-unable', [], ['activity', 'create', 'resource', 'event'], 0, null, ['loc', [null, [2, 8], [7, 22]]]]],
+                locals: [],
+                templates: [child0]
+            };
+        })()));
+
+        assert.strictEqual(this.$('>:first-child').find('h3').text().trim(), 'You cannot create this event', 'Yielded content is passed through correctly');
+    });
+
+    ember_qunit.test('Yielded content passes through when "activity" is true', function (assert) {
+
+        this.render(Ember.HTMLBars.template((function () {
+            var child0 = (function () {
+                return {
+                    meta: {
+                        'revision': 'Ember@1.13.7',
+                        'loc': {
+                            'source': null,
+                            'start': {
+                                'line': 2,
+                                'column': 8
+                            },
+                            'end': {
+                                'line': 7,
+                                'column': 8
+                            }
+                        }
+                    },
+                    arity: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    buildFragment: function buildFragment(dom) {
+                        var el0 = dom.createDocumentFragment();
+                        var el1 = dom.createTextNode('            ');
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createElement('h3');
+                        var el2 = dom.createTextNode('You cannot reschedule this event');
+                        dom.appendChild(el1, el2);
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createTextNode('\n');
+                        dom.appendChild(el0, el1);
+                        return el0;
+                    },
+                    buildRenderNodes: function buildRenderNodes() {
+                        return [];
+                    },
+                    statements: [],
+                    locals: [],
+                    templates: []
+                };
+            })();
+
+            return {
+                meta: {
+                    'revision': 'Ember@1.13.7',
+                    'loc': {
+                        'source': null,
+                        'start': {
+                            'line': 1,
+                            'column': 0
+                        },
+                        'end': {
+                            'line': 8,
+                            'column': 4
+                        }
+                    }
+                },
+                arity: 0,
+                cachedFragment: null,
+                hasRendered: false,
+                buildFragment: function buildFragment(dom) {
+                    var el0 = dom.createDocumentFragment();
+                    var el1 = dom.createTextNode('\n');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createComment('');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createTextNode('    ');
+                    dom.appendChild(el0, el1);
+                    return el0;
+                },
+                buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+                    var morphs = new Array(1);
+                    morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+                    return morphs;
+                },
+                statements: [['block', 'sl-unable', [], ['activity', 'reschedule', 'resource', 'event'], 0, null, ['loc', [null, [2, 8], [7, 22]]]]],
+                locals: [],
+                templates: [child0]
+            };
+        })()));
+
+        assert.strictEqual(this.$('>:first-child').find('h3').length, 0, 'Yielded content is not passed through');
+    });
+
+    ember_qunit.test('Setting "possible" property affects yielded content when activity is true', function (assert) {
+
+        this.set('possible', false);
+
+        var template = Ember.HTMLBars.template((function () {
+            var child0 = (function () {
+                return {
+                    meta: {
+                        'revision': 'Ember@1.13.7',
+                        'loc': {
+                            'source': null,
+                            'start': {
+                                'line': 2,
+                                'column': 8
+                            },
+                            'end': {
+                                'line': 8,
+                                'column': 8
+                            }
+                        }
+                    },
+                    arity: 0,
+                    cachedFragment: null,
+                    hasRendered: false,
+                    buildFragment: function buildFragment(dom) {
+                        var el0 = dom.createDocumentFragment();
+                        var el1 = dom.createTextNode('            ');
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createElement('h3');
+                        var el2 = dom.createTextNode('You can edit this user');
+                        dom.appendChild(el1, el2);
+                        dom.appendChild(el0, el1);
+                        var el1 = dom.createTextNode('\n');
+                        dom.appendChild(el0, el1);
+                        return el0;
+                    },
+                    buildRenderNodes: function buildRenderNodes() {
+                        return [];
+                    },
+                    statements: [],
+                    locals: [],
+                    templates: []
+                };
+            })();
+
+            return {
+                meta: {
+                    'revision': 'Ember@1.13.7',
+                    'loc': {
+                        'source': null,
+                        'start': {
+                            'line': 1,
+                            'column': 0
+                        },
+                        'end': {
+                            'line': 9,
+                            'column': 4
+                        }
+                    }
+                },
+                arity: 0,
+                cachedFragment: null,
+                hasRendered: false,
+                buildFragment: function buildFragment(dom) {
+                    var el0 = dom.createDocumentFragment();
+                    var el1 = dom.createTextNode('\n');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createComment('');
+                    dom.appendChild(el0, el1);
+                    var el1 = dom.createTextNode('    ');
+                    dom.appendChild(el0, el1);
+                    return el0;
+                },
+                buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+                    var morphs = new Array(1);
+                    morphs[0] = dom.createMorphAt(fragment, 1, 1, contextualElement);
+                    return morphs;
+                },
+                statements: [['block', 'sl-unable', [], ['activity', 'edit', 'resource', 'user', 'possible', ['subexpr', '@mut', [['get', 'possible', ['loc', [null, [5, 21], [5, 29]]]]], [], []]], 0, null, ['loc', [null, [2, 8], [8, 22]]]]],
+                locals: [],
+                templates: [child0]
+            };
+        })());
+
+        this.render(template);
+
+        assert.strictEqual(this.$('>:first-child').find('h3').text().trim(), 'You can edit this user', 'Yielded content is passed through correctly');
+
+        this.set('possible', true);
+
+        this.render(template);
+
+        assert.strictEqual(this.$('>:first-child').find('h3').length, 0, 'When "possible" is false, yielded content is not passed through');
+    });
+
+});
+define('dummy/tests/integration/components/sl-unable-test.jshint', function () {
+
+  'use strict';
+
+  QUnit.module('JSHint - integration/components');
+  QUnit.test('integration/components/sl-unable-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'integration/components/sl-unable-test.js should pass jshint.'); 
   });
 
 });
@@ -1404,9 +2047,9 @@ define('dummy/tests/router.jshint', function () {
 
   'use strict';
 
-  module('JSHint - .');
-  test('router.js should pass jshint', function() { 
-    ok(true, 'router.js should pass jshint.'); 
+  QUnit.module('JSHint - .');
+  QUnit.test('router.js should pass jshint', function(assert) { 
+    assert.ok(true, 'router.js should pass jshint.'); 
   });
 
 });
@@ -1414,9 +2057,9 @@ define('dummy/tests/routes/application.jshint', function () {
 
   'use strict';
 
-  module('JSHint - routes');
-  test('routes/application.js should pass jshint', function() { 
-    ok(true, 'routes/application.js should pass jshint.'); 
+  QUnit.module('JSHint - routes');
+  QUnit.test('routes/application.js should pass jshint', function(assert) { 
+    assert.ok(true, 'routes/application.js should pass jshint.'); 
   });
 
 });
@@ -1431,13 +2074,13 @@ define('dummy/tests/test-helper.jshint', function () {
 
   'use strict';
 
-  module('JSHint - .');
-  test('test-helper.js should pass jshint', function() { 
-    ok(true, 'test-helper.js should pass jshint.'); 
+  QUnit.module('JSHint - .');
+  QUnit.test('test-helper.js should pass jshint', function(assert) { 
+    assert.ok(true, 'test-helper.js should pass jshint.'); 
   });
 
 });
-define('dummy/tests/unit/components/sl-able-test', ['ember', 'ember-qunit', 'sinon'], function (Ember, ember_qunit, sinon) {
+define('dummy/tests/unit/components/sl-able-test', ['ember', 'ember-qunit', 'sinon', 'sl-ember-behavior/mixins/component'], function (Ember, ember_qunit, sinon, componentMixin) {
 
     'use strict';
 
@@ -1453,6 +2096,10 @@ define('dummy/tests/unit/components/sl-able-test', ['ember', 'ember-qunit', 'sin
         }
     });
 
+    ember_qunit.test('Successfully mixed component', function (assert) {
+        assert.ok(componentMixin['default'].detect(this.subject()));
+    });
+
     /**
      * Ensures that the template is wrapping the content in a span tag and not in
      * any block-level tags. While it appears that core Ember functionality is being
@@ -1464,27 +2111,7 @@ define('dummy/tests/unit/components/sl-able-test', ['ember', 'ember-qunit', 'sin
             behaviorService: behaviorService
         });
 
-        assert.equal(this.$().prop('tagName'), 'SPAN');
-    });
-
-    ember_qunit.test('Renders content when isAble() returns true', function (assert) {
-        this.subject({
-            behaviorService: behaviorService,
-            template: Ember['default'].Handlebars.compile('I can do it')
-        });
-
-        assert.equal(Ember['default'].$.trim(this.$().text()), 'I can do it');
-    });
-
-    ember_qunit.test('Does not render content when isAble() returns false', function (assert) {
-        behaviorService.isAble = sinon['default'].stub().returns(false);
-
-        this.subject({
-            behaviorService: behaviorService,
-            template: Ember['default'].Handlebars.compile('I can do it')
-        });
-
-        assert.equal(Ember['default'].$.trim(this.$().text()), '');
+        assert.strictEqual(this.$().prop('tagName'), 'SPAN');
     });
 
     ember_qunit.test('isAble() calls isAble() on the behavior service', function (assert) {
@@ -1543,13 +2170,13 @@ define('dummy/tests/unit/components/sl-able-test.jshint', function () {
 
   'use strict';
 
-  module('JSHint - unit/components');
-  test('unit/components/sl-able-test.js should pass jshint', function() { 
-    ok(true, 'unit/components/sl-able-test.js should pass jshint.'); 
+  QUnit.module('JSHint - unit/components');
+  QUnit.test('unit/components/sl-able-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/components/sl-able-test.js should pass jshint.'); 
   });
 
 });
-define('dummy/tests/unit/components/sl-unable-test', ['ember', 'ember-qunit', 'sinon'], function (Ember, ember_qunit, sinon) {
+define('dummy/tests/unit/components/sl-unable-test', ['ember', 'ember-qunit', 'sinon', 'sl-ember-behavior/mixins/component'], function (Ember, ember_qunit, sinon, componentMixin) {
 
     'use strict';
 
@@ -1565,6 +2192,10 @@ define('dummy/tests/unit/components/sl-unable-test', ['ember', 'ember-qunit', 's
         }
     });
 
+    ember_qunit.test('Successfully mixed component', function (assert) {
+        assert.ok(componentMixin['default'].detect(this.subject()));
+    });
+
     /**
      * Ensures that the template is wrapping the content in a span tag and not in any block-level tags. While it appears
      * that core Ember functionality is being tested this test is ensuring that the implied contract about how this non-UI
@@ -1575,27 +2206,7 @@ define('dummy/tests/unit/components/sl-unable-test', ['ember', 'ember-qunit', 's
             behaviorService: behaviorService
         });
 
-        assert.equal(this.$().prop('tagName'), 'SPAN');
-    });
-
-    ember_qunit.test('Does not render content when isUnable() returns false', function (assert) {
-        this.subject({
-            behaviorService: behaviorService,
-            template: Ember['default'].Handlebars.compile('Should not render')
-        });
-
-        assert.equal(this.$().text(), '');
-    });
-
-    ember_qunit.test('Renders content when isUnable() returns true', function (assert) {
-        behaviorService.isUnable = sinon['default'].stub().returns(true);
-
-        this.subject({
-            behaviorService: behaviorService,
-            template: Ember['default'].Handlebars.compile('Should render')
-        });
-
-        assert.equal(Ember['default'].$.trim(this.$().text()), 'Should render');
+        assert.strictEqual(this.$().prop('tagName'), 'SPAN');
     });
 
     ember_qunit.test('isUnable() calls isUnable() on the behavior service', function (assert) {
@@ -1654,9 +2265,9 @@ define('dummy/tests/unit/components/sl-unable-test.jshint', function () {
 
   'use strict';
 
-  module('JSHint - unit/components');
-  test('unit/components/sl-unable-test.js should pass jshint', function() { 
-    ok(true, 'unit/components/sl-unable-test.js should pass jshint.'); 
+  QUnit.module('JSHint - unit/components');
+  QUnit.test('unit/components/sl-unable-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/components/sl-unable-test.js should pass jshint.'); 
   });
 
 });
@@ -1677,10 +2288,24 @@ define('dummy/tests/unit/mixins/component-test', ['ember', 'sl-ember-behavior/mi
         }
     });
 
-    qunit.test('The correct service is being injected into the component', function (assert) {
+    qunit.test('Default property values are set correctly', function (assert) {
         var subject = AugmentedObject.create();
 
-        assert.equal(subject.behaviorService.name, 'sl-behavior', 'The correct service is being injected into the component');
+        assert.strictEqual(subject.behaviorService.name, 'sl-behavior', 'service: "sl-behavior"');
+
+        assert.strictEqual(subject.get('tagName'), 'span', 'tagName: "span"');
+
+        assert.strictEqual(subject.get('possible'), true, 'possible: true');
+    });
+
+    qunit.test('Dependent keys are correct', function (assert) {
+        AugmentedObject = Ember['default'].Object.extend(ComponentMixin['default']);
+
+        var subject = AugmentedObject.create();
+
+        var showContentDependentKeys = ['behaviorService.behaviors', 'possible'];
+
+        assert.deepEqual(subject.showContent._dependentKeys, showContentDependentKeys, 'Dependent keys are correct for showContent()');
     });
 
     qunit.test('Assert is thrown when isViewable() is not implemented on the derived class', function (assert) {
@@ -1689,6 +2314,19 @@ define('dummy/tests/unit/mixins/component-test', ['ember', 'sl-ember-behavior/mi
         var subject = AugmentedObject.create();
 
         assert.throws(subject.isViewable, 'Assertion was thrown');
+    });
+
+    qunit.test('isViewable() returns false when not implemented on the derived class', function (assert) {
+        AugmentedObject = Ember['default'].Object.extend(ComponentMixin['default']);
+
+        var originalEmberAssert = Ember['default'].assert;
+        var subject = AugmentedObject.create();
+
+        Ember['default'].assert = function () {};
+
+        assert.strictEqual(subject.isViewable(), false, 'isViewable() returns false when not overriden');
+
+        Ember['default'].assert = originalEmberAssert;
     });
 
     qunit.test('showContent() computed property throws assertion when `possible` property is not a boolean', function (assert) {
@@ -1741,7 +2379,7 @@ define('dummy/tests/unit/mixins/component-test', ['ember', 'sl-ember-behavior/mi
     qunit.test('showContent() computed property returns the value the isViewable method returns', function (assert) {
         var subject = AugmentedObject.create();
 
-        assert.equal(subject.get('showContent'), true, 'Is viewable returns true');
+        assert.strictEqual(subject.get('showContent'), true, 'Is viewable returns true');
 
         AugmentedObject.reopen({
             isViewable: sinon['default'].stub().returns(false)
@@ -1749,7 +2387,7 @@ define('dummy/tests/unit/mixins/component-test', ['ember', 'sl-ember-behavior/mi
 
         subject = AugmentedObject.create();
 
-        assert.equal(subject.get('showContent'), false, 'Is viewable returns false');
+        assert.strictEqual(subject.get('showContent'), false, 'Is viewable returns false');
     });
 
 });
@@ -1757,9 +2395,9 @@ define('dummy/tests/unit/mixins/component-test.jshint', function () {
 
   'use strict';
 
-  module('JSHint - unit/mixins');
-  test('unit/mixins/component-test.js should pass jshint', function() { 
-    ok(true, 'unit/mixins/component-test.js should pass jshint.'); 
+  QUnit.module('JSHint - unit/mixins');
+  QUnit.test('unit/mixins/component-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/mixins/component-test.js should pass jshint.'); 
   });
 
 });
@@ -1777,7 +2415,7 @@ define('dummy/tests/unit/mixins/route-test', ['ember', 'sl-ember-behavior/mixins
     });
 
     qunit.test('The correct service is being injected into the mixin', function (assert) {
-        assert.equal(Mixin.behaviorService.name, 'sl-behavior', 'The correct service is being injected into the mixin');
+        assert.strictEqual(Mixin.behaviorService.name, 'sl-behavior', 'The correct service is being injected into the mixin');
     });
 
     // Though appears to be a duplicate of the module.setup() call this is an actual test,
@@ -1790,7 +2428,7 @@ define('dummy/tests/unit/mixins/route-test', ['ember', 'sl-ember-behavior/mixins
     });
 
     qunit.test('"unableRoute" property defaults to null', function (assert) {
-        assert.equal(Mixin.get('unableRoute'), null);
+        assert.strictEqual(Mixin.get('unableRoute'), null);
     });
 
     qunit.test('_super() is called with transition.targetName as argument value', function (assert) {
@@ -1921,9 +2559,9 @@ define('dummy/tests/unit/mixins/route-test.jshint', function () {
 
   'use strict';
 
-  module('JSHint - unit/mixins');
-  test('unit/mixins/route-test.js should pass jshint', function() { 
-    ok(true, 'unit/mixins/route-test.js should pass jshint.'); 
+  QUnit.module('JSHint - unit/mixins');
+  QUnit.test('unit/mixins/route-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/mixins/route-test.js should pass jshint.'); 
   });
 
 });
@@ -1942,7 +2580,7 @@ define('dummy/tests/unit/services/sl-behavior-test', ['ember', 'sl-ember-behavio
     });
 
     ember_qunit.test('"behaviors" property defaults to null', function (assert) {
-        assert.equal(BS.get('behaviors'), null);
+        assert.strictEqual(BS.get('behaviors'), null);
     });
 
     ember_qunit.test('setBehaviors() requires an Object or Instance to be provided', function (assert) {
@@ -2359,9 +2997,9 @@ define('dummy/tests/unit/services/sl-behavior-test.jshint', function () {
 
   'use strict';
 
-  module('JSHint - unit/services');
-  test('unit/services/sl-behavior-test.js should pass jshint', function() { 
-    ok(true, 'unit/services/sl-behavior-test.js should pass jshint.'); 
+  QUnit.module('JSHint - unit/services');
+  QUnit.test('unit/services/sl-behavior-test.js should pass jshint', function(assert) { 
+    assert.ok(true, 'unit/services/sl-behavior-test.js should pass jshint.'); 
   });
 
 });
@@ -2393,7 +3031,7 @@ catch(err) {
 if (runningTests) {
   require("dummy/tests/test-helper");
 } else {
-  require("dummy/app")["default"].create({"name":"sl-ember-behavior","version":"1.3.0.f08bf7c0"});
+  require("dummy/app")["default"].create({"name":"sl-ember-behavior","version":"1.4.0+579eaf26"});
 }
 
 /* jshint ignore:end */
