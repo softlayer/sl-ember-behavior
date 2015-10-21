@@ -15,7 +15,7 @@ export default Ember.Mixin.create({
     /**
      * The behavior service used to check if a supplied behavior is allowed
      *
-     * @type {ember/Service}
+     * @type {module:addon/services/sl-behavior}
      */
     behaviorService: Ember.inject.service( 'sl-behavior' ),
 
