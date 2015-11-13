@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import layout from '../templates/sl-behavior';
+import { warn } from '../utils/all';
 
 /**
  * Adds ability to hide template content of a component under a given set of conditions
@@ -61,13 +62,11 @@ export default Ember.Mixin.create({
      * @param {String} activity
      * @param {String} resource
      * @param {Boolean} possible
-     * @throws {ember.assert} If this function has not been implemented on the derived class
+     * @throws {ember/Error} If this function has not been implemented on the derived class
      * @returns {Boolean} true if the content is viewable, otherwise false
      */
     isViewable( activity, resource, possible ) {
-        Ember.assert(
-            'The mixins/component.isViewable() method should be implemented on the derived class'
-        );
+        warn( 'The mixins/component.isViewable() method should be implemented on the derived class' );
 
         return Boolean( activity && resource && possible && false );
     },
@@ -76,7 +75,7 @@ export default Ember.Mixin.create({
      * Determines whether or not to show the content in the template
      *
      * @function
-     * @throws {ember.assert} If the `possible` property is not a Boolean
+     * @throws {ember/Error} If the `possible` property is not a Boolean
      * @returns {Boolean}
      */
     showContent: Ember.computed(
@@ -85,10 +84,11 @@ export default Ember.Mixin.create({
         function() {
             const possible = this.get( 'possible' );
 
-            Ember.assert(
-                'Expects `possible` property to be a Boolean',
-                'boolean' === Ember.typeOf( possible )
-            );
+            if ( 'boolean' !== Ember.typeOf( possible ) ) {
+                throw new Ember.Error(
+                    'Expects `possible` property to be a Boolean'
+                );
+            }
 
             return this.isViewable(
                 this.get( 'activity' ),

@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ComponentMixin from 'sl-ember-behavior/mixins/component';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
+import * as utils from 'sl-ember-behavior/utils/all';
 
 let AugmentedObject;
 let isViewableStub;
@@ -55,15 +56,26 @@ test( 'Dependent keys are correct', function( assert ) {
     );
 });
 
-test( 'Assert is thrown when isViewable() is not implemented on the derived class', function( assert ) {
+test( 'A warning is thrown when isViewable() is not implemented on the derived class', function( assert ) {
     AugmentedObject = Ember.Object.extend( ComponentMixin );
 
+    const spy = sinon.spy( utils, 'warn' );
     const subject = AugmentedObject.create();
+    subject.isViewable();
 
-    assert.throws(
-        subject.isViewable,
-        'Assertion was thrown'
+    assert.ok(
+        spy.called,
+        'warn() was called when isViewable is not implemented in derived class'
     );
+
+    assert.ok(
+        spy.calledWith(
+            'The mixins/component.isViewable() method should be implemented on the derived class'
+        ),
+        'warn() was called with correct argument'
+    );
+
+    utils.warn.restore();
 });
 
 test( 'isViewable() returns false when not implemented on the derived class', function( assert ) {
