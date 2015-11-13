@@ -41,33 +41,38 @@ export default Ember.Service.extend({
      * @param {String} activity
      * @param {String} resource
      * @param {Boolean} possible
-     * @throws {ember.assert} If no parameters provided, first parameter is not a string, second parameter is not a
+     * @throws {Ember.Error} If no parameters provided, first parameter is not a string, second parameter is not a
      *     string, or third parameter is not a boolean or undefined
      * @returns {Boolean}
      */
     isAble( activity, resource, possible ) {
-        Ember.assert(
-            'services/sl-behavior.isAble() expects at least two parameters to be provided',
-            activity && resource
-        );
+        if ( Ember.isEmpty( activity ) &&
+             Ember.isEmpty( resource ) ) {
+            throw new Ember.Error(
+                'services/sl-behavior.isAble() expects at least two parameters to be provided'
+            );
+        }
 
         const behaviors = this.get( 'behaviors' );
 
-        Ember.assert(
-            'services/sl-behavior.isAble() expects `activity` parameter to be a String',
-            'string' === Ember.typeOf( activity )
-        );
+        if ( 'string' !== Ember.typeOf( activity ) ) {
+            throw new Ember.Error(
+                'services/sl-behavior.isAble() expects `activity` parameter to be a String'
+            );
+        }
 
-        Ember.assert(
-            'services/sl-behavior.isAble() expects `resource` parameter to be a String',
-            'string' === Ember.typeOf( resource )
-        );
+        if ( 'string' !== Ember.typeOf( resource ) ) {
+            throw new Ember.Error(
+                'services/sl-behavior.isAble() expects `resource` parameter to be a String'
+            );
+        }
 
-        Ember.assert(
-            'services/sl-behavior.isAble() expects `possible` parameter to be a Boolean or undefined',
-            'boolean' === Ember.typeOf( possible ) ||
-            'undefined' === Ember.typeOf( possible )
-        );
+        if ( 'boolean' !== Ember.typeOf( possible ) &&
+             'undefined' !== Ember.typeOf( possible ) ) {
+            throw new Ember.Error(
+                'services/sl-behavior.isAble() expects `possible` parameter to be a Boolean or undefined'
+            );
+        }
 
         if ( 'undefined' === Ember.typeOf( possible ) ) {
             possible = true;
@@ -107,19 +112,18 @@ export default Ember.Service.extend({
      *
      * @function
      * @param {Object} behaviors
-     * @throws {ember.assert} If argument is not an object
+     * @throws {Ember.Error} If argument is not an object
      * @returns {undefined}
      */
     setBehaviors( behaviors ) {
         /* jshint ignore:start */
-        Ember.assert(
-            'services/sl-behavior.setBehaviors() expects "behaviors" parameter to be an Object',
-            (
-                'instance' === Ember.typeOf( behaviors ) ||
-                'object' === Ember.typeOf( behaviors )
-            ) &&
-            'symbol' !== typeof behaviors
-        );
+        if ( ( 'instance' !== Ember.typeOf( behaviors ) &&
+               'object' !== Ember.typeOf( behaviors ) ) ||
+             'symbol' === typeof behaviors ) {
+            throw new Ember.Error(
+                'services/sl-behavior.setBehaviors() expects "behaviors" parameter to be an Object'
+            );
+        }
         /* jshint ignore:end */
 
         this.set( 'behaviors', behaviors );
