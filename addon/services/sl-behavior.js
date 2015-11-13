@@ -41,7 +41,7 @@ export default Ember.Service.extend({
      * @param {String} activity
      * @param {String} resource
      * @param {Boolean} possible
-     * @throws {Ember.Error} If no parameters provided, first parameter is not a string, second parameter is not a
+     * @throws {ember/Error} If no parameters provided, first parameter is not a string, second parameter is not a
      *     string, or third parameter is not a boolean or undefined
      * @returns {Boolean}
      */
