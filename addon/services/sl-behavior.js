@@ -112,7 +112,7 @@ export default Ember.Service.extend({
      *
      * @function
      * @param {Object} behaviors
-     * @throws {Ember.Error} If argument is not an object
+     * @throws {ember/Error} If argument is not an object
      * @returns {undefined}
      */
     setBehaviors( behaviors ) {
