@@ -69,6 +69,7 @@ export default Ember.Mixin.create({
             'The mixins/component.isViewable() method should be implemented on the derived class'
         );
 
+        // A return statement in case the user strips out Ember.assert when deploying.
         return Boolean( activity && resource && possible && false );
     },
 
@@ -76,7 +77,7 @@ export default Ember.Mixin.create({
      * Determines whether or not to show the content in the template
      *
      * @function
-     * @throws {ember.assert} If the `possible` property is not a Boolean
+     * @throws {ember/Error} If the `possible` property is not a Boolean
      * @returns {Boolean}
      */
     showContent: Ember.computed(
@@ -85,10 +86,11 @@ export default Ember.Mixin.create({
         function() {
             const possible = this.get( 'possible' );
 
-            Ember.assert(
-                'Expects `possible` property to be a Boolean',
-                'boolean' === Ember.typeOf( possible )
-            );
+            if ( 'boolean' !== Ember.typeOf( possible ) ) {
+                throw new Ember.Error(
+                    'Expects `possible` property to be a Boolean'
+                );
+            }
 
             return this.isViewable(
                 this.get( 'activity' ),
