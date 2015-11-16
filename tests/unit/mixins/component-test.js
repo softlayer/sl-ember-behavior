@@ -55,14 +55,14 @@ test( 'Dependent keys are correct', function( assert ) {
     );
 });
 
-test( 'An error is thrown when isViewable() is not implemented on the derived class', function( assert ) {
+test( 'Assert is thrown when isViewable() is not implemented on the derived class', function( assert ) {
     AugmentedObject = Ember.Object.extend( ComponentMixin );
 
     const subject = AugmentedObject.create();
 
     assert.throws(
         subject.isViewable,
-        'warn() was called when isViewable is not implemented in derived class'
+        'Assertion was thrown'
     );
 });
 
