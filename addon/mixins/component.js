@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from '../templates/sl-behavior';
-import { warn } from '../utils/all';
 
 /**
  * Adds ability to hide template content of a component under a given set of conditions
@@ -62,12 +61,15 @@ export default Ember.Mixin.create({
      * @param {String} activity
      * @param {String} resource
      * @param {Boolean} possible
-     * @throws {ember/Error} If this function has not been implemented on the derived class
+     * @throws {ember.assert} If this function has not been implemented on the derived class
      * @returns {Boolean} true if the content is viewable, otherwise false
      */
     isViewable( activity, resource, possible ) {
-        warn( 'The mixins/component.isViewable() method should be implemented on the derived class' );
+        Ember.assert(
+            'The mixins/component.isViewable() method should be implemented on the derived class'
+        );
 
+        // A return statement in case the user strips out Ember.assert when deploying.
         return Boolean( activity && resource && possible && false );
     },
 
