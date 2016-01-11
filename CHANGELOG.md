@@ -1,5 +1,16 @@
 # sl-ember-behavior Changelog
 
+### 1.4.1
+
+* [#150](https://github.com/softlayer/sl-ember-behavior/pull/150) BUGFIX Lock down version of jQuery in bower.json
+* [#146](https://github.com/softlayer/sl-ember-behavior/issues/146) DOCUMENTATION Update documentation on demo app to show double quotes around custom properties
+* [#87](https://github.com/softlayer/sl-ember-behavior/issues/87) INTERNAL Evaluate use of Ember.assert()
+* [#88](https://github.com/softlayer/sl-ember-behavior/issues/88) INTERNAL Evaluate use of Ember.assert()
+* [#89](https://github.com/softlayer/sl-ember-behavior/issues/89) INTERNAL Computed properties should return null value by default
+* [#145](https://github.com/softlayer/sl-ember-behavior/pull/145) INTERNAL Update DocBlock @type for sl-behavior service
+
+[View complete changeset](https://github.com/softlayer/sl-ember-behavior/compare/v1.4.0...v1.4.1)
+
 ### 1.4.0
 
 * [#66](https://github.com/softlayer/sl-ember-behavior/issues/66) [BREAKING ENHANCEMENT] Upgrade to Ember CLI 1.13.8
