@@ -208,6 +208,7 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/components/sl-ab
 
   QUnit.module('JSHint - modules/sl-ember-behavior/components');
   QUnit.test('modules/sl-ember-behavior/components/sl-able.js should pass jshint', function (assert) {
+    assert.expect(1);
     assert.ok(true, 'modules/sl-ember-behavior/components/sl-able.js should pass jshint.');
   });
 
@@ -218,6 +219,7 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/components/sl-un
 
   QUnit.module('JSHint - modules/sl-ember-behavior/components');
   QUnit.test('modules/sl-ember-behavior/components/sl-unable.js should pass jshint', function (assert) {
+    assert.expect(1);
     assert.ok(true, 'modules/sl-ember-behavior/components/sl-unable.js should pass jshint.');
   });
 
@@ -228,6 +230,7 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/mixins/component
 
   QUnit.module('JSHint - modules/sl-ember-behavior/mixins');
   QUnit.test('modules/sl-ember-behavior/mixins/component.js should pass jshint', function (assert) {
+    assert.expect(1);
     assert.ok(true, 'modules/sl-ember-behavior/mixins/component.js should pass jshint.');
   });
 
@@ -238,6 +241,7 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/mixins/route.jsh
 
   QUnit.module('JSHint - modules/sl-ember-behavior/mixins');
   QUnit.test('modules/sl-ember-behavior/mixins/route.js should pass jshint', function (assert) {
+    assert.expect(1);
     assert.ok(true, 'modules/sl-ember-behavior/mixins/route.js should pass jshint.');
   });
 
@@ -248,6 +252,7 @@ define('dummy/sl-ember-behavior/tests/modules/sl-ember-behavior/services/sl-beha
 
   QUnit.module('JSHint - modules/sl-ember-behavior/services');
   QUnit.test('modules/sl-ember-behavior/services/sl-behavior.js should pass jshint', function (assert) {
+    assert.expect(1);
     assert.ok(true, 'modules/sl-ember-behavior/services/sl-behavior.js should pass jshint.');
   });
 
@@ -962,11 +967,11 @@ define('dummy/templates/demo', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("pre");
-        var el4 = dom.createTextNode("{{#sl-able activity=\"create\" resource=event possible=false}}\n    <h3>Creating an event is not possible</h3>\n");
+        var el4 = dom.createTextNode("{{#sl-able activity=\"create\" resource=\"event\" possible=false}}\n    <h3>Creating an event is not possible</h3>\n");
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("{{/sl-able}}\n\n");
         dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("{{#sl-unable activity=\"reschedule\" resource=event possible=false}}\n    <h3>Rescheduling an event is not possible</h3>\n");
+        var el4 = dom.createTextNode("{{#sl-unable activity=\"reschedule\" resource=\"event\" possible=false}}\n    <h3>Rescheduling an event is not possible</h3>\n");
         dom.appendChild(el3, el4);
         var el4 = dom.createTextNode("{{/sl-unable}}");
         dom.appendChild(el3, el4);
@@ -1212,7 +1217,7 @@ define('dummy/templates/index', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("h1");
-        var el4 = dom.createTextNode("sl-ember-behavior 1.4.0");
+        var el4 = dom.createTextNode("sl-ember-behavior 1.4.1");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n        ");
@@ -1337,6 +1342,7 @@ define('dummy/tests/app.jshint', function () {
 
   QUnit.module('JSHint - .');
   QUnit.test('app.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'app.js should pass jshint.'); 
   });
 
@@ -1374,6 +1380,7 @@ define('dummy/tests/blanket-options.jshint', function () {
 
   QUnit.module('JSHint - .');
   QUnit.test('blanket-options.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'blanket-options.js should pass jshint.'); 
   });
 
@@ -1384,6 +1391,7 @@ define('dummy/tests/controllers/application.jshint', function () {
 
   QUnit.module('JSHint - controllers');
   QUnit.test('controllers/application.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'controllers/application.js should pass jshint.'); 
   });
 
@@ -1408,6 +1416,7 @@ define('dummy/tests/helpers/resolver.jshint', function () {
 
   QUnit.module('JSHint - helpers');
   QUnit.test('helpers/resolver.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'helpers/resolver.js should pass jshint.'); 
   });
 
@@ -1441,6 +1450,7 @@ define('dummy/tests/helpers/start-app.jshint', function () {
 
   QUnit.module('JSHint - helpers');
   QUnit.test('helpers/start-app.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'helpers/start-app.js should pass jshint.'); 
   });
 
@@ -1740,6 +1750,7 @@ define('dummy/tests/integration/components/sl-able-test.jshint', function () {
 
   QUnit.module('JSHint - integration/components');
   QUnit.test('integration/components/sl-able-test.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'integration/components/sl-able-test.js should pass jshint.'); 
   });
 
@@ -2039,6 +2050,7 @@ define('dummy/tests/integration/components/sl-unable-test.jshint', function () {
 
   QUnit.module('JSHint - integration/components');
   QUnit.test('integration/components/sl-unable-test.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'integration/components/sl-unable-test.js should pass jshint.'); 
   });
 
@@ -2049,6 +2061,7 @@ define('dummy/tests/router.jshint', function () {
 
   QUnit.module('JSHint - .');
   QUnit.test('router.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'router.js should pass jshint.'); 
   });
 
@@ -2059,6 +2072,7 @@ define('dummy/tests/routes/application.jshint', function () {
 
   QUnit.module('JSHint - routes');
   QUnit.test('routes/application.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'routes/application.js should pass jshint.'); 
   });
 
@@ -2076,6 +2090,7 @@ define('dummy/tests/test-helper.jshint', function () {
 
   QUnit.module('JSHint - .');
   QUnit.test('test-helper.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'test-helper.js should pass jshint.'); 
   });
 
@@ -2172,6 +2187,7 @@ define('dummy/tests/unit/components/sl-able-test.jshint', function () {
 
   QUnit.module('JSHint - unit/components');
   QUnit.test('unit/components/sl-able-test.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'unit/components/sl-able-test.js should pass jshint.'); 
   });
 
@@ -2267,6 +2283,7 @@ define('dummy/tests/unit/components/sl-unable-test.jshint', function () {
 
   QUnit.module('JSHint - unit/components');
   QUnit.test('unit/components/sl-unable-test.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'unit/components/sl-unable-test.js should pass jshint.'); 
   });
 
@@ -2397,6 +2414,7 @@ define('dummy/tests/unit/mixins/component-test.jshint', function () {
 
   QUnit.module('JSHint - unit/mixins');
   QUnit.test('unit/mixins/component-test.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'unit/mixins/component-test.js should pass jshint.'); 
   });
 
@@ -2561,6 +2579,7 @@ define('dummy/tests/unit/mixins/route-test.jshint', function () {
 
   QUnit.module('JSHint - unit/mixins');
   QUnit.test('unit/mixins/route-test.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'unit/mixins/route-test.js should pass jshint.'); 
   });
 
@@ -2999,6 +3018,7 @@ define('dummy/tests/unit/services/sl-behavior-test.jshint', function () {
 
   QUnit.module('JSHint - unit/services');
   QUnit.test('unit/services/sl-behavior-test.js should pass jshint', function(assert) { 
+    assert.expect(1);
     assert.ok(true, 'unit/services/sl-behavior-test.js should pass jshint.'); 
   });
 
@@ -3031,7 +3051,7 @@ catch(err) {
 if (runningTests) {
   require("dummy/tests/test-helper");
 } else {
-  require("dummy/app")["default"].create({"name":"sl-ember-behavior","version":"1.4.0+579eaf26"});
+  require("dummy/app")["default"].create({"name":"sl-ember-behavior","version":"1.4.1+a3e34f5b"});
 }
 
 /* jshint ignore:end */

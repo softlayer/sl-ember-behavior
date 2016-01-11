@@ -3,9 +3,11 @@
 window.EmberENV = {"FEATURES":{}};
 var runningTests = false;
 
-self.EmberENV.EXTEND_PROTOTYPES = false;
+
 
 /* jshint ignore:end */
+
+;self.EmberENV.EXTEND_PROTOTYPES = false;
 
 ;var define, requireModule, require, requirejs;
 
@@ -70006,7 +70008,7 @@ define('sl-ember-behavior/mixins/component', ['exports', 'ember', 'sl-ember-beha
         /**
          * The behavior service used to check if a supplied behavior is allowed
          *
-         * @type {ember/Service}
+         * @type {module:addon/services/sl-behavior}
          */
         behaviorService: Ember['default'].inject.service('sl-behavior'),
 
@@ -70058,6 +70060,7 @@ define('sl-ember-behavior/mixins/component', ['exports', 'ember', 'sl-ember-beha
         isViewable: function isViewable(activity, resource, possible) {
             Ember['default'].assert('The mixins/component.isViewable() method should be implemented on the derived class');
 
+            // A return statement in case the user strips out Ember.assert when deploying.
             return Boolean(activity && resource && possible && false);
         },
 
@@ -70065,13 +70068,15 @@ define('sl-ember-behavior/mixins/component', ['exports', 'ember', 'sl-ember-beha
          * Determines whether or not to show the content in the template
          *
          * @function
-         * @throws {ember.assert} If the `possible` property is not a Boolean
+         * @throws {ember/Error} If the `possible` property is not a Boolean
          * @returns {Boolean}
          */
         showContent: Ember['default'].computed('behaviorService.behaviors', 'possible', function () {
             var possible = this.get('possible');
 
-            Ember['default'].assert('Expects `possible` property to be a Boolean', 'boolean' === Ember['default'].typeOf(possible));
+            if ('boolean' !== Ember['default'].typeOf(possible)) {
+                throw new Ember['default'].Error('Expects `possible` property to be a Boolean');
+            }
 
             return this.isViewable(this.get('activity'), this.get('resource'), possible);
         })
@@ -70109,7 +70114,7 @@ define('sl-ember-behavior/mixins/route', ['exports', 'ember'], function (exports
         /**
          * The behavior service used to check if behavior is allowed
          *
-         * @type {ember/Service}
+         * @type {module:addon/services/sl-behavior}
          */
         behaviorService: Ember['default'].inject.service('sl-behavior'),
 
@@ -70183,20 +70188,28 @@ define('sl-ember-behavior/services/sl-behavior', ['exports', 'ember'], function 
          * @param {String} activity
          * @param {String} resource
          * @param {Boolean} possible
-         * @throws {ember.assert} If no parameters provided, first parameter is not a string, second parameter is not a
+         * @throws {ember/Error} If no parameters provided, first parameter is not a string, second parameter is not a
          *     string, or third parameter is not a boolean or undefined
          * @returns {Boolean}
          */
         isAble: function isAble(activity, resource, possible) {
-            Ember['default'].assert('services/sl-behavior.isAble() expects at least two parameters to be provided', activity && resource);
+            if (Ember['default'].isEmpty(activity) && Ember['default'].isEmpty(resource)) {
+                throw new Ember['default'].Error('services/sl-behavior.isAble() expects at least two parameters to be provided');
+            }
 
             var behaviors = this.get('behaviors');
 
-            Ember['default'].assert('services/sl-behavior.isAble() expects `activity` parameter to be a String', 'string' === Ember['default'].typeOf(activity));
+            if ('string' !== Ember['default'].typeOf(activity)) {
+                throw new Ember['default'].Error('services/sl-behavior.isAble() expects `activity` parameter to be a String');
+            }
 
-            Ember['default'].assert('services/sl-behavior.isAble() expects `resource` parameter to be a String', 'string' === Ember['default'].typeOf(resource));
+            if ('string' !== Ember['default'].typeOf(resource)) {
+                throw new Ember['default'].Error('services/sl-behavior.isAble() expects `resource` parameter to be a String');
+            }
 
-            Ember['default'].assert('services/sl-behavior.isAble() expects `possible` parameter to be a Boolean or undefined', 'boolean' === Ember['default'].typeOf(possible) || 'undefined' === Ember['default'].typeOf(possible));
+            if ('boolean' !== Ember['default'].typeOf(possible) && 'undefined' !== Ember['default'].typeOf(possible)) {
+                throw new Ember['default'].Error('services/sl-behavior.isAble() expects `possible` parameter to be a Boolean or undefined');
+            }
 
             if ('undefined' === Ember['default'].typeOf(possible)) {
                 possible = true;
@@ -70232,12 +70245,14 @@ define('sl-ember-behavior/services/sl-behavior', ['exports', 'ember'], function 
          *
          * @function
          * @param {Object} behaviors
-         * @throws {ember.assert} If argument is not an object
+         * @throws {ember/Error} If argument is not an object
          * @returns {undefined}
          */
         setBehaviors: function setBehaviors(behaviors) {
             /* jshint ignore:start */
-            Ember['default'].assert('services/sl-behavior.setBehaviors() expects "behaviors" parameter to be an Object', ('instance' === Ember['default'].typeOf(behaviors) || 'object' === Ember['default'].typeOf(behaviors)) && 'symbol' !== typeof behaviors);
+            if ('instance' !== Ember['default'].typeOf(behaviors) && 'object' !== Ember['default'].typeOf(behaviors) || 'symbol' === typeof behaviors) {
+                throw new Ember['default'].Error('services/sl-behavior.setBehaviors() expects "behaviors" parameter to be an Object');
+            }
             /* jshint ignore:end */
 
             this.set('behaviors', behaviors);
