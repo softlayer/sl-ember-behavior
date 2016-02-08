@@ -2,18 +2,31 @@
 
 ### 1.4.1
 
-* [#150](https://github.com/softlayer/sl-ember-behavior/pull/150) BUGFIX Lock down version of jQuery in bower.json
-* [#146](https://github.com/softlayer/sl-ember-behavior/issues/146) DOCUMENTATION Update documentation on demo app to show double quotes around custom properties
-* [#87](https://github.com/softlayer/sl-ember-behavior/issues/87) INTERNAL Evaluate use of Ember.assert()
-* [#88](https://github.com/softlayer/sl-ember-behavior/issues/88) INTERNAL Evaluate use of Ember.assert()
-* [#89](https://github.com/softlayer/sl-ember-behavior/issues/89) INTERNAL Computed properties should return null value by default
-* [#145](https://github.com/softlayer/sl-ember-behavior/pull/145) INTERNAL Update DocBlock @type for sl-behavior service
+**BUG FIX**
+
+* [#150](https://github.com/softlayer/sl-ember-behavior/pull/150) Lock down version of jQuery in bower.json
+
+**DOCUMENTATION**
+
+* [#146](https://github.com/softlayer/sl-ember-behavior/issues/146) Update documentation on demo app to show double quotes around custom properties
+
+**INTERNAL**
+
+* [#87](https://github.com/softlayer/sl-ember-behavior/issues/87) Evaluate use of Ember.assert()
+* [#88](https://github.com/softlayer/sl-ember-behavior/issues/88) Evaluate use of Ember.assert()
+* [#89](https://github.com/softlayer/sl-ember-behavior/issues/89) Computed properties should return null value by default
+* [#145](https://github.com/softlayer/sl-ember-behavior/pull/145) Update DocBlock @type for sl-behavior service
 
 [View complete changeset](https://github.com/softlayer/sl-ember-behavior/compare/v1.4.0...v1.4.1)
 
 ### 1.4.0
 
-* [#66](https://github.com/softlayer/sl-ember-behavior/issues/66) [BREAKING ENHANCEMENT] Upgrade to Ember CLI 1.13.8
+**BREAKING ENHANCEMENT**
+
+* [#66](https://github.com/softlayer/sl-ember-behavior/issues/66) Upgrade to Ember CLI 1.13.8
+
+**INTERNAL**
+
 * Improved tests
 * General development enhancements
 
@@ -21,26 +34,41 @@
 
 ### 1.3.0
 
-* [#22](https://github.com/softlayer/sl-ember-behavior/issues/22) [BREAKING ENHANCEMENT] Upgrade to Ember CLI 0.2.7
-* [#53](https://github.com/softlayer/sl-ember-behavior/issues/53) [BREAKING ENHANCEMENT] Simplify parameters on `sl-able` and `sl-unable`
-* [#73](https://github.com/softlayer/sl-ember-behavior/issues/73) [BREAKING ENHANCEMENT] Remove support for functions for `possible` parameter
-* [#56](https://github.com/softlayer/sl-ember-behavior/pull/56) [ENHANCEMENT] Install `ember-cli-jsdoc`
+**BREAKING ENHANCEMENT**
+
+* [#22](https://github.com/softlayer/sl-ember-behavior/issues/22) Upgrade to Ember CLI 0.2.7
+* [#53](https://github.com/softlayer/sl-ember-behavior/issues/53) Simplify parameters on `sl-able` and `sl-unable`
+* [#73](https://github.com/softlayer/sl-ember-behavior/issues/73) Remove support for functions for `possible` parameter
+
+**ENHANCEMENT**
+
+* [#56](https://github.com/softlayer/sl-ember-behavior/pull/56) Install `ember-cli-jsdoc`
 
 [View complete changeset](https://github.com/softlayer/sl-ember-behavior/compare/v1.2.0...v1.3.0)
 
 ### 1.2.0
 
-* [#21](https://github.com/softlayer/sl-ember-behavior/pull/21) [BUG FIX] Update dependencies for underlying dependency chaining mis-matches that have occurred within Ember CLI ecosystem
+**BUG FIX**
+
+* [#21](https://github.com/softlayer/sl-ember-behavior/pull/21) Update dependencies for underlying dependency chaining mis-matches that have occurred within Ember CLI ecosystem
 
 [View complete changeset](https://github.com/softlayer/sl-ember-behavior/compare/v1.1.0...v1.2.0)
 
 
 ### 1.1.0
 
-* [#6](https://github.com/softlayer/sl-ember-behavior/pull/6) [INTERNAL ENHANCEMENT] Add additional tests
-* [#13](https://github.com/softlayer/sl-ember-behavior/pull/13) [BREAKING ENHANCEMENT] Remove es5-shim
-* [#14](https://github.com/softlayer/sl-ember-behavior/pull/14) [BREAKING ENHANCEMENT] Upgrade to Ember CLI 0.1.15
-* [#15](https://github.com/softlayer/sl-ember-behavior/pull/15) [ENHANCEMENT] Replace ember-cli-6to5 with ember-cli-babel 4.0.0
+**BREAKING ENHANCEMENT**
+
+* [#13](https://github.com/softlayer/sl-ember-behavior/pull/13) Remove es5-shim
+* [#14](https://github.com/softlayer/sl-ember-behavior/pull/14) Upgrade to Ember CLI 0.1.15
+
+**ENHANCEMENT**
+
+* [#15](https://github.com/softlayer/sl-ember-behavior/pull/15) Replace ember-cli-6to5 with ember-cli-babel 4.0.0
+
+**INTERNAL**
+
+* [#6](https://github.com/softlayer/sl-ember-behavior/pull/6) Add additional tests
 
 [View complete changeset](https://github.com/softlayer/sl-ember-behavior/compare/v1.0.0...v1.1.0)
 
