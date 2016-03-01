@@ -1,4 +1,4 @@
-[![Latest Release](https://img.shields.io/github/release/softlayer/sl-ember-behavior.svg)](https://github.com/softlayer/sl-ember-behavior/releases) ![Ember CLI version](https://img.shields.io/badge/ember%20cli-1.13.8-blue.svg) [![License](https://img.shields.io/npm/l/sl-ember-behavior.svg)](LICENSE.md) [![Downloads](https://img.shields.io/npm/dm/sl-ember-behavior.svg)](https://www.npmjs.com/package/sl-ember-behavior)
+[![Latest Release](https://img.shields.io/github/release/softlayer/sl-ember-behavior.svg)](https://github.com/softlayer/sl-ember-behavior/releases) ![Ember CLI version](https://img.shields.io/badge/ember%20cli-2.3.0-blue.svg) [![License](https://img.shields.io/npm/l/sl-ember-behavior.svg)](LICENSE.md) [![Downloads](https://img.shields.io/npm/dm/sl-ember-behavior.svg)](https://www.npmjs.com/package/sl-ember-behavior)
 
 [![Dependencies](https://img.shields.io/david/softlayer/sl-ember-behavior.svg)](https://david-dm.org/softlayer/sl-ember-behavior) [![Dev Dependencies](https://img.shields.io/david/dev/softlayer/sl-ember-behavior.svg)](https://david-dm.org/softlayer/sl-ember-behavior#info=devDependencies)
 
