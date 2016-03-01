@@ -1,5 +1,11 @@
 # sl-ember-behavior Changelog
 
+### 1.5.0
+
+* [#152](https://github.com/softlayer/sl-ember-behavior/issues/152) Upgrade to Ember CLI 2.3.0
+
+[View complete changeset](https://github.com/softlayer/sl-ember-behavior/compare/v1.4.1...v1.5.0)
+
 ### 1.4.1
 
 **BUG FIX**
