@@ -175,7 +175,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -214,7 +214,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -255,7 +255,7 @@ define("dummy/templates/application", ["exports"], function (exports) {
           "name": "missing-wrapper",
           "problems": ["multiple-nodes"]
         },
-        "revision": "Ember@2.3.1",
+        "revision": "Ember@2.4.1",
         "loc": {
           "source": null,
           "start": {
@@ -456,7 +456,7 @@ define("dummy/templates/demo", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -498,7 +498,7 @@ define("dummy/templates/demo", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -540,7 +540,7 @@ define("dummy/templates/demo", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -582,7 +582,7 @@ define("dummy/templates/demo", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -624,7 +624,7 @@ define("dummy/templates/demo", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -666,7 +666,7 @@ define("dummy/templates/demo", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -708,7 +708,7 @@ define("dummy/templates/demo", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -752,7 +752,7 @@ define("dummy/templates/demo", ["exports"], function (exports) {
           "name": "missing-wrapper",
           "problems": ["multiple-nodes"]
         },
-        "revision": "Ember@2.3.1",
+        "revision": "Ember@2.4.1",
         "loc": {
           "source": null,
           "start": {
@@ -1037,7 +1037,7 @@ define("dummy/templates/index", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -1074,7 +1074,7 @@ define("dummy/templates/index", ["exports"], function (exports) {
       return {
         meta: {
           "fragmentReason": false,
-          "revision": "Ember@2.3.1",
+          "revision": "Ember@2.4.1",
           "loc": {
             "source": null,
             "start": {
@@ -1114,7 +1114,7 @@ define("dummy/templates/index", ["exports"], function (exports) {
           "name": "missing-wrapper",
           "problems": ["multiple-nodes"]
         },
-        "revision": "Ember@2.3.1",
+        "revision": "Ember@2.4.1",
         "loc": {
           "source": null,
           "start": {
@@ -1143,7 +1143,7 @@ define("dummy/templates/index", ["exports"], function (exports) {
         var el3 = dom.createTextNode("\n        ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("h1");
-        var el4 = dom.createTextNode("sl-ember-behavior 1.5.0");
+        var el4 = dom.createTextNode("sl-ember-behavior 1.6.0");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
         var el3 = dom.createTextNode("\n        ");
@@ -1290,7 +1290,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("dummy/app")["default"].create({"name":"sl-ember-behavior","version":"v1.5.0"});
+  require("dummy/app")["default"].create({"name":"sl-ember-behavior","version":"v1.6.0"});
 }
 
 /* jshint ignore:end */
